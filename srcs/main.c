@@ -6,27 +6,29 @@ typedef struct  s_info
     int         ret
 }               t_info;
 
-void	process_pre(t_info info)
+void	process_pre(t_info *info)
 {
-    init_env();
-    inc_shell_level();
+    init_env(info);
+    inc_shell_level(info);
 }
 
 int		get_lines(t_info *info, char *line)
 {
 	char 	**lines;
+	char	*tmp_line;
 	int		len;
 
-	if ((lines = ft_split(line, ';')) == 0)
+	if ((lines = split_lines(line, ';')) == 0)
 		return -1;
 	len = 0;
-	while (lines[len++])
-		;
 	while (lines[len])
+		len++;
+	while (lines[--len])
 	{
-		ft_lstadd_front(line_lst, ft_lstnew(lines[len]);
-		len--;
+		tmp_line = ft_strdup(lines[len]);
+		ft_lstadd_front(line_lst, ft_lstnew(tmp_line));
 	}
+	free_ft_split(lines);
 }
 
 int		parse_input(t_info *info)
@@ -37,19 +39,36 @@ int		parse_input(t_info *info)
 	{
 		if ((get_next_line(&line)) == -1)
 			return -1;
+		check_dquote();
 		if (get_lines(info, line) == -1)
 			return -1;
 	}
 	return 0;
 }
 
+t_lst	*change_head(t_lst *line_lst)
+{
+	t_lst *ret;
+	
+	ret = line_lst->next;
+	ft_lstdelone(line_lst, &free);
+	return (ret); 
+}
 
-int		run(t_info info)
+int		check_dquote(line)
+{
+	check_dquote_open();
+	
+}
+
+int		run(t_info *info)
 {
     while(info->exit == ) 
 	{
         init_sig();
-		parse_input();
+		parse_input(info->line_lst);
+		parse_line(info->line_lst);
+		change_head(info->line_lst);
     }
 }
 
@@ -63,8 +82,8 @@ int main(int argc, char *argv[], char *env[])
     t_info  info;
 
 	init_info(&info);
-	process_pre(info);
-	if (run(info))
+	process_pre(&info);
+	if (run(&info))
 		return (-1);
     free()
     return (info->ret)
