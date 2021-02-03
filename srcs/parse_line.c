@@ -1,33 +1,27 @@
 #include "minishell.h"
 
-static int	change_semi2zero(char *src, char *src_cpy)
-{
-	// copy string for split_lines
-	// duplicate and change semi colone to zero between dquotes
-	return (0);
-}	
-
 static int		get_set_lst(
-				t_lst *set_lst,
-				char *line,
+				t_slst *set_lst,
+				char *set,
 				char *set_cpy)
 {
 	int		ret;
 	char 	**sets;
-	char	*tmp_line;
+	char	*tmp_set;
 	int		len;
 
 	ret = 0;	
-	if ((sets = split_sets(line, line_cpy, ';')) == 0)
+	if ((sets = pk_split(set, set_cpy, ';')) == 0)
 		ret = 1;
 	len = 0;
 	while (ret == 0 && sets[len])
 		len++;
 	while (ret == 0 && sets[--len])
 	{
-		if ((tmp_line = ft_strdup(sets[len])) == NULL)
+		if ((tmp_set = ft_strdup(sets[len])) == NULL)
 			ret = 1;
-		ft_lstadd_front(&set_lst, ft_lstnew(tmp_line));
+		pk_lstadd_front(&set_lst, ft_lstnew(tmp_set));
+		free(tmp_set);
 	}
 
 	free_split(sets);
@@ -36,19 +30,18 @@ static int		get_set_lst(
 
 // devide cmd, args set by ;
 // return line_lst as linked_list form
-int				parse_line(t_lst *set_lst)
+int				parse_line(char *line, t_slst *set_lst)
 {
-	char *line;
 	char *line_cpy;
 	int	ret;
 
 	ret = 0;
 	if (ret == 0 && check_dquote(line, DQUOTE_OPEN))
 		ret = 1;
-	if (ret == 0 && change_semi2zero(line, line_cpy))
+	if (ret == 0 && dup_tmpstr(line, line_cpy, ';'))
 		ret = MALLOC_FAIL_ERR;
 	if (ret == 0 && get_set_lst(set_lst, line, line_cpy))
-		ret =  1;
+		ret = 1;
 
 	if (ret != MALLOC_FAIL)
 		free (line_cpy);

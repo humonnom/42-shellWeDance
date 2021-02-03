@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 // split src wrt src_cpy
-char	**split_lines(
+char	**pk_split(
 		char *src,
 		char *src_cpy,
 		char *charset)

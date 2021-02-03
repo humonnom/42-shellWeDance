@@ -9,15 +9,15 @@ typedef struct		s_alst
 }					t_alst;
 
 // head of data is cmd
-typedef struct		s_lst
+typedef struct		s_slst
 {
 	t_alst			*data;
-	struct s_lst	*next;
-}					t_lst;
+	struct s_slst	*next;
+}					t_slst;
 
 typedef struct		s_info
 {
-	t_lst			set_lst;
+	t_slst			*set_lst;
     int     		exit;
     int     		ret;
 }           		t_info;

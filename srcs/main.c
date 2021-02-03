@@ -5,12 +5,15 @@ t_lst	*change_head(t_lst *set_lst)
 	t_lst *ret;
 	
 	ret = set_lst->next;
+	//modify pk_lstdelone to delete t_alst
 	ft_lstdelone(set_lst, &free);
 	return (ret); 
 }
 
 int		run(t_info *info)
 {
+	char *line;
+
     while(info->exit == ) 
 	{
         init_sig();
@@ -18,14 +21,12 @@ int		run(t_info *info)
 			if ((get_next_line(&line)) == -1)
 				return -1;
 			// get set list
-			if (parse_line(info->set_lst))
+			if (parse_line(line, info->set_lst))
 				return -1;
 		}
 		// get cmd_arg list
-		parse_set(info->set_lst);
-
+		parse_set(info->set_lst->data);
 		select_func()
-
 		change_head(info->set_lst);
     }
 }
