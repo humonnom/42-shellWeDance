@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-init_env()
+static void	init_env()
 {
 	make_lst();
 }
