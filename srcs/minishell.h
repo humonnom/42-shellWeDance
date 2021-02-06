@@ -1,23 +1,23 @@
 #ifndef _MINISHELL_H
 # define _MINISHELL_H
 
-// alst: argument list, head of data is cmd
-typedef struct		s_alst
+// alist: argument list, head of data is cmd
+typedef struct		s_alist
 {
 	void			*data;
-	struct s_alst	*next;
-}					t_alst;
+	struct s_alist	*next;
+}					t_alist;
 
 // head of data is cmd
-typedef struct		s_slst
+typedef struct		s_slist
 {
-	t_alst			*data;
+	t_alist			*data;
 	struct s_slst	*next;
-}					t_slst;
+}					t_slist;
 
 typedef struct		s_info
 {
-	t_slst			*set_lst;
+	t_slist			*set_list;
     int     		exit;
     int     		ret;
 }           		t_info;
