@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-t_lst *change_head(t_lst *set_lst)
+t_slist *change_head(t_slist *set_list)
 {
-	t_lst *ret;
+	t_list *ret;
 
-	ret = set_lst->next;
-	//modify pk_lstdelone to delete t_alst
-	pk_lstdelone(set_lst, &free);
+	ret = set_list->next;
+	//modify pk_lstdelone to delete t_alist
+	pk_lstdelone(set_list, &free);
 	return (ret);
 }
 
@@ -17,18 +17,18 @@ int run(t_info *info)
 	while (info->exit ==)
 	{
 		init_sig();
-		if (set_lst == NULL)
+		if (set_list == NULL)
 		{
 			if ((get_next_line(&line)) == -1)
 				return -1;
 			// get set list
-			if (parse_line(line, info->set_lst))
+			if (parse_line(line, info->set_list))
 				return -1;
 		}
 		// get cmd_arg list
-		parse_set(info->set_lst->data);
-		select_func(info->set_lst->data);
-		change_head(info->set_lst);
+		parse_set(info->set_list->data);
+		select_func(info->set_list->data);
+		change_head(info->set_list);
 	}
 }
 
