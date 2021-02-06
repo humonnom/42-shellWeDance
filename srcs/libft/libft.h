@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:54:19 by juepark           #+#    #+#             */
-/*   Updated: 2021/02/06 18:19:16 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/02/06 18:22:42 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_lst
+typedef struct		s_list
 {
 	void			*content;
 	struct s_lst	*next;
-}					t_lst;
+}					t_list;
 
 void				*ft_memset(void *b, int c, size_t len);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
