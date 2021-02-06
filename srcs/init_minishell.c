@@ -2,18 +2,18 @@
 
 static void	init_env()
 {
-	make_lst();
+	make_list();
 }
 
 static void process_pre(t_info *info, char **env)
 {
 	//1.
 	init_env(info);
-	//env -> info->env_lst
+	//env -> info->env_list
 
 	//2.
-	//create function for making lst
-	//find index of wanted data in env_lst
+	//create function for making list
+	//find index of wanted data in env_list
 
 	//3.
 	inc_shell_level(info);
@@ -22,8 +22,8 @@ static void process_pre(t_info *info, char **env)
 
 static void init_info(t_info *info)
 {
-	info->set_lst = NULL;
-	info->set_lst->data = NULL;
+	info->set_list = NULL;
+	info->set_list->data = NULL;
 }
 
 void init_minishell(t_info *info, char **env)

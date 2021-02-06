@@ -1,7 +1,7 @@
 #include "minishell.h"
 
-static int		get_set_lst(
-				t_slst *set_lst,
+static int		get_set_list(
+				t_slist *set_list,
 				char *set,
 				char *set_cpy)
 {
@@ -20,7 +20,7 @@ static int		get_set_lst(
 	{
 		if ((tmp_set = ft_strdup(sets[len])) == NULL)
 			ret = 1;
-		pk_lstadd_front(&set_lst, ft_lstnew(tmp_set));
+		pk_lstadd_front(&set_list, ft_lstnew(tmp_set));
 		free(tmp_set);
 	}
 
@@ -29,8 +29,8 @@ static int		get_set_lst(
 }
 
 // devide cmd, args set by ;
-// return line_lst as linked_list form
-int				parse_line(char *line, t_slst *set_lst)
+// return line_list as linked_list form
+int				parse_line(char *line, t_slist *set_list)
 {
 	char *line_cpy;
 	int	ret;
@@ -40,7 +40,7 @@ int				parse_line(char *line, t_slst *set_lst)
 		ret = 1;
 	if (ret == 0 && dup_tmpstr(line, line_cpy, ';'))
 		ret = MALLOC_FAIL_ERR;
-	if (ret == 0 && get_set_lst(set_lst, line, line_cpy))
+	if (ret == 0 && get_set_list(set_list, line, line_cpy))
 		ret = 1;
 
 	if (ret != MALLOC_FAIL)
