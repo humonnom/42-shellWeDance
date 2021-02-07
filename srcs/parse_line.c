@@ -23,7 +23,6 @@ static int		get_set_list(
 		pk_lstadd_front(&set_list, ft_lstnew(tmp_set));
 		free(tmp_set);
 	}
-
 	free_split(sets);
 	return (ret);
 }

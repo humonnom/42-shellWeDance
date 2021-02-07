@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:54:19 by juepark           #+#    #+#             */
-/*   Updated: 2021/02/06 18:22:42 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/02/06 22:00:44 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef struct		s_list
 {
 	void			*content;
-	struct s_lst	*next;
+	struct s_list	*next;
 }					t_list;
 
 void				*ft_memset(void *b, int c, size_t len);
