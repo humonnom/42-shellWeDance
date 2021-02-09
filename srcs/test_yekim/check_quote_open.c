@@ -42,13 +42,18 @@ static int	handle_dquote_in_squote(int val)
 	return (ret);
 }
 
-#include <stdio.h>
-int			check_quote_open(char *str)
+
+int			handle_quote(
+			char *str,
+			char **str_cpy,
+			char c)
 {
 	int	ret;
+	int	str_cpy_idx;
 	int	tmp_flag;
 
 	ret = 0;
+	str_cpy_idx = -1;
 	while (*str)
 	{
 		// when DQUOTE is opened, SQUOTE is useless as str starter
@@ -60,6 +65,9 @@ int			check_quote_open(char *str)
 			ret = turn_off_bit(ret, BIT_SQUOTE);
 		else if (check_bit(ret, BIT_DQUOTE) && *str == '\"')
 			ret = turn_off_bit(ret, BIT_DQUOTE);
+		// when SQUOTE or DQUOTE is on
+		if (((*str_cpy)[++str_cpy_idx] == c && ret))
+			(*str_cpy)[str_cpy_idx] = '_';
 		++str;
 	}
 	return (ret);

@@ -1,13 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "libft/libft.h"
 extern int get_next_line(char **line);
-extern int check_quote_open(char *str);
-
-typedef struct		s_list
-{
-	void			*data;
-	struct s_list	*next;
-}					t_list;
+extern int handle_quote(char *str, char **str_cpy, char c);
 
 static int	is_quote(char c)
 {
@@ -59,14 +54,14 @@ static int	trim_cmd(t_list *arg_list)
 	int	ret;
 
 	ret = 0;
-	printf("str: %s\n", (char *)(arg_list->data));
+	printf("str: %s\n", (char *)(arg_list->content));
     //1. check if s/dquote is open or pair
-	if ((ret = check_quote_open(arg_list->data)))
+	if ((ret = handle_quote(arg_list->content, )))
 		return (ret);
     //2. exclude dquote or squote in arg_lst head
-	if (!(arg_list->data = copy_without_quote(arg_list->data)))
+	if (!(arg_list->content = copy_without_quote(arg_list->content)))
 		return (ret);
-	printf("modified head: %s\n", (char *)(arg_list->data));
+	printf("modified head: %s\n", (char *)(arg_list->content));
 	
     return (ret);
 }
@@ -78,11 +73,16 @@ int main() {
 	t_list	arg_list;
 
 	// "a's""fasd'f"
-	char *line = "\"e\'c\"\"\'ho\'\'\"";
-	arg_list.data = line;
+	char *line = "\"e\'c\"\"\'ho\'\'\"       \"ab \'    \'   cd\"";
+	arg_list.content = line;
 	arg_list.next = NULL;
 
-	printf("result: %d\n", trim_cmd(&arg_list));
-
+	//printf("result: %d\n", trim_cmd(&arg_list));
+	char *line_cpy;
+	printf("line    : %s\n", line);
+	if (!(line_cpy = ft_strdup(line)))
+		return (-1);
+	handle_quote(line, &line_cpy, ' ');
+	printf("line_cpy: %s\n", line_cpy);
 	return (0);
 }
