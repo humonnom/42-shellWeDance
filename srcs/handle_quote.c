@@ -1,24 +1,4 @@
-#define BIT_SQUOTE 1
-#define BIT_DQUOTE 2
-#define ON 0x00001
-#define OFF 0x00000
-
-static int	turn_on_bit(int val, int n)
-{
-	return (val |= (1 << n));
-}
-
-static int	turn_off_bit(int val, int n)
-{
-	return (val &= ~(1 << n));
-}
-
-static int	check_bit(int val, int n)
-{
-	if ((val >> n) & ON)
-		return (ON);
-	return (OFF);
-}
+#include "minishell.h"
 
 static int	handle_squote_in_dquote(int val)
 {

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/14 20:22:24 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 11:21:02 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:43:39 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:43:41 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *target, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!target || !del)
+	if (lst == NULL || del == NULL)
 		return ;
-	del(target->content);
-	free(target);
+	del(lst->data);
+	free(lst);
 }
