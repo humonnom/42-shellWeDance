@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 15:01:58 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 16:29:20 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:45:18 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:45:19 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		s1_len;
-	int		s2_len;
-	char	*combine;
+	size_t	len;
+	size_t	idx;
+	char	*ret;
 
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (!(combine = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1))))
-		return (0);
-	ft_memcpy(combine, s1, s1_len);
-	ft_memcpy(combine + s1_len, s2, s2_len);
-	combine[s1_len + s2_len] = '\0';
-	return (combine);
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	idx = ft_strlcpy(ret, s1, len + 1);
+	ft_strlcpy(ret + idx, s2, len + 1);
+	return (ret);
 }

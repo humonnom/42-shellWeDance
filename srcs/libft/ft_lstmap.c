@@ -3,39 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/19 11:23:30 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 13:18:27 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:43:55 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *origin, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list *new;
-	t_list *before;
-	t_list *new_head;
+	t_list	*ret;
+	t_list	*map_lst;
 
-	new = 0;
-	before = 0;
-	new_head = 0;
-	while (origin)
+	if (lst == NULL || f == NULL)
+		return (NULL);
+	ret = NULL;
+	while (lst)
 	{
-		new = ft_lstnew(f(origin->content));
-		if (!new)
+		if (!(map_lst = ft_lstnew((*f)(lst->content))))
 		{
-			if (new_head)
-				ft_lstclear(&new_head, del);
-			return (0);
+			ft_lstclear(&ret, del);
+			return (NULL);
 		}
-		if (!new_head)
-			new_head = new;
-		if (before)
-			before->next = new;
-		before = new;
-		origin = origin->next;
+		ft_lstadd_back(&ret, map_lst);
+		lst = lst->next;
 	}
-	return (new_head);
+	return (ret);
 }

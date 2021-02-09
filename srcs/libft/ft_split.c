@@ -3,84 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 16:27:40 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 19:49:22 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:45:14 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:45:16 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_countlines(const char *str, char c)
+static size_t	get_size(const char *s, char c)
 {
-	size_t	i;
-	size_t	flag;
-	size_t	count;
-	size_t	str_len;
+	size_t	ret;
 
-	i = 0;
-	count = 0;
-	str_len = ft_strlen(str);
-	flag = 0;
-	while (str[i])
+	ret = 0;
+	while (*s)
 	{
-		if (str[i] != c && flag == 0)
-		{
-			count++;
-			flag = 1;
-		}
-		else if (str[i] == c)
-		{
-			flag = 0;
-		}
-		i++;
+		while ((*s != '\0') && (*s == c))
+			++s;
+		if ((*s != '\0') && (*s != c))
+			++ret;
+		while ((*s != '\0') && (*s != c))
+			++s;
 	}
-	return (count);
+	return (ret);
 }
 
-static int		ft_setlines(char **arr, const char *str, char c, size_t n)
+static char		*get_next(const char **s, size_t *len_word, char c)
 {
-	size_t	index;
-	size_t	len;
-	char	*begin;
+	char	*ret;
 
-	index = 0;
-	while (*str && index < n)
+	while ((**s != '\0') && (**s == c))
+		++(*s);
+	ret = (char *)*s;
+	*len_word = 0;
+	while ((**s != '\0') && (**s != c))
 	{
-		len = 0;
-		while (*str && *str == c)
-			str++;
-		begin = (char *)str;
-		while (*str && *str != c)
-		{
-			len++;
-			str++;
-		}
-		if (len)
-		{
-			if (!(arr[index] = (char *)malloc(sizeof(char) * (len + 1))))
-				return (0);
-			ft_strlcpy(arr[index], begin, len + 1);
-			index++;
-		}
+		++(*len_word);
+		++(*s);
 	}
-	return (1);
+	return (ret);
 }
 
-char			**ft_split(const char *str, char c)
+static char		**free_all(char **tab, int k)
 {
-	char	**arr;
-	size_t	split_cnt;
+	int	idx;
 
-	if (!str)
+	idx = 0;
+	while (idx < k)
+	{
+		free(tab[idx]);
+		++idx;
+	}
+	free(tab);
+	return (NULL);
+}
+
+char			**ft_split(char const *s, char c)
+{
+	char	**ret;
+	char	*beg_word;
+	size_t	len_word;
+	size_t	size;
+	size_t	k;
+
+	if (s == NULL)
 		return (0);
-	split_cnt = ft_countlines(str, c);
-	arr = (char **)malloc(sizeof(char *) * (split_cnt + 1));
-	if (!arr)
-		return (0);
-	arr[split_cnt] = 0;
-	if (!ft_setlines(arr, str, c, split_cnt))
-		return (0);
-	return (arr);
+	size = get_size(s, c);
+	if (!(ret = (char **)malloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	ret[size] = 0;
+	k = 0;
+	beg_word = (char *)s;
+	while (k < size)
+	{
+		beg_word = get_next(&s, &len_word, c);
+		if (!(ret[k] = (char *)malloc(sizeof(char) * (len_word + 1))))
+			return (free_all(ret, k));
+		ft_strlcpy(ret[k], beg_word, len_word + 1);
+		++k;
+	}
+	return (ret);
 }

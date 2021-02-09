@@ -1,16 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/10/12 13:59:53 by juepark           #+#    #+#              #
-#    Updated: 2021/02/04 12:41:29 by jackjoo          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar
@@ -51,8 +38,8 @@ FUNCS = ft_memset \
 		ft_putchar_fd \
 		ft_putstr_fd \
 		ft_putendl_fd \
-		ft_putnbr_fd \
-		ft_lstnew \
+		ft_putnbr_fd 
+FUNCS_B = ft_lstnew \
 		ft_lstadd_front \
 		ft_lstsize \
 		ft_lstlast \
@@ -63,7 +50,9 @@ FUNCS = ft_memset \
 		ft_lstmap
 
 SRCS = $(addsuffix .c, $(FUNCS))
+SRCS_B = $(addsuffix .c, $(FUNCS_B))
 OBJS = $(SRCS:.c=.o)
+OBJS_B = $(SRCS_B:.c=.o)
 
 .c.o :
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -71,14 +60,17 @@ OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)
 	@$(AR) $(ARFLAGS) $@ $^
 
+bonus: $(NAME) $(OBJS_B)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJS_B)
+
 all : $(NAME)
 
 clean :
 	@$(RM) $(OBJS) $(OBJS_B)
 
-fclean : clean
+fclean :
 	@$(RM) $(NAME)
 
 re : fclean all
 
-.PHONY: all clean fclean re
+.PHONY: bonus all clean fclean re
