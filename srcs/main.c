@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+#if 0
 t_slist *change_head(t_slist *set_list)
 {
 	t_list *ret;
@@ -32,7 +33,6 @@ int run(t_info *info)
 	}
 }
 
-#if 0
 select_func(cmd, args) {
 	func_built_in
 	echo
@@ -51,8 +51,9 @@ int main(int argc, char *argv[], char *env[])
 {
 	t_info info;
 
-	init_minishell(info, env);
-	if (run(&info))
-		return (-1);
-	free() return (info->ret)
+	init_minishell(&info, env);
+//	if (run(&info))
+//		return (-1);
+//	free() return (info->ret)
+	free_list(&(info.env_list));
 }

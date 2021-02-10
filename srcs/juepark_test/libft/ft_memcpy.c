@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/09/29 16:06:13 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/07 08:02:27 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	unsigned char	*ucsrc;
+	unsigned char	*ucdest;
 
-	if (lst == NULL || f == NULL)
+	if (dest == NULL && src == NULL)
 		return (NULL);
-	ret = NULL;
-	while (lst)
-	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
-	}
-	return (ret);
+	ucsrc = (unsigned char *)src;
+	ucdest = (unsigned char *)dest;
+	while (n--)
+		*(ucdest++) = *(ucsrc++);
+	return (dest);
 }

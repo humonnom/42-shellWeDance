@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/10/16 06:45:18 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:45:19 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	size_t	len;
+	size_t	idx;
+	char	*ret;
 
-	if (lst == NULL || f == NULL)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	ret = NULL;
-	while (lst)
-	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
-	}
+	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	idx = ft_strlcpy(ret, s1, len + 1);
+	ft_strlcpy(ret + idx, s2, len + 1);
 	return (ret);
 }

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/09/29 17:44:00 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/06 11:31:45 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	size_t	ret;
+	size_t	len_src;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	ret = NULL;
-	while (lst)
+	ret = 0;
+	if (src == NULL)
+		return (ret);
+	len_src = ft_strlen(src);
+	if (dest == NULL || size == 0)
+		return (len_src);
+	while (ret < len_src && ret < size - 1)
 	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
+		dest[ret] = src[ret];
+		++ret;
 	}
-	return (ret);
+	dest[ret] = '\0';
+	return (len_src);
 }

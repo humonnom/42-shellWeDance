@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/09/30 16:01:38 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/06 07:41:01 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+char	*ft_strdup(const char *s)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	char	*ret;
+	size_t	len;
 
-	if (lst == NULL || f == NULL)
+	len = ft_strlen((char *)s);
+	if (!(ret = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	ret = NULL;
-	while (lst)
-	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
-	}
+	ft_strlcpy(ret, s, len + 1);
 	return (ret);
 }

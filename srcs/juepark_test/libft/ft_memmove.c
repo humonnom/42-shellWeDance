@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/09/29 16:06:16 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/07 08:05:18 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	unsigned char	*ucsrc;
+	unsigned char	*ucdest;
+	size_t			idx;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	ret = NULL;
-	while (lst)
-	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
-	}
-	return (ret);
+	if (dest == src || n == 0)
+		return (dest);
+	ucsrc = (unsigned char*)src;
+	ucdest = (unsigned char*)dest;
+	idx = 0;
+	if (dest >= src)
+		while (idx++ < n)
+			*(ucdest-- + n - 1) = *(ucsrc-- + n - 1);
+	else
+		while (idx++ < n)
+			*(ucdest++) = *(ucsrc++);
+	return (dest);
 }

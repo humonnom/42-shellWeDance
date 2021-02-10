@@ -3,7 +3,12 @@
 
 # include "libft/libft.h"
 # include <stdio.h>
-// head of data is cmd
+
+# define pf(X) printf(""#X" :%f\n", X)
+# define pd(X) printf(""#X" :%d\n", X)
+# define px(X) printf(""#X" :%x\n", X)
+# define ps(X) printf("%s\n", X)
+
 typedef struct		s_slist
 {
 	t_list			*data;
@@ -17,35 +22,6 @@ typedef struct		s_info
     int     		exit;
     int     		ret;
 }           		t_info;
-
-
-#define BIT_SQUOTE 1
-#define BIT_DQUOTE 2
-#define ON 0x00001
-#define OFF 0x00000
-
-
-
-int				handle_quote(
-				char *str,
-				char **str_cpy,
-				char c);
-
-char			**pk_split(
-				const char *s,
-				const char *s_cpy,
-				char c);
-
-int				 get_next_line(char **line);
-
-
-/*
-** handle_bit.c
-*/
-int	turn_on_bit(int val, int n);
-int	turn_off_bit(int val, int n);
-int	check_bit(int val, int n);
-
 
 /*
 ** init_minishell.c 
@@ -98,7 +74,7 @@ int					get_list_index(
 ** list/print_list.c
 */
 void				print_list(
-					t_list *head);
+					t_list **head);
 
 /*
 ** env/sort_env.c
@@ -118,5 +94,11 @@ t_slist				*pk_lstnew(
 void				pk_lstdelone(
 					t_slist *target,
 					void (*del)(void *));
+
+/*
+** test_list.c
+*/
+void				test_pk_lst();
+void				test_env_list();
 
 #endif

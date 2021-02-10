@@ -38,8 +38,8 @@ FUNCS = ft_memset \
 		ft_putchar_fd \
 		ft_putstr_fd \
 		ft_putendl_fd \
-		ft_putnbr_fd 
-FUNCS_B = ft_lstnew \
+		ft_putnbr_fd \
+		ft_lstnew \
 		ft_lstadd_front \
 		ft_lstsize \
 		ft_lstlast \
@@ -50,9 +50,7 @@ FUNCS_B = ft_lstnew \
 		ft_lstmap
 
 SRCS = $(addsuffix .c, $(FUNCS))
-SRCS_B = $(addsuffix .c, $(FUNCS_B))
 OBJS = $(SRCS:.c=.o)
-OBJS_B = $(SRCS_B:.c=.o)
 
 .c.o :
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -60,17 +58,14 @@ OBJS_B = $(SRCS_B:.c=.o)
 $(NAME) : $(OBJS)
 	@$(AR) $(ARFLAGS) $@ $^
 
-bonus: $(NAME) $(OBJS_B)
-	@$(AR) $(ARFLAGS) $(NAME) $(OBJS_B)
-
-all : bonus
+all : $(NAME)
 
 clean :
 	@$(RM) $(OBJS) $(OBJS_B)
 
-fclean : clean
+fclean :
 	@$(RM) $(NAME)
 
 re : fclean all
 
-.PHONY: bonus all clean fclean re
+.PHONY: all clean fclean re

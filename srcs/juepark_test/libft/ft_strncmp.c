@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/09/29 17:44:06 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/06 16:50:05 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	size_t			idx;
+	unsigned char	*us1;
+	unsigned char	*us2;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	ret = NULL;
-	while (lst)
+	us1 = (unsigned char*)s1;
+	us2 = (unsigned char*)s2;
+	idx = 0;
+	while ((us1[idx] || us2[idx]) && idx < n)
 	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
+		if (us1[idx] != us2[idx])
+			break ;
+		++idx;
 	}
-	return (ret);
+	return (idx == n ? 0 : (int)(us1[idx] - us2[idx]));
 }

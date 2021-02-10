@@ -1,33 +1,28 @@
 #include "minishell.h"
 
-static void	init_env()
+static void			init_info(
+					t_info *info)
 {
-	make_list();
+	t_slist	*set_list;
+	t_list	*env_list;
+
+	set_list = NULL;
+	env_list = NULL;
+	info->set_list = set_list;
+	info->env_list = env_list;
+	info->exit = 0;
+	info->ret = 0;
 }
 
-static void process_pre(t_info *info, char **env)
+int					init_minishell
+					(t_info *info,
+					char **env)
 {
-	//1.
-	init_env(info);
-	//env -> info->env_list
+	int ret;
 
-	//2.
-	//create function for making list
-	//find index of wanted data in env_list
-
-	//3.
-	inc_shell_level(info);
-	//find shlvl -> increse value
-}
-
-static void init_info(t_info *info)
-{
-	info->set_list = NULL;
-	info->set_list->data = NULL;
-}
-
-void init_minishell(t_info *info, char **env)
-{
+	ret = 0;
 	init_info(info);
-	process_pre(info, env);
+	if (ret == 0)
+		ret = process_pre(&(info->env_list), env);
+	return (ret);
 }

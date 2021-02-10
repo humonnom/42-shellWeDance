@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:54 by yekim             #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:29 by jackjoo          ###   ########.fr       */
+/*   Created: 2020/09/29 17:44:12 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/06 16:40:07 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+char	*ft_strrchr(const char *s, int c)
 {
-	t_list	*ret;
-	t_list	*map_lst;
+	size_t	idx;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	ret = NULL;
-	while (lst)
+	idx = ft_strlen(s);
+	while (idx > 0)
 	{
-		if (!(map_lst = ft_lstnew((*f)(lst->data))))
-		{
-			ft_lstclear(&ret, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ret, map_lst);
-		lst = lst->next;
+		if (s[idx] == (unsigned char)c)
+			return ((char *)s + idx);
+		--idx;
 	}
-	return (ret);
+	return (s[idx] == c ? (char *)s + idx : NULL);
 }
