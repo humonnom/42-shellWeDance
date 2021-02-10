@@ -36,7 +36,7 @@ int				parse_line(char *line, t_slist *set_list)
 	int	ret;
 
 	ret = 0;
-	if (ret == 0 && check_dquote(line, DQUOTE_OPEN))
+	if (ret == 0 && handle_quote(line, DQUOTE_OPEN))
 		ret = 1;
 	if (ret == 0 && dup_tmpstr(line, line_cpy, ';'))
 		ret = MALLOC_FAIL_ERR;

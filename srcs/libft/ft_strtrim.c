@@ -3,61 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 15:32:56 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 11:29:25 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:45:24 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:45:25 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*putdata(char *arr, const char *str, size_t start, size_t end)
+static int		get_first(const char *s1, const char *set)
 {
-	int	i;
+	size_t	len;
+	size_t	idx;
 
-	i = 0;
-	while (i + start <= end)
+	len = ft_strlen(s1);
+	idx = 0;
+	while (idx < len)
 	{
-		arr[i] = str[i + start];
-		i++;
+		if (ft_strchr(set, s1[idx]) == 0)
+			break ;
+		idx++;
 	}
-	arr[i] = '\0';
-	return (arr);
+	return (idx);
 }
 
-size_t		ft_getlen(char const *str, char const *set, size_t step)
+static int		get_last(const char *s1, const char *set)
 {
-	size_t	index;
+	size_t	len;
+	size_t	idx;
 
-	index = 0;
-	while (*str && ft_strchr(set, *str))
+	len = ft_strlen(s1);
+	idx = 0;
+	while (idx < len)
 	{
-		str += step;
-		index++;
+		if (ft_strchr(set, s1[len - idx - 1]) == 0)
+			break ;
+		idx++;
 	}
-	return (index);
+	return (len - idx);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char const *set)
 {
-	char	*arr;
-	size_t	start;
-	size_t	end;
-	size_t	s1_len;
+	int		first;
+	int		last;
+	char	*ret;
 
-	if (!set)
+	if (s1 == NULL)
+		return (NULL);
+	if (set == NULL)
 		return (ft_strdup(s1));
-	if (!s1)
+	first = get_first((char *)s1, set);
+	last = get_last((char *)s1, set);
+	if (first >= last)
 		return (ft_strdup(""));
-	s1_len = ft_strlen(s1);
-	start = ft_getlen(s1, set, 1);
-	if (start == s1_len)
-		return (ft_strdup(""));
-	end = s1_len - ft_getlen(s1 + s1_len - 1, set, -1) - 1;
-	arr = (char *)malloc(sizeof(char) * end - start + 2);
-	if (!arr)
-		return (0);
-	arr = putdata(arr, s1, start, end);
-	return (arr);
+	if (!(ret = (char *)malloc(sizeof(char) * (last - first + 1))))
+		return (NULL);
+	ft_strlcpy(ret, s1 + first, last - first + 1);
+	return (ret);
 }

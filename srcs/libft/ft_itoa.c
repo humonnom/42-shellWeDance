@@ -3,52 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/14 17:08:35 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 13:14:33 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:45:10 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:45:11 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_nbrlen(long n)
+static size_t	handle_nbr(unsigned int n, char *n_buf, int k, int flag)
 {
-	int		count;
+	size_t	ret;
+	int		mod;
 
-	count = 0;
-	if (n < 0)
-		n *= -1;
-	while (n /= 10)
-		count++;
-	return (count + 1);
+	ret = 1;
+	if (n >= 10)
+		ret += handle_nbr(n / 10, n_buf, k - 1, flag);
+	if (flag)
+	{
+		mod = n % 10;
+		n_buf[k] = (char)(mod + '0');
+	}
+	return (ret);
 }
 
-char			*ft_itoa(int nbr)
+char			*ft_itoa(int n)
 {
-	long			n;
-	char			*str;
-	int				sign;
-	int				length;
+	unsigned int	tmp_n;
+	size_t			len_ret;
+	char			*ret;
 
-	sign = 0;
-	n = nbr;
-	if (n < 0)
-	{
-		sign = 1;
-		n *= -1;
-	}
-	length = ft_nbrlen(n) + sign;
-	str = (char *)malloc(sizeof(char) * (length + 1));
-	if (!str)
-		return (0);
-	str[length] = '\0';
-	while (length)
-	{
-		str[--length] = n % 10 + '0';
-		n = n / 10;
-	}
-	if (sign)
-		str[0] = '-';
-	return (str);
+	tmp_n = n < 0 ? -n : n;
+	len_ret = handle_nbr(tmp_n, NULL, 0, 0);
+	len_ret = n < 0 ? len_ret + 1 : len_ret;
+	if (!(ret = (char *)malloc(sizeof(char) * (len_ret + 1))))
+		return (NULL);
+	ret[len_ret] = '\0';
+	handle_nbr(tmp_n, ret, (int)len_ret - 1, 1);
+	ret[0] = n < 0 ? '-' : ret[0];
+	return (ret);
 }

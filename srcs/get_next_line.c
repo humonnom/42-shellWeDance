@@ -1,27 +1,4 @@
-#include "get_next_line.h"
-
-static int ft_strlen(char *str) {
-	int ret = 0;
-	for (; str[ret]; ++ret);
-	return (ret);
-}
-
-static char *ft_strjoin(char *str1, char *str2) {
-	char *ret;
-
-	int tot_len = ft_strlen(str1) + ft_strlen(str2);
-	if (!(ret = (char *)malloc(sizeof(char) * (tot_len + 1))))
-		return (NULL);
-	ret[tot_len] = '\0';
-
-	int k = 0;
-	for (int i = 0; str1[i]; ++i)
-		ret[k++] = str1[i];
-	for (int i = 0; str2[i]; ++i)
-		ret[k++] = str2[i];
-
-	return (ret);
-}
+#include "minishell.h"
 
 int get_next_line(char **line) {
 	int read_size = 1;

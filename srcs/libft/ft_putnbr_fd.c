@@ -3,30 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/14 17:10:44 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/14 19:44:24 by juepark          ###   ########.fr       */
+/*   Created: 2020/10/16 06:44:40 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/16 06:44:41 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+static void	print_nbr(unsigned int n, int fd)
 {
-	long	num;
+	if (n >= 10)
+		print_nbr(n / 10, fd);
+	ft_putchar_fd(n % 10 + '0', fd);
+}
 
-	num = n;
-	if (n < 0)
+void		ft_putnbr_fd(int n, int fd)
+{
+	int				sign;
+	unsigned int	n_tmp;
+
+	if (fd < 0)
+		return ;
+	sign = n < 0 ? 1 : 0;
+	if (sign)
 	{
 		ft_putchar_fd('-', fd);
-		num *= -1;
+		n_tmp = -n;
 	}
-	if (num < 10)
-		ft_putchar_fd(num + '0', fd);
 	else
-	{
-		ft_putnbr_fd(num / 10, fd);
-		ft_putchar_fd(num % 10 + '0', fd);
-	}
+		n_tmp = n;
+	print_nbr(n_tmp, fd);
 }

@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/09 14:25:54 by juepark           #+#    #+#             */
-/*   Updated: 2020/10/19 13:13:38 by juepark          ###   ########.fr       */
+/*   Created: 2020/09/29 16:06:16 by yekim             #+#    #+#             */
+/*   Updated: 2020/10/07 08:05:18 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	char	*dst_c;
-	char	*src_c;
+	unsigned char	*ucsrc;
+	unsigned char	*ucdest;
+	size_t			idx;
 
-	i = -1;
-	if (!dst && !src)
-		return (0);
-	dst_c = dst;
-	src_c = (char *)src;
-	if (src_c < dst_c)
-		while ((int)(--len) >= 0)
-			dst_c[len] = src_c[len];
+	if (dest == src || n == 0)
+		return (dest);
+	ucsrc = (unsigned char*)src;
+	ucdest = (unsigned char*)dest;
+	idx = 0;
+	if (dest >= src)
+		while (idx++ < n)
+			*(ucdest-- + n - 1) = *(ucsrc-- + n - 1);
 	else
-		while (++i < len)
-			dst_c[i] = src_c[i];
-	return (dst);
+		while (idx++ < n)
+			*(ucdest++) = *(ucsrc++);
+	return (dest);
 }
