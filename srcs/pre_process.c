@@ -26,7 +26,7 @@ int					process_pre(
 	int		ret;
 	char	*value;
 
-	convert_str2list(env_head, env);
+	get_list(env_head, env);
 	ret = inc_shell_level(env_head);
 	return (ret);
 }

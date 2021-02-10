@@ -5,14 +5,20 @@ CC = gcc
 SRC =	main \
 	  	init_minishell \
 	  	pre_process \
-	  	pk_lst
+	  	pk_lst \
+		get_next_line \
+		parse_line \
+		handle_quote \
+		handle_bit \
+		pk_split 
 
 ENV	=	sort_env
 
-LIST =	handle_list_life \
+LIST =	get_list \
 		handle_list_index \
 		handle_list_data \
-	  	print_list 
+	 	print_list \
+		free_list
 
 
 FIL =	$(addsuffix .c, $(SRC)) \
@@ -29,7 +35,7 @@ LIB_OPT = -L./libft -lft
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(MAKE) -C $(LIBDIR) all
+	@$(MAKE) -C $(LIBDIR) all
 	@$(CC) -o $(NAME) $(LIB_OPT) $(OBJ)
 
 clean:

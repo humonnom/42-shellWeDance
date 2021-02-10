@@ -3,6 +3,7 @@
 
 # include "libft/libft.h"
 # include <stdio.h>
+# include <unistd.h>
 // head of data is cmd
 typedef struct		s_slist
 {
@@ -66,9 +67,6 @@ int					inc_shell_level(t_list **env_head);
 /*
 ** list/handle_list_life.c
 */
-void				free_list(
-					t_list **list_head);
-
 int					convert_str2list(
 					t_list **list_head,
 					char **str);
@@ -110,7 +108,7 @@ void				print_sorted_env(t_list *env_list);
 */
 void				pk_lstadd_front(
 					t_slist **set_head,
-					t_slist	*new);
+					t_slist	*new_list);
 
 t_slist				*pk_lstnew(
 					void *data);
@@ -118,5 +116,15 @@ t_slist				*pk_lstnew(
 void				pk_lstdelone(
 					t_slist *target,
 					void (*del)(void *));
+/*
+** free_list.c
+*/
+void				free_list(t_list **list_head);
 
+////////////==========================
+#define MALLOC_FAIL 3
+int				parse_line(char *line, t_slist **set_list);
+int	get_list(
+	t_list **list_head,
+	char **str);
 #endif

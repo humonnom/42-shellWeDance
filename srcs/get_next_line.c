@@ -7,7 +7,7 @@ int get_next_line(char **line) {
 
 	backup = ft_strjoin("", "");
 	while (read_size > 0 && buf[0] != '\n') {
-		read_size = read(3, buf, 1);
+		read_size = read(STDIN_FILENO, buf, 1);
 		buf[1] = '\0';
 		if (buf[0] != '\n' && read_size > 0) {
 			char *tmp = backup;
