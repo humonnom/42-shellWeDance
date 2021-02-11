@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../incs/minishell.h"
 
 int				get_list_index(
 				t_list *list_head,

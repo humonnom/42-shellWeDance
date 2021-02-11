@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 int get_next_line(char **line) {
 	int read_size = 1;

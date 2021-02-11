@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../incs/minishell.h"
 
 char*		get_list_data(
 			t_list *list_head,

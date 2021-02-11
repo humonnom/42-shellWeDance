@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 // malloc for original cmd(count size),
 // remove " or '

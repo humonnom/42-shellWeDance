@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 void				pk_lstadd_front(
 					t_slist **set_head,

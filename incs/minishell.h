@@ -1,9 +1,11 @@
 #ifndef _MINISHELL_H
 # define _MINISHELL_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
+#include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+
 // head of data is cmd
 typedef struct		s_slist
 {

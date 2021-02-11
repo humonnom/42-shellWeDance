@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 static int	handle_squote_in_dquote(int val)
 {

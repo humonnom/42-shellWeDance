@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../incs/minishell.h"
 
 static int	has_to_change(char *s1, char*s2)
 {

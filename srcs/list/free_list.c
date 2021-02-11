@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../incs/minishell.h"
 
 void				free_list(t_list **list_head)
 {

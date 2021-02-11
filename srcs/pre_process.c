@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 int					inc_shell_level(t_list **env_head)
 {
