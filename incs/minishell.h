@@ -126,6 +126,8 @@ void				free_list(t_list **list_head);
 ////////////==========================
 #define MALLOC_FAIL 3
 int				parse_line(char *line, t_slist **set_list);
+int				parse_set(t_list **arg_list);
+
 int	get_list(
 	t_list **list_head,
 	char **str);

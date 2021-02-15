@@ -12,7 +12,7 @@ int	get_list(
 	len = 0;
 	while (ret == 0 && str[len])
 		len++;
-	while (ret == 0 && str[--len])
+	while (ret == 0 && --len >= 0)
 	{
 		if ((tmp_set = ft_strdup(str[len])) == NULL)
 			ret = 1;

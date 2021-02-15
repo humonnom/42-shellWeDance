@@ -12,12 +12,12 @@ static int	get_set_list(
 	len = 0;
 	while (ret == 0 && str[len])
 		len++;
-	while (ret == 0 && str[--len])
+	while (ret == 0 && --len >= 0)
 	{
 		if ((tmp_set = ft_strdup(str[len])) == NULL)
 			ret = 1;
-		pk_lstadd_front(list_head, pk_lstnew(tmp_set));
-		//printf("in get_set_list: %s\n", (char *)(list_head->data->data));
+		t_slist *tmp_lst = pk_lstnew(tmp_set);
+		pk_lstadd_front(list_head, tmp_lst);
 	}
 	return (ret);
 }
@@ -27,17 +27,16 @@ static int	get_set_list(
 int				parse_line(char *line, t_slist **set_list)
 {
 	char	*line_cpy;
-	char	**str_part;
+	char	**line_part;
 	int	ret;
 
 	ret = 0;
 	if (!(line_cpy = ft_strdup(line)))
 		return (0);
-	if (ret == 0 && handle_quote(line, &line_cpy, ';'))
+	ret = handle_quote(line, &line_cpy, ';');
+	if (ret == 0 && !(line_part = pk_split(line, line_cpy, ';')))
 		ret = 1;
-	if (ret == 0 && !(str_part = pk_split(line, line_cpy, ';')))
-		ret = 1;
-	if (ret == 0 && get_set_list(set_list, str_part))
+	if (ret == 0 && get_set_list(set_list, line_part))
 		ret = 1;
 	if (ret != MALLOC_FAIL)
 		free (line_cpy);

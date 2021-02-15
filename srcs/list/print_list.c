@@ -7,7 +7,7 @@ void	print_list(t_list *head)
 	now = head;
 	while (now)
 	{
-		printf("%s\n", now->data);
+		printf("%s\n", (char *)now->data);
 		now = now->next;
 	}
 }

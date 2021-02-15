@@ -10,6 +10,7 @@ SRC =	main \
 	  	pk_lst \
 		get_next_line \
 		parse_line \
+		parse_set \
 		handle_quote \
 		handle_bit \
 		pk_split 
@@ -44,6 +45,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
 	@$(CC) $(CFLAGS) -o $(NAME) $(LIBOPT) $(OBJS)
+	echo "Start Program"
 
 	
 #$(OBJDIR)/%.o: $(SRCS)

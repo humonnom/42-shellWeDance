@@ -7,7 +7,7 @@ static int	handle_squote_in_dquote(int val)
 	if (check_bit(val, BIT_DQUOTE))
 		ret = turn_off_bit(val, BIT_SQUOTE);
 	else
-		ret = turn_on_bit(ret, BIT_SQUOTE);
+		ret = turn_on_bit(val, BIT_SQUOTE);
 	return (ret);
 }
 
@@ -18,10 +18,9 @@ static int	handle_dquote_in_squote(int val)
 	if (check_bit(val, BIT_SQUOTE))
 		ret = turn_off_bit(val, BIT_DQUOTE);
 	else
-		ret = turn_on_bit(ret, BIT_DQUOTE);
+		ret = turn_on_bit(val, BIT_DQUOTE);
 	return (ret);
 }
-
 
 int			handle_quote(
 			char *str,
