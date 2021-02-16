@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 int	turn_on_bit(int val, int n)
 {

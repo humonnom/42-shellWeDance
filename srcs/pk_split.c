@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 static size_t	get_size(const char *s, char c)
 {

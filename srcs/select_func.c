@@ -1,4 +1,5 @@
-#include "minishell.h"
+#include "../incs/minishell.h"
+
 static int check_cmd(char *word)
 {
     return (0);
