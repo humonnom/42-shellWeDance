@@ -14,6 +14,7 @@ static void			init_info(
 	info->ret = 0;
 }
 
+//env_list has to be sort with printing.
 int					init_minishell
 					(t_info *info,
 					char **env)
@@ -23,6 +24,8 @@ int					init_minishell
 	ret = 0;
 	init_info(info);
 	if (ret == 0)
-		ret = process_pre(&(info->env_list), env);
+		ret = get_list(&(info->env_list), env);
+	if (ret == 0)
+		ret = inc_shlvl(&(info->env_list));
 	return (ret);
 }

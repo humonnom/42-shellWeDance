@@ -6,7 +6,7 @@ CFLAGS =
 
 SRC =	main \
 	  	init_minishell \
-	  	pre_process \
+	  	inc_shlvl \
 	  	pk_lst \
 		get_next_line \
 		parse_line \

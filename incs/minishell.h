@@ -61,13 +61,9 @@ int					init_minishell
 					char **env);
 
 /*
-** pre_process.c
+** inc_shlvl.c
 */
-int					process_pre(
-					t_list **env_head,
-					char **env);
-
-int					inc_shell_level(t_list **env_head);
+int					inc_shlvl(t_list **env_head);
 
 /*
 ** list/handle_list_life.c
