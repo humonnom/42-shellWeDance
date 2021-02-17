@@ -34,7 +34,7 @@ int parse_set(t_list **arg_list)
 		ret = 1;
 	if (ret == 0 && handle_quote(set, &set_cpy, ' '))
 		ret = 1;
-	if (ret == 0 && !(arg_part = pk_split(set, set_cpy, ' ')))
+	if (ret == 0 && !(arg_part = pk_split(set, set_cpy, ' ', INF)))
 		ret = 1;
     if (ret == 0 && get_list(arg_list, arg_part))
         ret = 1;

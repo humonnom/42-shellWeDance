@@ -34,7 +34,7 @@ int				parse_line(char *line, t_slist **set_list)
 	if (!(line_cpy = ft_strdup(line)))
 		return (0);
 	ret = handle_quote(line, &line_cpy, ';');
-	if (ret == 0 && !(line_part = pk_split(line, line_cpy, ';')))
+	if (ret == 0 && !(line_part = pk_split(line, line_cpy, ';', INF)))
 		ret = 1;
 	if (ret == 0 && get_set_list(set_list, line_part))
 		ret = 1;

@@ -13,7 +13,8 @@ SRC =	main \
 		parse_set \
 		handle_quote \
 		handle_bit \
-		pk_split 
+		pk_split \
+		export_env \
 
 ENV	=	sort_env
 
