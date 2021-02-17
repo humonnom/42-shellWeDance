@@ -19,9 +19,11 @@ SRC =	main \
 ENV	=	sort_env
 
 LIST =	get_list \
-		handle_list_index \
-		handle_list_data \
-	 	print_list \
+		get_list_data \
+		get_list_index \
+		add_list_data \
+		mod_list_data \
+		print_list \
 		free_list
 
 SRCDIR = ./srcs

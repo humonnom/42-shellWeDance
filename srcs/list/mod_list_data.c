@@ -1,21 +1,5 @@
 #include "../../incs/minishell.h"
 
-char*		get_list_data(
-			t_list *list_head,
-			char *target)
-{
-	t_list	*cur;
-
-	cur = list_head;
-	while (cur)
-	{
-		if (!!(ft_strnstr(cur->data, target, ft_strlen(target))))
-			return (cur->data);
-		cur = cur->next; 
-	}
-	return (NULL);
-}
-
 static char	*get_new_data(
 			char *key,
 			char *value)
@@ -53,15 +37,3 @@ int			modify_list_data(
 	return (ret);
 }
 
-int			add_list_data(
-			t_list **list_head,
-			char *key, char *value)
-{
-	t_list	*tmp;
-
-	if(list_head == 0)
-		return (1);
-	tmp = ft_lstnew(get_new_data(key, value));
-	ft_lstadd_back(list_head, tmp);
-	return (0);
-}

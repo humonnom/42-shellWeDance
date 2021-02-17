@@ -2,15 +2,6 @@
 
 // malloc for original cmd(count size),
 // remove " or '
-#if 0
-static int trim_cmd(t_alist *arg_list)
-{
-    //1. check dquote open and pair
-    //2. exclude dquote in arg_list head
-    return (0);
-}
-#endif
-
 // use strcmp for checking if word is cmd or not
 
 //arg_list->data : echo " a" char *arg = echo " a" char *arg_cpy = echo "0a" args = [echo, " a"]
@@ -44,11 +35,5 @@ int parse_set(t_list **arg_list)
     if (ret == 0 && trim_cmd(arg_list))
         ret = 1;
 #endif
-
-
-    // devide cmd and argument
-    // part of  "    "
-    // arg1 arg2 ...
-
     return (ret);
 }
