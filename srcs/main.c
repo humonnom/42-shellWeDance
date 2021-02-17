@@ -64,7 +64,6 @@ select_func(cmd, args) {
 
 int main(int argc, char *argv[], char *env[])
 {
-#if 1
 	(void)argc;
 	(void)argv;
 	int	err_num;
@@ -72,19 +71,18 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-	if ((err_num = run(&info)))
-	{
-		printf("err_num: %d\n", err_num);
-		return (-1);
-	}
+
+	char *set_ex = "test=abcd====\"\"===";
+	printf("result: %d\n", export_env(&info.env_list, set_ex));
+	print_list(info.env_list);
+
 #if 0
-	char *line = "e\"ch\'o\'\" \"ab;;;;  c\"; \"c\'\'d\" \";;;..\"";
-	printf("line: %s\n", line);
-	parse_line(line, &info.set_list);
+	if ((err_num = run(&info)))
+		return (-1);
+	printf("err_num: %d\n", err_num);
 #endif
 
 //	free() return (info->ret)
 	free_list(&(info.env_list));
-#endif
 	return (0);
 }

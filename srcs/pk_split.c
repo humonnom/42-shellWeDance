@@ -56,7 +56,8 @@ static char		**free_all(char **tab, int k)
 char			**pk_split(
 				const char *s,
 				const char *s_cpy,
-				char c)
+				char c,
+				int limit)
 {
 	char	**ret;
 	int		begin;
@@ -72,7 +73,7 @@ char			**pk_split(
 	ret[size] = 0;
 	k = 0;
 	begin = 0;
-	while (k < size)
+	while (k < size && limit--)
 	{
 		begin = get_next_idx(s_cpy, begin, &len_word, c);
 		if (!(ret[k] = (char *)malloc(sizeof(char) * (len_word + 1))))
@@ -82,4 +83,17 @@ char			**pk_split(
 		++k;
 	}
 	return (ret);
+}
+
+void		pk_split_free(char **tab)
+{
+	int	idx;
+
+	idx = 0;
+	while (tab[idx])
+	{
+		free(tab[idx]);
+		++idx;
+	}
+	free(tab);
 }

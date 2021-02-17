@@ -26,6 +26,7 @@ typedef struct		s_info
 #define BIT_DQUOTE 2
 #define ON 0x00001
 #define OFF 0x00000
+#define INF 987654321
 
 
 
@@ -37,7 +38,9 @@ int				handle_quote(
 char			**pk_split(
 				const char *s,
 				const char *s_cpy,
-				char c);
+				char c,
+				int limit);
+void			pk_split_free(char **tab);
 
 int				 get_next_line(char **line);
 
@@ -58,13 +61,9 @@ int					init_minishell
 					char **env);
 
 /*
-** pre_process.c
+** inc_shlvl.c
 */
-int					process_pre(
-					t_list **env_head,
-					char **env);
-
-int					inc_shell_level(t_list **env_head);
+int					inc_shlvl(t_list **env_head);
 
 /*
 ** list/handle_list_life.c
@@ -81,6 +80,10 @@ int					modify_list_data(
 					t_list **list_head,
 					char *key,
 					char *value);
+
+int					add_list_data(
+					t_list **list_head,
+					char *key, char *value);
 
 char				*get_list_data(
 					t_list *list_head,
@@ -127,6 +130,7 @@ void				free_list(t_list **list_head);
 #define MALLOC_FAIL 3
 int				parse_line(char *line, t_slist **set_list);
 int				parse_set(t_list **arg_list);
+int				export_env(t_list **list_head, char *set);
 
 int	get_list(
 	t_list **list_head,

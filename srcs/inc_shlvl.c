@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-int					inc_shell_level(t_list **env_head)
+int					inc_shlvl(t_list **env_head)
 {
 	char	*value;
 	char	*data;
@@ -16,17 +16,5 @@ int					inc_shell_level(t_list **env_head)
 		modify_list_data(env_head, "SHLVL", value);
 	if (ret == 0)
 		free(value);
-	return (ret);
-}
-
-int					process_pre(
-					t_list **env_head,
-					char **env)
-{
-	int		ret;
-	char	*value;
-
-	get_list(env_head, env);
-	ret = inc_shell_level(env_head);
 	return (ret);
 }

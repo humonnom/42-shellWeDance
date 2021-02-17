@@ -6,21 +6,24 @@ CFLAGS =
 
 SRC =	main \
 	  	init_minishell \
-	  	pre_process \
+	  	inc_shlvl \
 	  	pk_lst \
 		get_next_line \
 		parse_line \
 		parse_set \
 		handle_quote \
 		handle_bit \
-		pk_split 
+		pk_split \
+		export_env \
 
 ENV	=	sort_env
 
 LIST =	get_list \
-		handle_list_index \
-		handle_list_data \
-	 	print_list \
+		get_list_data \
+		get_list_index \
+		add_list_data \
+		mod_list_data \
+		print_list \
 		free_list
 
 SRCDIR = ./srcs
