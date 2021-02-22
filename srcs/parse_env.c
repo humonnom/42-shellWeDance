@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-int	get_eq_idx(char *set_cpy)
+static int	get_eq_idx(char *set_cpy)
 {
 	int	ret;
 ret = 0;
@@ -14,28 +14,30 @@ ret = 0;
 	return (-1);
 }
 
-int	export_env(t_list **list_head, char *set)
+t_env	*parse_env(char *set)
 {
 	char	*set_cpy;
 	char	**key_part;
 	char	**val_part;
-	char	*key;
 	int		tmp;
+	t_env	*ret;
 
 	if (!(set_cpy = ft_strdup(set)))
-		return (-1);
+		return (NULL);
 	if (handle_quote(set, &set_cpy, '=') > 0)
-		return (-1);
+		return (NULL);
 	if ((key_part = pk_split(set, set_cpy, '=', 1)) == 0)
-		return (-1);
+		return (NULL);
 	tmp = get_eq_idx(set_cpy) + 1;
 	if ((val_part = pk_split(&set[tmp], &set_cpy[tmp], ' ', 1)) == 0)
-		return (-1);
-	if (get_list_index(*list_head, key_part[0]) >= 0)
-		modify_list_data(list_head, key_part[0], val_part[0]);	
-	else
-		add_list_data(list_head, key_part[0], val_part[0]);	
+		return (NULL);
+	if (!(ret = (t_env *)malloc(sizeof(t_env))))
+		return (NULL);
+	if (!(ret->key = ft_strdup(key_part[0])))
+		return (NULL);
+	if (!(ret->val = ft_strdup(val_part[0])))
+		return (NULL);
 	pk_split_free(key_part);
 	pk_split_free(val_part);
-	return (0);	
+	return (ret);	
 }
