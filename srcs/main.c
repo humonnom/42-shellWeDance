@@ -1,5 +1,6 @@
 #include "../incs/minishell.h"
 
+#if 0
 void print_slist(t_slist *set_list) {
 	t_slist *obj = set_list;
 	while (obj) {
@@ -47,7 +48,6 @@ int run(t_info *info)
 	return (0);
 }
 
-#if 0
 select_func(cmd, args) {
 	func_built_in
 	echo
@@ -71,18 +71,20 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-
+	print_elist(info.env_list);
+#if 0
 	char *set_ex = "test=abcd====\"\"===";
 	printf("result: %d\n", export_env(&info.env_list, set_ex));
 	print_list(info.env_list);
 
-#if 0
 	if ((err_num = run(&info)))
 		return (-1);
 	printf("err_num: %d\n", err_num);
 #endif
 
 //	free() return (info->ret)
-	free_list(&(info.env_list));
+	free_elist(&(info.env_list));
+	while (1)
+		;
 	return (0);
 }

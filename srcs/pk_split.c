@@ -85,12 +85,12 @@ char			**pk_split(
 	return (ret);
 }
 
-void		pk_split_free(char **tab)
+void		pk_split_free(char **tab, int limit)
 {
 	int	idx;
 
 	idx = 0;
-	while (tab[idx])
+	while (tab[idx] && limit--)
 	{
 		free(tab[idx]);
 		++idx;

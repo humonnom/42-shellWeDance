@@ -3,7 +3,8 @@
 static int	get_eq_idx(char *set_cpy)
 {
 	int	ret;
-ret = 0;
+
+	ret = 0;
 	while (*set_cpy)
 	{
 		if (*set_cpy == '=')
@@ -13,12 +14,49 @@ ret = 0;
 	}
 	return (-1);
 }
+static t_env	*gen_elist_data(char *key, char *val)
+{
+	t_env	*ret;
+
+	if (!(ret = (t_env *)malloc(sizeof(t_env))))
+		return (NULL);
+	if (!(ret->key = ft_strdup(key)))
+		return (NULL);
+	if (val == NULL)
+		val = ft_strdup("");
+	if (!(ret->val = ft_strdup(val)))
+		return (NULL);
+	return (ret);
+}
+char	*get_elist_data_part(
+		char *set,
+		char *set_cpy, 
+		char charset,
+		int limit)
+{
+	char 	**part;
+	char	*ret;
+	int		err_num;
+
+	err_num = 0;
+	if ((part = pk_split(set, set_cpy, charset, limit)) == 0)
+		err_num = turn_on_bit(err_num, 0);
+	printf("part[0]: %s\n", part[0]);
+	if (!check_bit(err_num, 0) && !(ret = ft_strdup(part[0])))
+		err_num = turn_on_bit(err_num, 1);
+	if (!check_bit(err_num, 0))
+		pk_split_free(part, 1);
+	if (!ret)
+		ret = ft_strdup("");
+	printf("ret: %s\n", ret);
+	return (ret);
+}
 
 t_env	*parse_env(char *set)
 {
+	char	*key;
+	char	*val;
 	char	*set_cpy;
-	char	**key_part;
-	char	**val_part;
 	int		tmp;
 	t_env	*ret;
 
@@ -26,18 +64,13 @@ t_env	*parse_env(char *set)
 		return (NULL);
 	if (handle_quote(set, &set_cpy, '=') > 0)
 		return (NULL);
-	if ((key_part = pk_split(set, set_cpy, '=', 1)) == 0)
-		return (NULL);
+	key = get_elist_data_part(set, set_cpy, '=', 1);
+	printf("[parse_env]%s\n", key);
 	tmp = get_eq_idx(set_cpy) + 1;
-	if ((val_part = pk_split(&set[tmp], &set_cpy[tmp], ' ', 1)) == 0)
+	val = get_elist_data_part(&set[tmp], &set_cpy[tmp], ' ', 1);
+	printf("[parse_env]%s\n", val);
+	if ((ret = gen_elist_data(key, val)))
 		return (NULL);
-	if (!(ret = (t_env *)malloc(sizeof(t_env))))
-		return (NULL);
-	if (!(ret->key = ft_strdup(key_part[0])))
-		return (NULL);
-	if (!(ret->val = ft_strdup(val_part[0])))
-		return (NULL);
-	pk_split_free(key_part);
-	pk_split_free(val_part);
+	free(set_cpy);
 	return (ret);	
 }
