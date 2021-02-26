@@ -1,25 +1,17 @@
 #include "../incs/minishell.h"
-
-#if 0
-void print_slist(t_slist *set_list) {
-	t_slist *obj = set_list;
-	while (obj) {
-		printf("%s\n", (char *)obj->data->data);
-		obj = obj->next;	
-	}
-}
-
-t_slist *change_head(t_slist *set_list)
+t_list *change_head(t_list *set_list)
 {
-	t_slist *ret;
+	t_list *ret;
 
 	ret = set_list->next;
 	//modify pk_lstdelone to delete t_alist
-	pk_lstdelone(set_list, &free);
-	printf("after head change: %s\n", (char *)ret->data);
+	//printf("DEBUG1=============================\n");
+	ft_lstdelone(set_list, &free);
+	//printf("DEBUG2=============================\n");
 	return (ret);
 }
 
+#if 1
 int run(t_info *info)
 {
 	char *line;
@@ -35,6 +27,7 @@ int run(t_info *info)
 			if (parse_line(line, &(info->set_list)))
 				return -1;
 		}
+		#if 0
 		// get cmd_arg list
 		printf("parse_set input: %s\n", (char *)info->set_list->data->data);
 		
@@ -43,22 +36,12 @@ int run(t_info *info)
 
 //		break;
 		//select_func(info->set_list->data);
-		info->set_list = info->set_list->next;//change_head(info->set_list);
+		info->set_list = info->set_list->next;
+		#endif
+		printf("%s\n", (char *)(info->set_list->data));
+		info->set_list = change_head(info->set_list);
 	}
 	return (0);
-}
-
-select_func(cmd, args) {
-	func_built_in
-	echo
-	cd
-	pwd
-	..
-
-	func_bin_
-	ls
-	grep
-	...
 }
 #endif
 
@@ -71,7 +54,8 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-	print_elist(info.env_list);
+	run(&info);
+
 #if 0
 	char *set_ex = "test=abcd====\"\"===";
 	printf("result: %d\n", export_env(&info.env_list, set_ex));
@@ -82,11 +66,6 @@ int main(int argc, char *argv[], char *env[])
 	printf("err_num: %d\n", err_num);
 #endif
 
-//	free() return (info->ret)
 	free_elist(&(info.env_list));
-#if 0
-	while (1)
-		;
-#endif
 	return (0);
 }

@@ -2,18 +2,11 @@
 # define _MINISHELL_H
 
 # include "../libft/libft.h"
-#include <stdlib.h>
+# include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 
-#if 1 
 // head of data is cmd
-typedef struct		s_slist
-{
-	t_list			*data;
-	struct s_slist	*next;
-}					t_slist;
-#endif
 typedef struct		s_set
 {
 	t_list			*args;
@@ -121,6 +114,11 @@ int					get_list_index(
 */
 void				print_list(
 					t_list *head);
+/*
+** list/print_elist.c
+*/
+void				print_slist(
+					t_list *set_list);
 
 /*
 ** list/print_elist.c
@@ -132,6 +130,23 @@ void				print_elist(
 */
 void				print_sorted_env(t_list *env_list);
 
+/*
+** free_elist.c
+*/
+void				free_elist(t_list **list_head);
+
+////////////==========================
+#define MALLOC_FAIL 3
+int				parse_line(char *line, t_list **set_list);
+int				parse_set(t_list **arg_list);
+t_env			*parse_env(char *set);
+
+int	get_list(
+	t_list **list_head,
+	char **str);
+#endif
+
+#if 0
 /*
 ** pk_lst.c
 */
@@ -145,18 +160,4 @@ t_slist				*pk_lstnew(
 void				pk_lstdelone(
 					t_slist *target,
 					void (*del)(void *));
-/*
-** free_elist.c
-*/
-void				free_elist(t_list **list_head);
-
-////////////==========================
-#define MALLOC_FAIL 3
-int				parse_line(char *line, t_slist **set_list);
-int				parse_set(t_list **arg_list);
-t_env			*parse_env(char *set);
-
-int	get_list(
-	t_list **list_head,
-	char **str);
 #endif

@@ -11,10 +11,10 @@ SRC =	main \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
-	
-#	  	pk_lst \
 		get_next_line \
 		parse_line \
+	
+#	  	pk_lst \
 		parse_set \
 		export_env \
 
@@ -24,7 +24,8 @@ LIST =	gen_elist \
 		mod_elist \
 		add_elist \
 		free_elist \
-		print_elist
+		print_elist \
+		print_slist
 #get_list \
 		get_list_data \
 		get_list_index \
