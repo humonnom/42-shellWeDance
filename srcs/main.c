@@ -1,14 +1,13 @@
 #include "../incs/minishell.h"
-t_list *change_head(t_list *set_list)
-{
-	t_list *ret;
 
-	ret = set_list->next;
+void change_head(t_list **set_list)
+{
+	t_list *tmp;
+
+	tmp = (*set_list)->next;
 	//modify pk_lstdelone to delete t_alist
-	//printf("DEBUG1=============================\n");
-	ft_lstdelone(set_list, &free);
-	//printf("DEBUG2=============================\n");
-	return (ret);
+	ft_lstdelone(*set_list, &free);
+	*set_list = tmp;
 }
 
 #if 1
@@ -24,22 +23,19 @@ int run(t_info *info)
 			if ((get_next_line(&line)) == -1)
 				return -1;
 			// get set list
-			if (parse_line(line, &(info->set_list)))
+			if (!(info->set_list = parse_line(line)))
 				return -1;
 		}
-		#if 0
-		// get cmd_arg list
-		printf("parse_set input: %s\n", (char *)info->set_list->data->data);
-		
-		parse_set(&(info->set_list->data));
-		print_list(info->set_list->data);
 
-//		break;
+		// print sets
+		printf("%s\n", (char *)(info->set_list->data));
+//		parse_set(&(info->set_list->data));
+		#if 0
 		//select_func(info->set_list->data);
 		info->set_list = info->set_list->next;
 		#endif
-		printf("%s\n", (char *)(info->set_list->data));
-		info->set_list = change_head(info->set_list);
+//		info->set_list = change_head(info->set_list);
+		change_head(&(info->set_list));
 	}
 	return (0);
 }

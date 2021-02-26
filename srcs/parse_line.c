@@ -25,23 +25,27 @@ static int	get_slist(
 
 // devide cmd, args set by ;
 // return line_list as linked_list form
-int				parse_line(char *line, t_list **set_list)
+t_list	*parse_line(char *line)
 {
 	char	*line_cpy;
 	char	**line_part;
-	int	ret;
+	t_list	*ret;
+	int		error_num;
 
-	ret = 0;
+	ret = NULL;
+	error_num = 0;
 	if (!(line_cpy = ft_strdup(line)))
 		return (0);
-	ret = handle_quote(line, &line_cpy, ';');
-	if (ret == 0 && !(line_part = pk_split(line, line_cpy, ';', INF)))
-		ret = 1;
-	if (ret == 0 && get_slist(set_list, line_part))
-		ret = 1;
-	if (ret != MALLOC_FAIL)
+	error_num = handle_quote(line, &line_cpy, ';');
+	if (error_num == 0 && !(line_part = pk_split(line, line_cpy, ';', INF)))
+		error_num = 1;
+	if (error_num == 0 && get_slist(&ret, line_part))
+		error_num = 1;
+	if (error_num != MALLOC_FAIL)
 		free (line_cpy);
 	pk_split_free(line_part, INF);
+	if (error_num)
+		return (NULL);
 	return (ret);
 }
 

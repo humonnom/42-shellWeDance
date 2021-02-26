@@ -10,7 +10,7 @@
 // line: single command and argument set
 // word: [command, argument1, ...]
 // in case that cmd = "ec""ho" ..
-int parse_set(t_list **arg_list)
+int parse_set(t_list *arg_list)
 {
     char	*set;
     char	*set_cpy;

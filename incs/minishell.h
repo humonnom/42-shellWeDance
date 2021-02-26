@@ -74,9 +74,7 @@ int					inc_shlvl(t_list **env_head);
 ** gen_elist
 */
 
-int					gen_elist(
-					t_list **list_head,
-					char **str);
+t_list				*gen_elist(char **str);
 
 /*
 ** list/handle_list_life.c
@@ -137,7 +135,8 @@ void				free_elist(t_list **list_head);
 
 ////////////==========================
 #define MALLOC_FAIL 3
-int				parse_line(char *line, t_list **set_list);
+//int				parse_line(char *line, t_list **set_list);
+t_list			*parse_line(char *line);
 int				parse_set(t_list **arg_list);
 t_env			*parse_env(char *set);
 

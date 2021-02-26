@@ -1,21 +1,21 @@
 #include "../../incs/minishell.h"
 
-int	gen_elist(
-	t_list **list_head,
-	char **str)
+t_list	*gen_elist(char **str)
 {
-	int		ret;
+	int		error_num;
 	int		idx;
 	t_env	*tmp_env;
+	t_list	*ret;
 
-	ret = 0;	
+	ret = NULL;	
+	error_num = 0;	
 	idx = -1;
-	while (ret == 0 && str[++idx])
+	while (error_num == 0 && str[++idx])
 	{
 		if (!(tmp_env = parse_env(str[idx])))
-			ret= 1;
-		ft_lstadd_back(list_head, ft_lstnew(tmp_env));
+			error_num = 1;
+		ft_lstadd_back(&ret, ft_lstnew(tmp_env));
 	}
+
 	return (ret);
 }
-
