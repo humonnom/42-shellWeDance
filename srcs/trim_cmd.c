@@ -33,7 +33,6 @@ static char *copy_without_quote(char *str)
 	int		ret_idx;
 
 	ret_size = get_cmd_size(str);
-	printf("ret_size: %d\n", ret_size);
 	if (!(ret = (char *)malloc(sizeof(char) * (ret_size + 1))))
 		return (NULL);
 	ret[ret_size] = '\0';
@@ -44,45 +43,16 @@ static char *copy_without_quote(char *str)
 		if (!is_quote(str[str_idx]))
 			ret[++ret_idx] = str[str_idx];
 	}
-	//free(str);
 	return (ret);
 }
 
-#if 1
-static int	trim_cmd(t_list *arg_list)
+//exclude dquote or squote in arg_lst head
+int			trim_cmd(t_list *arg_list)
 {
-	int	ret;
-
-	ret = 0;
-	printf("str: %s\n", (char *)(arg_list->data));
-    //1. check if s/dquote is open or pair
-	if ((ret = handle_quote(arg_list->data, )))
-		return (ret);
-    //2. exclude dquote or squote in arg_lst head
-	if (!(arg_list->data = copy_without_quote(arg_list->data)))
-		return (ret);
-	printf("modified head: %s\n", (char *)(arg_list->data));
-	
-    return (ret);
-}
-#endif
-
-int main() {
-//	char *line;
-//	get_next_line(&line);
-	t_list	arg_list;
-
-	// "a's""fasd'f"
-	char *line = "\"e\'c\"\"\'ho\'\'\"       \"ab \'    \'   cd\"";
-	arg_list.data = line;
-	arg_list.next = NULL;
-
-	//printf("result: %d\n", trim_cmd(&arg_list));
-	char *line_cpy;
-	printf("line    : %s\n", line);
-	if (!(line_cpy = ft_strdup(line)))
-		return (-1);
-	handle_quote(line, &line_cpy, ' ');
-	printf("line_cpy: %s\n", line_cpy);
-	return (0);
+	char	*cmd;
+	if (!(cmd = copy_without_quote(arg_list->data)))
+		return (1);
+	free(arg_list->data);
+	arg_list->data = cmd;
+    return (0);
 }

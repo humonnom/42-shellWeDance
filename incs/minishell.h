@@ -20,7 +20,6 @@ typedef struct		s_env
 
 typedef struct		s_info
 {
-//	t_slist			*set_list;
 	t_list			*env_list;
 	t_list			*set_list;
 	t_list			*arg_list;
@@ -34,36 +33,50 @@ typedef struct		s_info
 #define OFF 0x00000
 #define INF 987654321
 
-
-
+/*
+** handle_quote.c
+*/
 int				handle_quote(
 				char *str,
 				char **str_cpy,
 				char c);
 
+/*
+** pk_split.c
+*/
 char			**pk_split(
 				const char *s,
 				const char *s_cpy,
 				char c,
 				int limit);
-void			pk_split_free(char **tab, int limit);
 
-int				 get_next_line(char **line);
+void			pk_split_free(
+				char **tab,
+				int limit);
 
+/*
+** get_next_line.c
+*/
+int				get_next_line(char **line);
 
 /*
 ** handle_bit.c
 */
-int	turn_on_bit(int val, int n);
-int	turn_off_bit(int val, int n);
-int	check_bit(int val, int n);
-
+int				turn_on_bit(
+				int val,
+				int n);
+int				turn_off_bit(
+				int val,
+				int n);
+int				check_bit(
+				int val,
+				int n);
 
 /*
 ** init_minishell.c 
 */
-int					init_minishell
-					(t_info *info,
+int					init_minishell(
+					t_info *info,
 					char **env);
 
 /*
@@ -74,63 +87,61 @@ int					inc_shlvl(t_list **env_head);
 /*
 ** gen_elist
 */
-
 t_list				*gen_elist(char **str);
 
 /*
-** list/handle_list_life.c
+** get_elist.c
 */
-int					convert_str2list(
+t_list				*get_elist(
+					t_list *list_head,
+					char *tar);
+
+/*
+** add_elist.c
+*/
+int					add_elist(
 					t_list **list_head,
-					char **str);
+					char *key,
+					char *val);
 
 /*
-** list/handle_list_data.c
+** mod_elist.c
 */
-
-t_list			*get_elist(
-				t_list *list_head,
-				char *tar);
-
-int				add_elist(
-				t_list **list_head,
-				char *key, char *val);
-
-int				mod_elist(
-				t_list **list_head,
-				char *key, char *val);
+int					mod_elist(
+					t_list **list_head,
+					char *key,
+					char *val);
 
 /*
-** list/handle_list_index.c
+** handle_list_index.c
 */
-
 int					get_list_index(
 					t_list *list_head,
 					char *target);
 
 /*
-** list/print_list.c
+** print_list.c
 */
 void				print_list(
 					t_list *head);
 /*
-** list/print_alist.c
+** print_alist.c
 */
 void				print_alist(
 					t_list *list_head);
 /*
-** list/print_slist.c
+** print_slist.c
 */
 void				print_slist(
 					t_list *set_list);
 
 /*
-** list/print_elist.c
+** print_elist.c
 */
 void				print_elist(
 					t_list *head);
 /*
-** env/sort_env.c
+** sort_env.c
 */
 void				print_sorted_env(t_list *env_list);
 
@@ -139,15 +150,31 @@ void				print_sorted_env(t_list *env_list);
 */
 void				free_elist(t_list **list_head);
 
-////////////==========================
-//int				parse_line(char *line, t_list **set_list);
-t_list			*parse_line(char *line);
-t_list			*parse_set(char *set);
-t_env			*parse_env(char *set);
+/*
+** parse_line.c
+*/
+t_list				*parse_line(char *line);
 
-int	get_list(
-	t_list **list_head,
-	char **str);
+/*
+** parse_set.c
+*/
+t_list				*parse_set(char *set);
+
+/*
+** parse_env.c
+*/
+t_env				*parse_env(char *set);
+
+/*
+** select_func.c
+*/
+int					select_func(t_list *arg_list);
+
+/*
+** trim_cmd.c
+*/
+int					trim_cmd(t_list *arg_list);
+
 #endif
 
 #if 0

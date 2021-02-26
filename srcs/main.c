@@ -25,22 +25,18 @@ int run(t_info *info)
 			// get set list
 			if (!(info->set_list = parse_line(line)))
 				return -1;
-			printf("=======debug1=========\n");
 		}
-
 		// print sets
 		//printf("%s\n", (char *)(info->set_list->data));
 		if (!(info->arg_list = parse_set(info->set_list->data)))
 			return (-1);
 		print_alist(info->arg_list);
-		printf("=======debug2=========\n");
+		select_func(info->arg_list);
 		#if 0
-		//select_func(info->set_list->data);
 		info->set_list = info->set_list->next;
 		#endif
 //		info->set_list = change_head(info->set_list);
 		change_head(&(info->set_list));
-		printf("=======debug3=========\n");
 	}
 	return (0);
 }
@@ -67,6 +63,7 @@ int main(int argc, char *argv[], char *env[])
 	printf("err_num: %d\n", err_num);
 #endif
 
+	//need to make free_slist, free_alist
 	free_elist(&(info.env_list));
 	return (0);
 }

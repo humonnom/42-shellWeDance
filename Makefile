@@ -14,7 +14,8 @@ SRC =	main \
 		get_next_line \
 		parse_line \
 		parse_set \
-	
+		select_func \
+		trim_cmd
 #	  	pk_lst \
 		export_env \
 

@@ -1,11 +1,11 @@
 #include "../incs/minishell.h"
 
-static int check_cmd(char *word)
+int select_func(t_list *arg_list)
 {
-    return (0);
-}
+	int	ret;
 
-int select_func(t_alist *arg_list)
-{
-    check_cmd();
+	ret = 0;
+	if (!(trim_cmd(arg_list)))
+		ret = 1;
+	return (ret);
 }
