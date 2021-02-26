@@ -41,14 +41,12 @@ char	*get_elist_data_part(
 	err_num = 0;
 	if ((part = pk_split(set, set_cpy, charset, limit)) == 0)
 		err_num = turn_on_bit(err_num, 0);
-	printf("part[0]: %s\n", part[0]);
 	if (!check_bit(err_num, 0) && !(ret = ft_strdup(part[0])))
 		err_num = turn_on_bit(err_num, 1);
 	if (!check_bit(err_num, 0))
 		pk_split_free(part, 1);
 	if (!ret)
 		ret = ft_strdup("");
-	printf("ret: %s\n", ret);
 	return (ret);
 }
 
@@ -65,11 +63,9 @@ t_env	*parse_env(char *set)
 	if (handle_quote(set, &set_cpy, '=') > 0)
 		return (NULL);
 	key = get_elist_data_part(set, set_cpy, '=', 1);
-	printf("[parse_env]%s\n", key);
 	tmp = get_eq_idx(set_cpy) + 1;
 	val = get_elist_data_part(&set[tmp], &set_cpy[tmp], ' ', 1);
-	printf("[parse_env]%s\n", val);
-	if ((ret = gen_elist_data(key, val)))
+	if (!(ret = gen_elist_data(key, val)))
 		return (NULL);
 	free(set_cpy);
 	return (ret);	

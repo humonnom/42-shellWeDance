@@ -20,7 +20,8 @@ int					init_minishell
 	init_info(info);
 	if (ret == 0)
 		ret = gen_elist(&(info->env_list), env);
-//	if (ret == 0)
-//		ret = inc_shlvl(&(info->env_list));
+	if (ret == 0)
+		ret = inc_shlvl(&(info->env_list));
+//	print_elist(info->env_list);
 	return (ret);
 }

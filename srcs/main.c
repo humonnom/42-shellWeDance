@@ -84,7 +84,9 @@ int main(int argc, char *argv[], char *env[])
 
 //	free() return (info->ret)
 	free_elist(&(info.env_list));
+#if 0
 	while (1)
 		;
+#endif
 	return (0);
 }

@@ -6,7 +6,6 @@ void	print_elist(t_list *head)
 	t_env	*tmp_env;
 
 	cur = head;
-	printf("[print_elist]\n");
 	while (cur)
 	{
 		tmp_env = (t_env *)(cur->data);

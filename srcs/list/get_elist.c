@@ -11,7 +11,7 @@ t_list			*get_elist(
 	while (cur)
 	{
 		tmp_env = (t_env *)cur->data;
-		if (!!(ft_strncmp(tmp_env->key, tar, ft_strlen(tar))))
+		if (!(ft_strncmp(tmp_env->key, tar, ft_strlen(tar))))
 			return (cur);
 		cur = cur->next; 
 	}

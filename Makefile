@@ -10,8 +10,9 @@ SRC =	main \
 		parse_env \
 		handle_quote \
 		handle_bit \
-#inc_shlvl \
-	  	pk_lst \
+		inc_shlvl \
+	
+#	  	pk_lst \
 		get_next_line \
 		parse_line \
 		parse_set \
