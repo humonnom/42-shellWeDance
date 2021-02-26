@@ -23,6 +23,7 @@ typedef struct		s_info
 //	t_slist			*set_list;
 	t_list			*env_list;
 	t_list			*set_list;
+	t_list			*arg_list;
     int     		exit;
     int     		ret;
 }           		t_info;
@@ -113,7 +114,12 @@ int					get_list_index(
 void				print_list(
 					t_list *head);
 /*
-** list/print_elist.c
+** list/print_alist.c
+*/
+void				print_alist(
+					t_list *list_head);
+/*
+** list/print_slist.c
 */
 void				print_slist(
 					t_list *set_list);
@@ -134,10 +140,9 @@ void				print_sorted_env(t_list *env_list);
 void				free_elist(t_list **list_head);
 
 ////////////==========================
-#define MALLOC_FAIL 3
 //int				parse_line(char *line, t_list **set_list);
 t_list			*parse_line(char *line);
-int				parse_set(t_list **arg_list);
+t_list			*parse_set(char *set);
 t_env			*parse_env(char *set);
 
 int	get_list(

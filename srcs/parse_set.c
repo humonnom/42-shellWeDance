@@ -10,30 +10,51 @@
 // line: single command and argument set
 // word: [command, argument1, ...]
 // in case that cmd = "ec""ho" ..
-int parse_set(t_list *arg_list)
+
+static int	get_alist(
+			t_list **list_head,
+			char **str)
 {
-    char	*set;
+	int		ret;
+	int		len;
+	t_list	*tmp_list;
+	char	*tmp_set;
+
+	ret = 0;	
+	len = 0;
+	while (ret == 0 && str[len])
+		len++;
+	while (ret == 0 && --len >= 0)
+	{
+		if (!(tmp_set = ft_strdup(str[len])))
+			ret = 1;
+		tmp_list = ft_lstnew(tmp_set);
+		ft_lstadd_front(list_head, tmp_list);
+	}
+	return (ret);
+}
+
+t_list *parse_set(char *set)
+{
     char	*set_cpy;
 	char	**arg_part;
-    int		ret;
-
-    ret = 0;
-	set = (*arg_list)->data;
-	free(*arg_list);
-	*arg_list = NULL;
-    if (ret == 0 && !(set_cpy = ft_strdup(set)))
-		ret = 1;
-	if (ret == 0 && handle_quote(set, &set_cpy, ' '))
-		ret = 1;
-	if (ret == 0 && !(arg_part = pk_split(set, set_cpy, ' ', INF)))
-		ret = 1;
-    if (ret == 0 && get_list(arg_list, arg_part))
-        ret = 1;
-	free(set_cpy);
-
-#if 0
-    if (ret == 0 && trim_cmd(arg_list))
-        ret = 1;
-#endif
+    int		error_num;
+	t_list	*ret;
+	
+	ret = NULL;
+    error_num = 0;
+    if (!(set_cpy = ft_strdup(set)))
+		return (NULL);
+	if (handle_quote(set, &set_cpy, ' ') > 0)
+		error_num = turn_on_bit(error_num, 0);
+	if (!(arg_part = pk_split(set, set_cpy, ' ', INF)))
+		error_num = turn_on_bit(error_num, 1);
+	if (!error_num && get_alist(&ret, arg_part))
+		error_num = turn_on_bit(error_num, 2);
+	free (set_cpy);
+	if (!check_bit(error_num, 1))
+		pk_split_free(arg_part, INF);
+	if (error_num)
+		return (NULL);
     return (ret);
 }

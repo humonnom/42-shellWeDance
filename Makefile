@@ -13,9 +13,9 @@ SRC =	main \
 		inc_shlvl \
 		get_next_line \
 		parse_line \
+		parse_set \
 	
 #	  	pk_lst \
-		parse_set \
 		export_env \
 
 
@@ -25,6 +25,7 @@ LIST =	gen_elist \
 		add_elist \
 		free_elist \
 		print_elist \
+		print_alist \
 		print_slist
 #get_list \
 		get_list_data \
