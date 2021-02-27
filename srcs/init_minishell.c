@@ -4,7 +4,7 @@ static void			init_info(
 					t_info *info)
 {
 	t_slist	*set_list;
-	t_list	*env_list;
+	t_elist	*env_list;
 
 	set_list = NULL;
 	env_list = NULL;

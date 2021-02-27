@@ -13,10 +13,17 @@ typedef struct		s_slist
 	struct s_slist	*next;
 }					t_slist;
 
+typedef struct		s_elist
+{
+	char			*key;
+	char			*value;
+	struct s_elist	*next;
+}					t_elist;
+
 typedef struct		s_info
 {
 	t_slist			*set_list;
-	t_list			*env_list;
+	t_elist			*env_list;
     int     		exit;
     int     		ret;
 }           		t_info;
