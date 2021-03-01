@@ -7,10 +7,6 @@
 # include <unistd.h>
 
 // head of data is cmd
-typedef struct		s_set
-{
-	t_list			*args;
-}					t_set;
 
 typedef struct		s_env
 {
@@ -32,6 +28,9 @@ typedef struct		s_info
 #define ON 0x00001
 #define OFF 0x00000
 #define INF 987654321
+
+char	*g_shell_builtin_func[3];
+char	*g_builtin_func[3];
 
 /*
 ** handle_quote.c

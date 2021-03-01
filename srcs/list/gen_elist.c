@@ -16,6 +16,5 @@ t_list	*gen_elist(char **str)
 			error_num = 1;
 		ft_lstadd_back(&ret, ft_lstnew(tmp_env));
 	}
-
 	return (ret);
 }

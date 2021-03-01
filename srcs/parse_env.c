@@ -22,8 +22,6 @@ static t_env	*gen_elist_data(char *key, char *val)
 		return (NULL);
 	if (!(ret->key = ft_strdup(key)))
 		return (NULL);
-	if (val == NULL)
-		val = ft_strdup("");
 	if (!(ret->val = ft_strdup(val)))
 		return (NULL);
 	return (ret);

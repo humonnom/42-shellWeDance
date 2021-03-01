@@ -1,9 +1,10 @@
 #include "../incs/minishell.h"
-
-void change_head(t_list **set_list)
+//memory free about set
+void change_head(t_list **set_list, t_list **arg_list)
 {
 	t_list *tmp;
 
+	ft_lstclear(arg_list, &free);
 	tmp = (*set_list)->next;
 	//modify pk_lstdelone to delete t_alist
 	ft_lstdelone(*set_list, &free);
@@ -32,11 +33,7 @@ int run(t_info *info)
 			return (-1);
 		print_alist(info->arg_list);
 		select_func(info->arg_list);
-		#if 0
-		info->set_list = info->set_list->next;
-		#endif
-//		info->set_list = change_head(info->set_list);
-		change_head(&(info->set_list));
+		change_head(&(info->set_list), &(info->arg_list));
 	}
 	return (0);
 }
@@ -52,7 +49,6 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);
-
 #if 0
 	char *set_ex = "test=abcd====\"\"===";
 	printf("result: %d\n", export_env(&info.env_list, set_ex));
