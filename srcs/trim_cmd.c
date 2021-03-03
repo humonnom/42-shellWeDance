@@ -47,6 +47,7 @@ static char *copy_without_quote(char *str)
 }
 
 //exclude dquote or squote in arg_lst head
+#if 0
 int			trim_cmd(t_list *arg_list)
 {
 	char	*cmd;
@@ -56,3 +57,16 @@ int			trim_cmd(t_list *arg_list)
 	arg_list->data = cmd;
     return (0);
 }
+#endif
+
+char		*trim_cmd(char *cmd)
+{
+	char	*ret;
+
+	if (!(ret = copy_without_quote(cmd)))
+		return (NULL);
+	if (cmd)
+		free(cmd);
+    return (ret);
+}
+

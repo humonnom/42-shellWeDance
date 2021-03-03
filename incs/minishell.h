@@ -8,18 +8,24 @@
 # include <unistd.h>
 
 // head of data is cmd
-
 typedef struct		s_env
 {
 	char			*key;
 	char			*val;
 }					t_env;
 
+typedef struct		s_set
+{
+	char			*cmd;
+	char			**args;
+}					t_set;
+
 typedef struct		s_info
 {
 	t_list			*env_list;
 	t_list			*set_list;
 	t_list			*arg_list;
+	t_set			*set;
     int     		exit;
     int     		ret;
 }           		t_info;
@@ -133,6 +139,12 @@ void				print_list(
 */
 void				print_alist(
 					t_list *list_head);
+
+/*
+** print_alist.c
+*/
+void				print_set(t_set *set);
+
 /*
 ** print_slist.c
 */
@@ -155,6 +167,11 @@ void				print_sorted_env(t_list *env_list);
 void				free_elist(t_list **list_head);
 
 /*
+** free_elist.c
+*/
+void				free_set(t_set *set);
+
+/*
 ** parse_line.c
 */
 t_list				*parse_line(char *line);
@@ -165,6 +182,11 @@ t_list				*parse_line(char *line);
 t_list				*parse_set(char *set);
 
 /*
+** parse_set_arr.c
+*/
+t_set				*parse_set_arr(char *set_str);
+
+/*
 ** parse_env.c
 */
 t_env				*parse_env(char *set);
@@ -172,12 +194,14 @@ t_env				*parse_env(char *set);
 /*
 ** select_func.c
 */
-int					select_func(t_list *arg_list, char *path);
+int					select_func(t_set *set, char *path);
+//int					select_func(t_list *arg_list, char *path);
 
 /*
 ** trim_cmd.c
 */
-int					trim_cmd(t_list *arg_list);
+//int					trim_cmd(t_list *arg_list);
+char				*trim_cmd(char *cmd);
 
 #endif
 

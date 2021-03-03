@@ -16,7 +16,10 @@ SRC =	main \
 		parse_set \
 		select_func \
 		trim_cmd \
-		get_eval 
+		get_eval \
+		parse_set_arr \
+		print_set \
+		free_set
 #	  	pk_lst \
 		export_env \
 

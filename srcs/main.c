@@ -1,14 +1,17 @@
 #include "../incs/minishell.h"
+
 //memory free about set
-void change_head(t_list **set_list, t_list **arg_list)
+void change_head(t_info *info)
 {
 	t_list *tmp;
 
-	ft_lstclear(arg_list, &free);
-	tmp = (*set_list)->next;
+	//=========== ft_lstclear(arg_list, &free);
+	
+	tmp = (info->set_list)->next;
+	free_set(info->set);
 	//modify pk_lstdelone to delete t_alist
-	ft_lstdelone(*set_list, &free);
-	*set_list = tmp;
+	ft_lstdelone(info->set_list, &free);
+	info->set_list = tmp;
 }
 
 #if 1
@@ -30,13 +33,22 @@ int run(t_info *info)
 		}
 		// print sets
 		//printf("%s\n", (char *)(info->set_list->data));
+#if 0
 		if (!(info->arg_list = parse_set(info->set_list->data)))
 			return (-1);
-		print_alist(info->arg_list);
+#endif
+		//=========== print_alist(info->arg_list);
+		if (!(info->set = parse_set_arr(info->set_list->data)))
+		{
+			printf("ERROR: info->set is empty!\n");
+			return (-1);
+		} 
+		print_set(info->set);
 		if (!(func_path = get_eval(info->env_list, "PATH")))
 			printf("ERROR: func_path is NULL\n");
-		select_func(info->arg_list, func_path);
-		change_head(&(info->set_list), &(info->arg_list));
+		//=========== select_func(info->arg_list, func_path);
+		select_func(info->set, func_path);
+		change_head(info);
 	}
 	return (0);
 }
