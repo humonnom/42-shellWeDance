@@ -14,8 +14,9 @@ void change_head(t_list **set_list, t_list **arg_list)
 #if 1
 int run(t_info *info)
 {
-	char *line;
-
+	char	*line;
+	t_list	*tmp_list;
+	char	*func_path;
 	while (info->exit == 0)
 	{
 		//init_sig();
@@ -32,7 +33,10 @@ int run(t_info *info)
 		if (!(info->arg_list = parse_set(info->set_list->data)))
 			return (-1);
 		print_alist(info->arg_list);
-		select_func(info->arg_list);
+		if (!(func_path = get_eval(info->env_list, "PATH")))
+			printf("ERROR: func_path is NULL\n");
+		printf("func_path: %s\n", func_path);
+		//select_func(info->arg_list, func_path);
 		change_head(&(info->set_list), &(info->arg_list));
 	}
 	return (0);

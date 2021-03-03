@@ -1,9 +1,10 @@
-#include "../../incs/minishell.h"
+#include "../incs/minishell.h"
 
-t_list			*get_elist(
+char			*get_eval(
 				t_list *list_head,
 				char *tar)
 {
+	char	*ret;
 	t_list	*cur;
 	t_env	*tmp_env;
 
@@ -12,8 +13,8 @@ t_list			*get_elist(
 	{
 		tmp_env = (t_env *)(cur->data);
 		if (!(ft_strncmp(tmp_env->key, tar, ft_strlen(tar))))
-			return (cur);
+			return (tmp_env->val);
 		cur = cur->next; 
 	}
-	return (NULL);
+	return (ret);
 }

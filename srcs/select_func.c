@@ -1,14 +1,4 @@
 #include "../incs/minishell.h"
-#define SHELL_BUILTIN_FUNC ["cd", "pwd"]
-
-static void	print_func()
-{
-	int i;
-	
-	i = 0;
-	while (
-
-}
 
 static char	*get_builtin_path(char *cand, char *cmd)
 {
@@ -22,7 +12,7 @@ static char	*get_builtin_path(char *cand, char *cmd)
 	{
 		if (ft_strncmp(item->d_name, cmd, ft_strlen(cmd)) == 0)
 			path = ft_strjoin(cand, item->d_name); 
-		//printf("item->d_mane: %s\n", item->d_name);
+		printf("item->d_mane: %s\n", item->d_name);
 	}
 	closedir(dir_name);
 	return (path);

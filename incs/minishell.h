@@ -4,6 +4,7 @@
 # include "../libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include <dirent.h>
 # include <unistd.h>
 
 // head of data is cmd
@@ -28,9 +29,6 @@ typedef struct		s_info
 #define ON 0x00001
 #define OFF 0x00000
 #define INF 987654321
-
-char	*g_shell_builtin_func[3];
-char	*g_builtin_func[3];
 
 /*
 ** handle_quote.c
@@ -92,6 +90,13 @@ t_list				*gen_elist(char **str);
 ** get_elist.c
 */
 t_list				*get_elist(
+					t_list *list_head,
+					char *tar);
+
+/*
+** get_eval.c
+*/
+char				*get_eval(
 					t_list *list_head,
 					char *tar);
 
@@ -167,7 +172,7 @@ t_env				*parse_env(char *set);
 /*
 ** select_func.c
 */
-int					select_func(t_list *arg_list);
+int					select_func(t_list *arg_list, char *path);
 
 /*
 ** trim_cmd.c
