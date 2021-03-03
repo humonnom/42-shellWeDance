@@ -19,7 +19,10 @@ SRC =	main \
 		get_eval \
 		parse_set_arr \
 		print_set \
-		free_set
+		free_set \
+		cvt_list_to_arr \
+		print_darr \
+		free_darr \
 #	  	pk_lst \
 		export_env \
 

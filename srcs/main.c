@@ -47,7 +47,7 @@ int run(t_info *info)
 		if (!(func_path = get_eval(info->env_list, "PATH")))
 			printf("ERROR: func_path is NULL\n");
 		//=========== select_func(info->arg_list, func_path);
-		select_func(info->set, func_path);
+		select_func(info->set, func_path, info->env_list);
 		change_head(info);
 	}
 	return (0);

@@ -42,7 +42,7 @@ char	*get_elist_data_part(
 	if (!check_bit(err_num, 0) && !(ret = ft_strdup(part[0])))
 		err_num = turn_on_bit(err_num, 1);
 	if (!check_bit(err_num, 0))
-		pk_split_free(part, 1);
+		free_darr(part, 1);
 	if (!ret)
 		ret = ft_strdup("");
 	return (ret);

@@ -59,10 +59,11 @@ int select_func(t_list *arg_list, char *path)
 }
 #endif
 
-int select_func(t_set *set, char *path)
+int select_func(t_set *set, char *path, t_list *env_list)
 {
 	int		ret;
 	int		idx;
+	char	**env_arr;
 	char	*builtin_path;
 	char	**cand_arr;
 
@@ -82,7 +83,12 @@ int select_func(t_set *set, char *path)
 			break ;
 	}
 	printf("builtin_path: %s\n", builtin_path);
-	execve(path, set->args, env)
+	env_arr = cvt_list_to_arr(env_list);
+	printf("Display Env_arr===========================\n");
+	//print_darr(env_arr);
+	free_darr(env_arr, INF);
+	execve(path, set->args, env_arr);
+
 	//if(builtin_path) -> fork
 	//else builtin_path is NULL -> show error message.
 	//after using builtin function with execve, free path.

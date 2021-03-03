@@ -39,20 +39,6 @@ static int		get_next_idx(
 	return (ret);
 }
 
-static char		**free_all(char **tab, int k)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx < k)
-	{
-		free(tab[idx]);
-		++idx;
-	}
-	free(tab);
-	return (NULL);
-}
-
 char			**pk_split(
 				const char *s,
 				const char *s_cpy,
@@ -77,23 +63,10 @@ char			**pk_split(
 	{
 		begin = get_next_idx(s_cpy, begin, &len_word, c);
 		if (!(ret[k] = (char *)malloc(sizeof(char) * (len_word + 1))))
-			return (free_all(ret, k));
+			return (free_darr(ret, k));
 		ft_strlcpy(ret[k], &s[begin], len_word + 1);
 		begin = begin + len_word;
 		++k;
 	}
 	return (ret);
-}
-
-void		pk_split_free(char **tab, int limit)
-{
-	int	idx;
-
-	idx = 0;
-	while (tab[idx] && limit--)
-	{
-		free(tab[idx]);
-		++idx;
-	}
-	free(tab);
 }

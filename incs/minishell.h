@@ -53,10 +53,6 @@ char			**pk_split(
 				char c,
 				int limit);
 
-void			pk_split_free(
-				char **tab,
-				int limit);
-
 /*
 ** get_next_line.c
 */
@@ -194,7 +190,10 @@ t_env				*parse_env(char *set);
 /*
 ** select_func.c
 */
-int					select_func(t_set *set, char *path);
+int					select_func(
+					t_set *set,
+					char *path,
+					t_list *env_list);
 //int					select_func(t_list *arg_list, char *path);
 
 /*
@@ -202,6 +201,21 @@ int					select_func(t_set *set, char *path);
 */
 //int					trim_cmd(t_list *arg_list);
 char				*trim_cmd(char *cmd);
+
+/*
+** cvt_list_to_arr
+*/
+char				**cvt_list_to_arr(t_list *env_list);
+
+/*
+** print_darr
+*/
+void				print_darr(char **str);
+
+/*
+** free_darr
+*/
+char				**free_darr(char **tab, int limit);
 
 #endif
 

@@ -53,7 +53,7 @@ t_list *parse_set(char *set)
 		error_num = turn_on_bit(error_num, 2);
 	free (set_cpy);
 	if (!check_bit(error_num, 1))
-		pk_split_free(arg_part, INF);
+		free_darr(arg_part, INF);
 	if (error_num)
 		return (NULL);
     return (ret);

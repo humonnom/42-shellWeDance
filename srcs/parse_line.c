@@ -44,7 +44,7 @@ t_list	*parse_line(char *line)
 		error_num = turn_on_bit(error_num, 2);
 	free (line_cpy);
 	if (!check_bit(error_num, 1))
-		pk_split_free(line_part, INF);
+		free_darr(line_part, INF);
 	if (error_num)
 		return (NULL);
 	return (ret);
