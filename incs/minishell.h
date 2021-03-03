@@ -2,25 +2,33 @@
 # define _MINISHELL_H
 
 # include "../libft/libft.h"
-#include <stdlib.h>
+# include <stdlib.h>
 # include <stdio.h>
+# include <dirent.h>
 # include <unistd.h>
 
 // head of data is cmd
-typedef struct		s_slist
+typedef struct		s_env
 {
-	t_list			*data;
-	struct s_slist	*next;
-}					t_slist;
+	char			*key;
+	char			*val;
+}					t_env;
+
+typedef struct		s_set
+{
+	char			*cmd;
+	char			**args;
+}					t_set;
 
 typedef struct		s_info
 {
-	t_slist			*set_list;
 	t_list			*env_list;
+	t_list			*set_list;
+	t_list			*arg_list;
+	t_set			*set;
     int     		exit;
     int     		ret;
 }           		t_info;
-
 
 #define BIT_SQUOTE 1
 #define BIT_DQUOTE 2
@@ -28,36 +36,46 @@ typedef struct		s_info
 #define OFF 0x00000
 #define INF 987654321
 
-
-
+/*
+** handle_quote.c
+*/
 int				handle_quote(
 				char *str,
 				char **str_cpy,
 				char c);
 
+/*
+** pk_split.c
+*/
 char			**pk_split(
 				const char *s,
 				const char *s_cpy,
 				char c,
 				int limit);
-void			pk_split_free(char **tab);
 
-int				 get_next_line(char **line);
-
+/*
+** get_next_line.c
+*/
+int				get_next_line(char **line);
 
 /*
 ** handle_bit.c
 */
-int	turn_on_bit(int val, int n);
-int	turn_off_bit(int val, int n);
-int	check_bit(int val, int n);
-
+int				turn_on_bit(
+				int val,
+				int n);
+int				turn_off_bit(
+				int val,
+				int n);
+int				check_bit(
+				int val,
+				int n);
 
 /*
 ** init_minishell.c 
 */
-int					init_minishell
-					(t_info *info,
+int					init_minishell(
+					t_info *info,
 					char **env);
 
 /*
@@ -66,48 +84,142 @@ int					init_minishell
 int					inc_shlvl(t_list **env_head);
 
 /*
-** list/handle_list_life.c
+** gen_elist
 */
-int					convert_str2list(
-					t_list **list_head,
-					char **str);
+t_list				*gen_elist(char **str);
 
 /*
-** list/handle_list_data.c
+** get_elist.c
 */
+t_list				*get_elist(
+					t_list *list_head,
+					char *tar);
 
-int					modify_list_data(
+/*
+** get_eval.c
+*/
+char				*get_eval(
+					t_list *list_head,
+					char *tar);
+
+/*
+** add_elist.c
+*/
+int					add_elist(
 					t_list **list_head,
 					char *key,
-					char *value);
-
-int					add_list_data(
-					t_list **list_head,
-					char *key, char *value);
-
-char				*get_list_data(
-					t_list *list_head,
-					char *target);
+					char *val);
 
 /*
-** list/handle_list_index.c
+** mod_elist.c
 */
+int					mod_elist(
+					t_list **list_head,
+					char *key,
+					char *val);
 
+/*
+** handle_list_index.c
+*/
 int					get_list_index(
 					t_list *list_head,
 					char *target);
 
 /*
-** list/print_list.c
+** print_list.c
 */
 void				print_list(
 					t_list *head);
+/*
+** print_alist.c
+*/
+void				print_alist(
+					t_list *list_head);
 
 /*
-** env/sort_env.c
+** print_alist.c
+*/
+void				print_set(t_set *set);
+
+/*
+** print_slist.c
+*/
+void				print_slist(
+					t_list *set_list);
+
+/*
+** print_elist.c
+*/
+void				print_elist(
+					t_list *head);
+/*
+** sort_env.c
 */
 void				print_sorted_env(t_list *env_list);
 
+/*
+** free_elist.c
+*/
+void				free_elist(t_list **list_head);
+
+/*
+** free_elist.c
+*/
+void				free_set(t_set *set);
+
+/*
+** parse_line.c
+*/
+t_list				*parse_line(char *line);
+
+/*
+** parse_set.c
+*/
+t_list				*parse_set(char *set);
+
+/*
+** parse_set_arr.c
+*/
+t_set				*parse_set_arr(char *set_str);
+
+/*
+** parse_env.c
+*/
+t_env				*parse_env(char *set);
+
+/*
+** select_func.c
+*/
+int					select_func(
+					t_set *set,
+					char *path,
+					t_list *env_list);
+//int					select_func(t_list *arg_list, char *path);
+
+/*
+** trim_cmd.c
+*/
+//int					trim_cmd(t_list *arg_list);
+char				*trim_cmd(char *cmd);
+
+/*
+** cvt_list_to_arr
+*/
+char				**cvt_list_to_arr(t_list *env_list);
+
+/*
+** print_darr
+*/
+void				print_darr(char **str);
+
+/*
+** free_darr
+*/
+char				**free_darr(char **tab, int limit);
+
+#endif
+
+#if 0
 /*
 ** pk_lst.c
 */
@@ -121,18 +233,4 @@ t_slist				*pk_lstnew(
 void				pk_lstdelone(
 					t_slist *target,
 					void (*del)(void *));
-/*
-** free_list.c
-*/
-void				free_list(t_list **list_head);
-
-////////////==========================
-#define MALLOC_FAIL 3
-int				parse_line(char *line, t_slist **set_list);
-int				parse_set(t_list **arg_list);
-int				export_env(t_list **list_head, char *set);
-
-int	get_list(
-	t_list **list_head,
-	char **str);
 #endif

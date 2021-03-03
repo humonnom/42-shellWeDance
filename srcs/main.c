@@ -1,28 +1,25 @@
 #include "../incs/minishell.h"
 
-void print_slist(t_slist *set_list) {
-	t_slist *obj = set_list;
-	while (obj) {
-		printf("%s\n", (char *)obj->data->data);
-		obj = obj->next;	
-	}
-}
-
-t_slist *change_head(t_slist *set_list)
+//memory free about set
+void change_head(t_info *info)
 {
-	t_slist *ret;
+	t_list *tmp;
 
-	ret = set_list->next;
+	//=========== ft_lstclear(arg_list, &free);
+	
+	tmp = (info->set_list)->next;
+	free_set(info->set);
 	//modify pk_lstdelone to delete t_alist
-	pk_lstdelone(set_list, &free);
-	printf("after head change: %s\n", (char *)ret->data);
-	return (ret);
+	ft_lstdelone(info->set_list, &free);
+	info->set_list = tmp;
 }
 
+#if 1
 int run(t_info *info)
 {
-	char *line;
-
+	char	*line;
+	t_list	*tmp_list;
+	char	*func_path;
 	while (info->exit == 0)
 	{
 		//init_sig();
@@ -31,34 +28,29 @@ int run(t_info *info)
 			if ((get_next_line(&line)) == -1)
 				return -1;
 			// get set list
-			if (parse_line(line, &(info->set_list)))
+			if (!(info->set_list = parse_line(line)))
 				return -1;
 		}
-		// get cmd_arg list
-		printf("parse_set input: %s\n", (char *)info->set_list->data->data);
-		
-		parse_set(&(info->set_list->data));
-		print_list(info->set_list->data);
-
-//		break;
-		//select_func(info->set_list->data);
-		info->set_list = info->set_list->next;//change_head(info->set_list);
+		// print sets
+		//printf("%s\n", (char *)(info->set_list->data));
+#if 0
+		if (!(info->arg_list = parse_set(info->set_list->data)))
+			return (-1);
+#endif
+		//=========== print_alist(info->arg_list);
+		if (!(info->set = parse_set_arr(info->set_list->data)))
+		{
+			printf("ERROR: info->set is empty!\n");
+			return (-1);
+		} 
+		print_set(info->set);
+		if (!(func_path = get_eval(info->env_list, "PATH")))
+			printf("ERROR: func_path is NULL\n");
+		//=========== select_func(info->arg_list, func_path);
+		select_func(info->set, func_path, info->env_list);
+		change_head(info);
 	}
 	return (0);
-}
-
-#if 0
-select_func(cmd, args) {
-	func_built_in
-	echo
-	cd
-	pwd
-	..
-
-	func_bin_
-	ls
-	grep
-	...
 }
 #endif
 
@@ -71,18 +63,18 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-
+	run(&info);
+#if 0
 	char *set_ex = "test=abcd====\"\"===";
 	printf("result: %d\n", export_env(&info.env_list, set_ex));
 	print_list(info.env_list);
 
-#if 0
 	if ((err_num = run(&info)))
 		return (-1);
 	printf("err_num: %d\n", err_num);
 #endif
 
-//	free() return (info->ret)
-	free_list(&(info.env_list));
+	//need to make free_slist, free_alist
+	free_elist(&(info.env_list));
 	return (0);
 }

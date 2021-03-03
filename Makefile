@@ -6,25 +6,41 @@ CFLAGS =
 
 SRC =	main \
 	  	init_minishell \
-	  	inc_shlvl \
-	  	pk_lst \
+		pk_split \
+		parse_env \
+		handle_quote \
+		handle_bit \
+		inc_shlvl \
 		get_next_line \
 		parse_line \
 		parse_set \
-		handle_quote \
-		handle_bit \
-		pk_split \
+		select_func \
+		trim_cmd \
+		get_eval \
+		parse_set_arr \
+		print_set \
+		free_set \
+		cvt_list_to_arr \
+		print_darr \
+		free_darr \
+#	  	pk_lst \
 		export_env \
 
-ENV	=	sort_env
 
-LIST =	get_list \
+LIST =	gen_elist \
+		get_elist \
+		mod_elist \
+		add_elist \
+		free_elist \
+		print_elist \
+		print_alist \
+		print_slist
+#get_list \
 		get_list_data \
 		get_list_index \
 		add_list_data \
 		mod_list_data \
 		print_list \
-		free_list
 
 SRCDIR = ./srcs
 SRCS = $(addsuffix .c, $(addprefix $(SRCDIR)/, $(SRC))) \

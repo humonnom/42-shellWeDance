@@ -1,20 +1,13 @@
 #include "../incs/minishell.h"
 
-int					inc_shlvl(t_list **env_head)
+int	inc_shlvl(t_list **env_head)
 {
-	char	*value;
-	char	*data;
-	int		level;
-	int		ret;
+	t_list	*tmp_elist;
+	t_env	*tmp_env;
 
-	ret = (!(data = get_list_data(*env_head, "SHLVL")));
-	if (ret == 0)
-		ret = (!(level = ft_atoi(&data[6])));
-	if (ret == 0)
-		ret = (!(value = ft_itoa(level + 1)));
-	if (ret == 0)
-		modify_list_data(env_head, "SHLVL", value);
-	if (ret == 0)
-		free(value);
-	return (ret);
+	if (!(tmp_elist = get_elist(*env_head, "SHLVL")))
+		return (1);
+	tmp_env = (t_env *)(tmp_elist->data);
+	tmp_env->val = ft_itoa(ft_atoi(tmp_env->val) + 1);
+	return (0);
 }

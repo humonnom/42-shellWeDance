@@ -1,16 +1,5 @@
 #include "../incs/minishell.h"
 
-// malloc for original cmd(count size),
-// remove " or '
-// use strcmp for checking if word is cmd or not
-
-//arg_list->data : echo " a" char *arg = echo " a" char *arg_cpy = echo "0a" args = [echo, " a"]
-//-> { echo " a" }
-
-// line: single command and argument set
-// word: [command, argument1, ...]
-// in case that cmd = "ec""ho" ..
-
 static int	get_alist(
 			t_list **list_head,
 			char **str)
@@ -34,26 +23,29 @@ static int	get_alist(
 	return (ret);
 }
 
-t_list *parse_set(char *set)
+t_set *parse_set_arr(char *set_str)
 {
-    char	*set_cpy;
-	char	**arg_part;
+    char	*set_str_cpy;
     int		error_num;
-	t_list	*ret;
+	char	**tmp_set;
+	t_set	*ret;
 	
 	ret = NULL;
     error_num = 0;
-    if (!(set_cpy = ft_strdup(set)))
+    if (!(set_str_cpy = ft_strdup(set_str)))
 		return (NULL);
-	if (handle_quote(set, &set_cpy, ' ') > 0)
+	if (handle_quote(set_str, &set_str_cpy, ' ') > 0)
 		error_num = turn_on_bit(error_num, 0);
-	if (!(arg_part = pk_split(set, set_cpy, ' ', INF)))
+	if (!(tmp_set = pk_split(set_str, set_str, ' ', INF)))
 		error_num = turn_on_bit(error_num, 1);
+#if 0
 	if (!error_num && get_alist(&ret, arg_part))
 		error_num = turn_on_bit(error_num, 2);
-	free (set_cpy);
-	if (!check_bit(error_num, 1))
-		free_darr(arg_part, INF);
+#endif
+	if (!(ret = (t_set *)malloc(sizeof(t_set))))
+		return (NULL);
+	ret->cmd = tmp_set[0];
+	ret->args = &tmp_set[1];
 	if (error_num)
 		return (NULL);
     return (ret);
