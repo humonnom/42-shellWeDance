@@ -5,9 +5,13 @@ static char	*get_bti_path(char *cand, char *cmd)
 	DIR				*dir_name;
 	struct dirent	*item;
 	char			*ret;
+	int				flag;
 
 	ret = NULL;
+	dir_name = NULL;
 	dir_name = opendir(cand);
+	if (dir_name == NULL)
+		return (ret);
 	while ((item = readdir(dir_name)))
 	{
 		if (!ft_strncmp(item->d_name, cmd, ft_strlen(item->d_name)))
@@ -40,7 +44,7 @@ int	run_bti(t_info *info)
 			break ;
 	}
 	env_arr = cvt_list_to_arr(info->env_list);
-	execve(bti_path, info->set->set, env_arr);
+	//execve(bti_path, info->set->set, env_arr);
 	free_darr(env_arr, INF);
 	free_darr(cand_arr, INF);
 	return (0);

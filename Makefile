@@ -84,4 +84,8 @@ re: fclean all
 test: re
 	@./$(NAME) ec""ho"" "this is simple test"; cd ..;
 
+lldb: $(OBJS)
+	@$(MAKE) -C $(LIBDIR) all
+	@$(CC) $(CFLAGS) -g -o $(NAME) $(LIBOPT) $(OBJS)
+
 .PHONY: all clean fclean re test

@@ -21,18 +21,21 @@ int run(t_info *info)
 		//init_sig();
 		if (info->set_list == NULL)
 		{
+			//printf("main.c 24=======================\n");
 			if ((get_next_line(&line)) == -1)
 				return -1;
+			//printf("main.c 27=======================\n");
 			// get set list
 			if (!(info->set_list = parse_line(line)))
 				return -1;
+			//printf("main.c 31=======================\n");
 		}
+		//printf("main.c 33=======================\n");
 		if (!(info->set = parse_set(info->set_list->data)))
 		{
-			printf("ERROR: info->set is empty!\n");
+			//printf("ERROR: info->set is empty!\n");
 			return (-1);
 		} 
-		//print_set(info->set);
 		categorize_cmd(info);
 		change_head(info);
 	}

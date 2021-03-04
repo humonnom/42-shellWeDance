@@ -65,8 +65,8 @@ char		*trim_cmd(char *cmd)
 
 	if (!(ret = copy_without_quote(cmd)))
 		return (NULL);
-	if (cmd)
-		free(cmd);
+//	if (cmd)
+//		free(cmd);
     return (ret);
 }
 
