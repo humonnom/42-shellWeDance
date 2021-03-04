@@ -16,6 +16,7 @@ typedef struct		s_env
 
 typedef struct		s_set
 {
+	char			**set;
 	char			*cmd;
 	char			**args;
 }					t_set;
@@ -177,13 +178,9 @@ t_set				*parse_set(char *set_str);
 t_env				*parse_env(char *set);
 
 /*
-** select_func.c
+** categorize_cmd.c
 */
-int					select_func(
-					t_set *set,
-					char *path,
-					t_list *env_list);
-//int					select_func(t_list *arg_list, char *path);
+int					categorize_cmd(t_info *info);
 
 /*
 ** trim_cmd.c
@@ -205,6 +202,16 @@ void				print_darr(char **str);
 ** free_darr
 */
 char				**free_darr(char **tab, int limit);
+
+/*
+** select_shell_bti.c
+*/
+int					select_shell_bti(t_info *info);
+
+/*
+** run_bti.c
+*/
+int					run_bti(t_info *info);
 
 #endif
 

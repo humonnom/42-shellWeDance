@@ -7,17 +7,14 @@ void change_head(t_info *info)
 
 	tmp = (info->set_list)->next;
 	free_set(info->set);
-	//modify pk_lstdelone to delete t_alist
 	ft_lstdelone(info->set_list, &free);
 	info->set_list = tmp;
 }
 
-#if 1
 int run(t_info *info)
 {
 	char	*line;
 	t_list	*tmp_list;
-	char	*func_path;
 
 	while (info->exit == 0)
 	{
@@ -30,23 +27,17 @@ int run(t_info *info)
 			if (!(info->set_list = parse_line(line)))
 				return -1;
 		}
-		// print sets
-		//printf("%s\n", (char *)(info->set_list->data));
 		if (!(info->set = parse_set(info->set_list->data)))
 		{
 			printf("ERROR: info->set is empty!\n");
 			return (-1);
 		} 
-		print_set(info->set);
-		if (!(func_path = get_eval(info->env_list, "PATH")))
-			printf("ERROR: func_path is NULL\n");
-		printf("function path: %s\n", func_path);
-		select_func(info->set, func_path, info->env_list);
+		//print_set(info->set);
+		categorize_cmd(info);
 		change_head(info);
 	}
 	return (0);
 }
-#endif
 
 int main(int argc, char *argv[], char *env[])
 {

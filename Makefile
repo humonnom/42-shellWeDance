@@ -13,7 +13,6 @@ SRC =	main \
 		inc_shlvl \
 		get_next_line \
 		parse_line \
-		select_func \
 		trim_cmd \
 		get_eval \
 		parse_set \
@@ -22,6 +21,9 @@ SRC =	main \
 		cvt_list_to_arr \
 		print_darr \
 		free_darr \
+		categorize_cmd \
+		select_shell_bti \
+		run_bti \
 #	  	pk_lst \
 		export_env \
 
