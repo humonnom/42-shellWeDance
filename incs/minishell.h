@@ -185,8 +185,7 @@ int					categorize_cmd(t_info *info);
 /*
 ** trim_cmd.c
 */
-//int					trim_cmd(t_list *arg_list);
-char				*trim_cmd(char *cmd);
+int					trim_cmd(t_info *info);
 
 /*
 ** cvt_list_to_arr

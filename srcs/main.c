@@ -32,7 +32,7 @@ int run(t_info *info)
 			printf("ERROR: info->set is empty!\n");
 			return (-1);
 		} 
-		//print_set(info->set);
+		print_set(info->set);
 		categorize_cmd(info);
 		change_head(info);
 	}

@@ -1,8 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
-extern int get_next_line(char **line);
-extern int handle_quote(char *str, char **str_cpy, char c);
+#include "../incs/minishell.h"
 
 static int	is_quote(char c)
 {
@@ -46,27 +42,17 @@ static char *copy_without_quote(char *str)
 	return (ret);
 }
 
-//exclude dquote or squote in arg_lst head
-#if 0
-int			trim_cmd(t_list *arg_list)
-{
-	char	*cmd;
-	if (!(cmd = copy_without_quote(arg_list->data)))
-		return (1);
-	free(arg_list->data);
-	arg_list->data = cmd;
-    return (0);
-}
-#endif
-
-char		*trim_cmd(char *cmd)
+int		trim_cmd(t_info *info)
 {
 	char	*ret;
+	char	*cmd;
 
+	cmd = info->set->set[0];
 	if (!(ret = copy_without_quote(cmd)))
-		return (NULL);
-	if (cmd)
-		free(cmd);
-    return (ret);
+		return (1);
+	free(cmd);
+	info->set->set[0] = ret;
+	info->set->cmd = info->set->set[0];
+    return (0);
 }
 
