@@ -3,8 +3,8 @@
 static void			init_info(
 					t_info *info)
 {
-//	info->set_list = NULL;
-//	info->env_list = NULL;
+	info->set_list = NULL;
+	info->env_list = NULL;
 	info->exit = 0;
 	info->ret = 0;
 }

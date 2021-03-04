@@ -10,6 +10,7 @@ char	**cvt_list_to_arr(t_list *env_list)
 	list_size = ft_lstsize(env_list);
 	if (!(ret = (char **)malloc(sizeof(char *) * (list_size + 1))))
 		return (0);
+	ret[list_size - 1] = NULL;
 	idx = 0;
 	while (env_list)
 	{

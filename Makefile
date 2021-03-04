@@ -13,11 +13,10 @@ SRC =	main \
 		inc_shlvl \
 		get_next_line \
 		parse_line \
-		parse_set \
 		select_func \
 		trim_cmd \
 		get_eval \
-		parse_set_arr \
+		parse_set \
 		print_set \
 		free_set \
 		cvt_list_to_arr \
@@ -33,7 +32,6 @@ LIST =	gen_elist \
 		add_elist \
 		free_elist \
 		print_elist \
-		print_alist \
 		print_slist
 #get_list \
 		get_list_data \

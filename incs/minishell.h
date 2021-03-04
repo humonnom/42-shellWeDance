@@ -24,7 +24,6 @@ typedef struct		s_info
 {
 	t_list			*env_list;
 	t_list			*set_list;
-	t_list			*arg_list;
 	t_set			*set;
     int     		exit;
     int     		ret;
@@ -130,14 +129,9 @@ int					get_list_index(
 */
 void				print_list(
 					t_list *head);
-/*
-** print_alist.c
-*/
-void				print_alist(
-					t_list *list_head);
 
 /*
-** print_alist.c
+** print_set.c
 */
 void				print_set(t_set *set);
 
@@ -175,12 +169,7 @@ t_list				*parse_line(char *line);
 /*
 ** parse_set.c
 */
-t_list				*parse_set(char *set);
-
-/*
-** parse_set_arr.c
-*/
-t_set				*parse_set_arr(char *set_str);
+t_set				*parse_set(char *set_str);
 
 /*
 ** parse_env.c
