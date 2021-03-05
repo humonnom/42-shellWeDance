@@ -207,9 +207,9 @@ void				print_darr(char **str);
 char				**free_darr(char **tab, int limit);
 
 /*
-** select_shell_bti.c
+** select_sh_bti.c
 */
-int					select_shell_bti(t_info *info);
+int					select_sh_bti(t_info *info);
 
 /*
 ** run_bti.c

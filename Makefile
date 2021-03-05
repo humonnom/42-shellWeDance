@@ -21,7 +21,7 @@ SRC =	main \
 		print_darr \
 		free_darr \
 		categorize_cmd \
-		select_shell_bti \
+		select_sh_bti \
 		run_bti \
 		mod_eval \
 		get_env \
@@ -65,7 +65,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
 	@$(CC) $(CFLAGS) -o $(NAME) $(LIBOPT) $(OBJS)
-	echo "Start Program"
+	@echo "Start Program"
 
 	
 #$(OBJDIR)/%.o: $(SRCS)

@@ -7,7 +7,8 @@ static char	*get_bti_path(char *cand, char *cmd)
 	char			*ret;
 
 	ret = NULL;
-	dir_name = opendir(cand);
+	if(!(dir_name = opendir(cand)))
+		return (NULL);
 	while ((item = readdir(dir_name)))
 	{
 		if (!ft_strncmp(item->d_name, cmd, ft_strlen(item->d_name)))

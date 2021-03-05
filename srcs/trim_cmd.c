@@ -55,4 +55,3 @@ int		trim_cmd(t_info *info)
 	info->set->cmd = info->set->set[0];
     return (0);
 }
-

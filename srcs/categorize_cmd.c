@@ -13,8 +13,7 @@ int categorize_cmd(t_info *info)
 	}
 	printf("after trim_cmd: %s\n", info->set->cmd);
 
-#if 0
-	if (select_shell_bti(info))
+	if (select_sh_bti(info))
 	{
 		printf("ERROR: select_shell_bti error\n");
 		return (-1);
@@ -25,6 +24,7 @@ int categorize_cmd(t_info *info)
 		printf("ERROR: run_bti error\n");
 		return (-1);
 	}
+#if 0
 #endif
 
 	//if(bti_path) -> fork
