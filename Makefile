@@ -7,7 +7,6 @@ CFLAGS =
 SRC =	main \
 	  	init_minishell \
 		pk_split \
-		parse_env \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
@@ -24,9 +23,11 @@ SRC =	main \
 		categorize_cmd \
 		select_shell_bti \
 		run_bti \
+		mod_eval \
+		get_env \
+#		export_env \
 #	  	pk_lst \
-		export_env \
-
+	#	parse_env \
 
 LIST =	gen_elist \
 		get_elist \

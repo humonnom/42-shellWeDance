@@ -23,5 +23,6 @@ int					init_minishell
 			ret = 1;
 	if (ret == 0)
 		ret = inc_shlvl(&(info->env_list));
+	print_elist(info->env_list);
 	return (ret);
 }

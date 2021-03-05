@@ -8,6 +8,7 @@ int	inc_shlvl(t_list **env_head)
 	if (!(tmp_elist = get_elist(*env_head, "SHLVL")))
 		return (1);
 	tmp_env = (t_env *)(tmp_elist->data);
-	tmp_env->val = ft_itoa(ft_atoi(tmp_env->val) + 1);
+	if (mod_eval(tmp_env, ft_itoa(ft_atoi(tmp_env->val) + 1)))
+		return (1);
 	return (0);
 }

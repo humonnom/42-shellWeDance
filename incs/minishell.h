@@ -102,6 +102,10 @@ char				*get_eval(
 					t_list *list_head,
 					char *tar);
 
+int					mod_eval(
+					t_env *env,
+					char *new_val);
+
 /*
 ** add_elist.c
 */
@@ -173,9 +177,9 @@ t_list				*parse_line(char *line);
 t_set				*parse_set(char *set_str);
 
 /*
-** parse_env.c
+** get_env.c
 */
-t_env				*parse_env(char *set);
+t_env				*get_env(char *set);
 
 /*
 ** categorize_cmd.c
@@ -211,6 +215,11 @@ int					select_shell_bti(t_info *info);
 ** run_bti.c
 */
 int					run_bti(t_info *info);
+
+/*
+** run_bti.c
+*/
+int					export_env(t_info *info, char *arg);
 
 #endif
 

@@ -26,6 +26,7 @@ static t_env	*gen_elist_data(char *key, char *val)
 		return (NULL);
 	return (ret);
 }
+
 char	*get_elist_data_part(
 		char *set,
 		char *set_cpy, 

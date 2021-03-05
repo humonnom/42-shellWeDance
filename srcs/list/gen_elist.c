@@ -12,7 +12,7 @@ t_list	*gen_elist(char **str)
 	idx = -1;
 	while (error_num == 0 && str[++idx])
 	{
-		if (!(tmp_env = parse_env(str[idx])))
+		if (!(tmp_env = get_env(str[idx])))
 			error_num = 1;
 		ft_lstadd_back(&ret, ft_lstnew(tmp_env));
 	}
