@@ -187,9 +187,9 @@ t_env				*get_env(char *set);
 int					categorize_cmd(t_info *info);
 
 /*
-** trim_cmd.c
+** del_quote.c
 */
-int					trim_cmd(t_info *info);
+int					del_quote(char **str);
 
 /*
 ** cvt_list_to_arr
@@ -217,9 +217,19 @@ int					select_sh_bti(t_info *info);
 int					run_bti(t_info *info);
 
 /*
-** run_bti.c
+** export_env.c
 */
 int					export_env(t_info *info, char *arg);
+
+/*
+** sh_bti_export.c
+*/
+int					sh_bti_export(char **args, t_list *env_list);
+
+/*
+** sh_bti_env.c
+*/
+int					sh_bti_env(t_list *env_list);
 
 #endif
 

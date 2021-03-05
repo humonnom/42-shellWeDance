@@ -6,25 +6,24 @@ int categorize_cmd(t_info *info)
 	int		idx;
 
 	ret = 0;
-	if (trim_cmd(info))
+	if (del_quote(&(info->set->set[0])))
 	{
 		printf("ERROR: trim_cmd malloc error\n");
 		return (1);
 	}
+	info->set->cmd = info->set->set[0];
 	printf("after trim_cmd: %s\n", info->set->cmd);
-
 	if (select_sh_bti(info))
 	{
 		printf("ERROR: select_shell_bti error\n");
 		return (-1);
 	}
-
-	if (run_bti(info))
+#if 0
+	else if (run_bti(info))
 	{
 		printf("ERROR: run_bti error\n");
 		return (-1);
 	}
-#if 0
 #endif
 
 	//if(bti_path) -> fork

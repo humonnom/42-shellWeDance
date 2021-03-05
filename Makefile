@@ -12,7 +12,7 @@ SRC =	main \
 		inc_shlvl \
 		get_next_line \
 		parse_line \
-		trim_cmd \
+		del_quote \
 		get_eval \
 		parse_set \
 		print_set \
@@ -25,6 +25,8 @@ SRC =	main \
 		run_bti \
 		mod_eval \
 		get_env \
+		sh_bti_export \
+		sh_bti_env \
 #		export_env \
 #	  	pk_lst \
 	#	parse_env \

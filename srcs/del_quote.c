@@ -42,16 +42,13 @@ static char *copy_without_quote(char *str)
 	return (ret);
 }
 
-int		trim_cmd(t_info *info)
+int		del_quote(char **str)
 {
 	char	*ret;
-	char	*cmd;
 
-	cmd = info->set->set[0];
-	if (!(ret = copy_without_quote(cmd)))
+	if (!(ret = copy_without_quote(*str)))
 		return (1);
-	free(cmd);
-	info->set->set[0] = ret;
-	info->set->cmd = info->set->set[0];
+	free(*str);
+	*str = ret;
     return (0);
 }
