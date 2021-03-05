@@ -25,6 +25,7 @@ SRC =	main \
 		run_bti \
 		mod_eval \
 		get_env \
+		free_env \
 		sh_bti_export \
 		sh_bti_env \
 		sh_bti_cd \

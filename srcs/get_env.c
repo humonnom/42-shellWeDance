@@ -3,7 +3,8 @@
 static int	get_eq_idx(char *set_cpy)
 {
 	int	ret;
-ret = 0;
+
+	ret = 0;
 	while (*set_cpy)
 	{
 		if (*set_cpy == '=')
@@ -53,7 +54,10 @@ t_env	*get_env(char *str)
 	if (!(key = get_item(str, str_cpy, '=')))
 		return (NULL);
 	eq_idx = get_eq_idx(str_cpy) + 1;
-	if (!(val = get_item(&str[eq_idx], &str_cpy[eq_idx], ' ')))
+	// in case that export has only key without val
+	if (eq_idx == 0)
+		val = ft_strdup("");
+	else if (!(val = get_item(&str[eq_idx], &str_cpy[eq_idx], ' ')))
 		return (NULL);
 	// in case that finding key in env_list
 	free(str_cpy);

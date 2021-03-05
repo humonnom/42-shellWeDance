@@ -182,6 +182,11 @@ t_set				*parse_set(char *set_str);
 t_env				*get_env(char *set);
 
 /*
+** free_env.c
+*/
+void				free_env(t_env *env);
+
+/*
 ** categorize_cmd.c
 */
 int					categorize_cmd(t_info *info);
