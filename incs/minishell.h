@@ -231,6 +231,16 @@ int					sh_bti_export(char **args, t_list *env_list);
 */
 int					sh_bti_env(t_list *env_list);
 
+/*
+** sh_bti_pwd.c
+*/
+int					sh_bti_pwd();
+
+/*
+** sh_bti_cd.c
+*/
+int					sh_bti_cd(char **args, t_list *env_list);
+
 #endif
 
 #if 0

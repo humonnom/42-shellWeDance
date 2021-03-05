@@ -27,6 +27,8 @@ SRC =	main \
 		get_env \
 		sh_bti_export \
 		sh_bti_env \
+		sh_bti_cd \
+		sh_bti_pwd \
 #		export_env \
 #	  	pk_lst \
 	#	parse_env \
