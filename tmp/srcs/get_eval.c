@@ -8,7 +8,8 @@ char			*get_eval(
 	t_list	*tmp_list;
 	t_env	*tmp_env;
 
-	tmp_list = get_elist(list_head, tar);
+	if (!(tmp_list = get_elist(list_head, tar)))
+		return (NULL);
 	if (!(tmp_env = (t_env *)(tmp_list->data)))	
 		return (NULL);
 	return (tmp_env->val);

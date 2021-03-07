@@ -234,7 +234,7 @@ int					sh_bti_env(t_list *env_list);
 /*
 ** sh_bti_pwd.c
 */
-int					sh_bti_pwd();
+int					sh_bti_pwd(char **args);
 
 /*
 ** sh_bti_cd.c
