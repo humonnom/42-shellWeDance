@@ -159,7 +159,7 @@ void				print_sorted_env(t_list *env_list);
 /*
 ** free_elist.c
 */
-void				free_elist(t_list **list_head);
+void				free_elist(t_list *list_head);
 
 /*
 ** free_elist.c
@@ -222,14 +222,15 @@ int					select_sh_bti(t_info *info);
 int					run_bti(t_info *info);
 
 /*
-** export_env.c
-*/
-int					export_env(t_info *info, char *arg);
-
-/*
 ** sh_bti_export.c
 */
-int					sh_bti_export(char **args, t_list *env_list);
+int					sh_bti_export(	
+					char **args,
+					t_info *info);
+
+int					sh_bti_unset(
+					char **args,
+					t_info *info);
 
 /*
 ** sh_bti_env.c

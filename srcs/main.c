@@ -7,6 +7,7 @@ void change_head(t_info *info)
 
 	tmp = (info->set_list)->next;
 	free_set(info->set);
+	// modified lstdelone to free data type -> data 
 	ft_lstdelone(info->set_list, &free);
 	info->set_list = tmp;
 }
@@ -32,7 +33,7 @@ int run(t_info *info)
 			printf("ERROR: info->set is empty!\n");
 			return (-1);
 		} 
-		print_set(info->set);
+		//print_set(info->set);
 		categorize_cmd(info);
 		change_head(info);
 	}
@@ -60,6 +61,6 @@ int main(int argc, char *argv[], char *env[])
 #endif
 
 	//need to make free_slist, free_alist
-	//free_elist(&(info.env_list));
+	//free_all_elist(&(info.env_list));
 	return (0);
 }

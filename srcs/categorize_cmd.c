@@ -12,7 +12,6 @@ int categorize_cmd(t_info *info)
 		return (1);
 	}
 	info->set->cmd = info->set->set[0];
-	printf("after trim_cmd: %s\n", info->set->cmd);
 	if (select_sh_bti(info))
 	{
 		printf("ERROR: select_shell_bti error\n");
