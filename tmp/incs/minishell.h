@@ -241,6 +241,11 @@ int					sh_bti_pwd(char **args);
 */
 int					sh_bti_cd(char **args, t_list *env_list);
 
+/*
+** sh_bti_echo.c
+*/
+int					sh_bti_echo(char **args, t_list *env_list);
+
 #endif
 
 #if 0

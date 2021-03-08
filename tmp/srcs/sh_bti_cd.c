@@ -53,7 +53,6 @@ static char	*get_combined_path(char *arg, t_list *env_list)
 	idx = -1;
 	while (++idx < len)
 		str[idx] = arg[idx];
-	path = get_eval(env_list, &arg[len + 1]);
 	if (!(path = get_eval(env_list, &arg[len + 1])))
 	{
 		printf("cd: no such file or directory: %s\n", str);
@@ -70,7 +69,6 @@ static char	*get_path(char **args, t_list *env_list)
 	char	*path;
 	char	*arg;
 
-	//  is invalid arg, check quote
 	path = NULL;
 	if (!args[0])
 		path = ft_strdup(get_eval(env_list, "HOME"));
@@ -89,8 +87,11 @@ static char	*get_path(char **args, t_list *env_list)
 			return (NULL);
 		}
 	}
-	else if (!(ft_strncmp(arg, "-", 1)))
-		path = ft_strdup(get_eval(env_list, "OLDPWD"));
+	else if (!(ft_strncmp(arg, "-", ft_strlen(arg))))
+	{
+		if (!(path = ft_strdup(get_eval(env_list, "OLDPWD"))))
+			path = ft_strdup(get_eval(env_list, "HOME"));
+	}
 	else if (!(ft_strncmp(arg, "", ft_strlen(arg))))
 		path = ft_strdup(get_eval(env_list, "PWD"));
 	else
@@ -108,7 +109,6 @@ int	sh_bti_cd(char **args, t_list *env_list)
 	char	*old_pwd;
 
 	ret = 0;
-	path = NULL;
 	old_pwd = get_eval(env_list, "PWD"); 
 	if (!(path = get_path(args, env_list)))
 		ret = 1;
@@ -125,6 +125,7 @@ int	sh_bti_cd(char **args, t_list *env_list)
 	{
 		tmp_list = get_elist(env_list, "OLDPWD");
 		ret = mod_eval((t_env *)tmp_list->data, ft_strdup(old_pwd));
+		printf("%s\n", get_eval(env_list, "OLDPWD"));
 		tmp_list = get_elist(env_list, "PWD");
 		ret = mod_eval((t_env *)tmp_list->data, ft_strdup(getcwd(cwd, PATH_MAX)));
 	}

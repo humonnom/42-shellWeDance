@@ -18,6 +18,8 @@ int	select_sh_bti(t_info *info)
 		ret = sh_bti_cd(args, info->env_list);
 	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
 		ret = sh_bti_pwd(args);
+	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		ret = sh_bti_echo(args, info->env_list);
 
 //cd
 //echo
