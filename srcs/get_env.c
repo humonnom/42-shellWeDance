@@ -51,7 +51,9 @@ t_env	*get_env(char *str)
 		return (NULL);
 	if (handle_quote(str, &str_cpy, '=') > 0)
 		return (NULL);
-	if (!(key = get_item(str, str_cpy, '=')))
+	if (str_cpy[0] == '=')
+		key = ft_strdup("");
+	else if (!(key = get_item(str, str_cpy, '=')))
 		return (NULL);
 	eq_idx = get_eq_idx(str_cpy) + 1;
 	// in case that export has only key without val
