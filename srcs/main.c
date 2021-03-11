@@ -49,7 +49,12 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-	run(&info);
+//	run(&info);
+	char *test = "$HOME abc";
+	char *ret = get_dollar_eval(&test, info.env_list);
+	printf("part: %s\n", test);
+	printf("ret: %s\n", ret);
+	
 #if 0
 	char *set_ex = "test=abcd====\"\"===";
 	printf("result: %d\n", export_env(&info.env_list, set_ex));

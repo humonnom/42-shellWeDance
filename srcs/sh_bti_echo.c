@@ -1,5 +1,5 @@
 #include "../incs/minishell.h"
-
+#if 0
 static int	is_n_flag(char *str)
 {
 	int ret;
@@ -41,13 +41,7 @@ static int print_with_var(char *arg, t_list *env_list)
 	write (STDOUT_FILENO, var, ft_strlen(var));
 	return (get_dollar_len(arg));
 }
-char *var;
-var = get_var();
-var -> HOME
-idx += ft_strlen(var);
-char *ret;
-ret = get_eval(env_list, var);
-buf <- ret copy
+
 static int	handle_arg(char *buf, char *arg, t_list *env_list)
 {
 	int idx;
@@ -77,16 +71,11 @@ static int	handle_arg(char *buf, char *arg, t_list *env_list)
 	}
 	return (0);
 }
-
-echo "a'b'c"/$/""/HOME/'d"e"f'
-
-' ' -> save(buf)
-" " -> handle_dollar(without d_quote)
-[ ] -> handle_dollar
-
+#endif
 
 int	sh_bti_echo(char **args, t_list *env_list)
 {
+#if 0
 	int		ret;
 	int		idx;
 	int		n_flag;
@@ -106,5 +95,6 @@ int	sh_bti_echo(char **args, t_list *env_list)
 	}
 	if (!n_flag)
 		write(1, "\n", 1);
-	return (ret);
+#endif
+	return (0);
 }

@@ -258,8 +258,10 @@ int					sh_bti_echo(char **args, t_list *env_list);
 */
 int					get_max_strlen(char *str1, char *str2);
 
-char				*get_dollar_eval(char *arg, t_list *env_list);
-
+/*
+** get_dollar_eval.c
+*/
+char				*get_dollar_eval(char **part_addr, t_list *env_list);
 #endif
 
 #if 0
