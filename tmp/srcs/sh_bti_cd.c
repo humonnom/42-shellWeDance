@@ -4,7 +4,6 @@ static char *parse_arg(char *arg)
 {
 	char *parsed;
 	
-	//check single quote
 	if ((ft_strchr(arg, '\'')))
 	{
 		printf("invalid single quote\n");
@@ -14,7 +13,6 @@ static char *parse_arg(char *arg)
 		return (NULL);
 	if ((ft_strchr(arg, '\"') == 0)) 
 		return (parsed);
-	//check pair
 	if (parsed[0] != '\"' || parsed[ft_strlen(arg) - 1] != '\"')
 	{
 		printf("invalid quote\n");
