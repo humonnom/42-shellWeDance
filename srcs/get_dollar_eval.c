@@ -1,6 +1,5 @@
 #include "../incs/minishell.h"
-
-char	*get_dollar_eval(char *arg, t_list *env_list)
+static int	get_dollar_len(char *arg)
 {
 	int		idx;
 	int		len;
@@ -11,13 +10,21 @@ char	*get_dollar_eval(char *arg, t_list *env_list)
 	len = 0;
 	while (arg[++idx] && arg[idx] != '\'' && arg[idx] != '\"' && arg[idx] != '$')
 		len++;
-	if (!(var = (char *)malloc(sizeof(char) * (len + 1))))
-		return (len);
-	var[len] = '\0';
-	idx = -1;
-	while(++idx < len)
-		var[idx] = arg[idx];
-	if ((ret = get_eval(env_list, var)))
-		write(1, ret, ft_strlen(ret));
-	return(var);
+	return (len);
+}
+
+char	*get_dollar_eval(char *part, t_list *env_list)
+{
+	char	*ret;
+	//$
+
+	//$$
+
+	//$?
+
+	//$HOME
+	$HOMEabc
+		/abc/"$HOME"/abc/''
+		/"$HOME abc"
+	return(ret);
 }

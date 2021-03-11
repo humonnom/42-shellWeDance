@@ -17,7 +17,7 @@ static int	is_n_flag(char *str)
 	return (ret);
 }
 
-static int print_with_var(char *arg, t_list *env_list)
+static int	get_dollar_len(char *arg)
 {
 	int		idx;
 	int		len;
@@ -28,27 +28,37 @@ static int print_with_var(char *arg, t_list *env_list)
 	len = 0;
 	while (arg[++idx] && arg[idx] != '\'' && arg[idx] != '\"' && arg[idx] != '$')
 		len++;
-	if (!(var = (char *)malloc(sizeof(char) * len + 1)))
-		return (len);
-	var[len] = '\0';
-	idx = -1;
-	while(++idx < len)
-		var[idx] = arg[idx];
-	if ((ret = get_eval(env_list, var)))
-		write(1, ret, ft_strlen(ret));
-	free(var);
 	return (len);
 }
 
-static int	handle_arg(char *arg, t_list *env_list)
+static int print_with_var(char *arg, t_list *env_list)
+{
+	char	*var;
+	int		len;
+
+	if (!(var = get_dollar_eval(arg, env_list)))
+		return (0);
+	write (STDOUT_FILENO, var, ft_strlen(var));
+	return (get_dollar_len(arg));
+}
+char *var;
+var = get_var();
+var -> HOME
+idx += ft_strlen(var);
+char *ret;
+ret = get_eval(env_list, var);
+buf <- ret copy
+static int	handle_arg(char *buf, char *arg, t_list *env_list)
 {
 	int idx;
+	int	buf_idx;
 	int	s_flag;
 	int	d_flag;
 
 	s_flag = 0;
 	d_flag = 0;
 	idx = -1;
+	buf_idx = 0;
 	while (arg[++idx])
 	{
 		if (d_flag == 0 && s_flag == 0 && arg[idx] == '\'')
@@ -61,19 +71,26 @@ static int	handle_arg(char *arg, t_list *env_list)
 			d_flag = 0;
 		else if (arg[idx] == '$' && s_flag == 0)
 			idx += print_with_var(&arg[idx + 1], env_list);
+			idx += get_dollar_len(&arg[idx + 1]);
 		else
-			write(1, &arg[idx], 1);
+			buf[buf_idx++] = arg[idx];
 	}
 	return (0);
 }
 
+echo "a'b'c"/$/""/HOME/'d"e"f'
+
+' ' -> save(buf)
+" " -> handle_dollar(without d_quote)
+[ ] -> handle_dollar
+
+
 int	sh_bti_echo(char **args, t_list *env_list)
 {
-	int ret;
-	int idx;
-	int	n_flag;
-	int	*q_flag;
-	char *str;
+	int		ret;
+	int		idx;
+	int		n_flag;
+	char	buf[BUF_SIZE];
 
 	ret = 0;
 	n_flag = 0;
@@ -82,7 +99,7 @@ int	sh_bti_echo(char **args, t_list *env_list)
 		n_flag = 1;
 	while (args[idx])
 	{
-		handle_arg(args[idx], env_list);
+		handle_arg(buf, args[idx], env_list);
 		if (args[idx + 1])
 			write(1, " ", 1);
 		idx++;

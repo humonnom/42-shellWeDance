@@ -35,6 +35,7 @@ typedef struct		s_info
 #define ON 0x00001
 #define OFF 0x00000
 #define INF 987654321
+#define BUF_SIZE 1024
 
 /*
 ** handle_quote.c
@@ -256,6 +257,8 @@ int					sh_bti_echo(char **args, t_list *env_list);
 ** get_max_strlen.c
 */
 int					get_max_strlen(char *str1, char *str2);
+
+char				*get_dollar_eval(char *arg, t_list *env_list);
 
 #endif
 

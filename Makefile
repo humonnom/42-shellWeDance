@@ -33,6 +33,7 @@ SRC =	main \
 		sh_bti_pwd \
 		sh_bti_echo \
 		get_max_strlen \
+		get_dollar_eval
 #		export_env \
 #	  	pk_lst \
 	#	parse_env \
