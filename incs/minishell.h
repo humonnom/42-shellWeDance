@@ -275,6 +275,21 @@ int					sh_bti_echo(char **args, t_list *env_list);
 ** sh_bti_echo.c
 */
 char				*change_char2str(char c);
+
+/*
+** is_squote.c
+*/
+int					is_squote(char c);
+
+/*
+** is_dquote.c
+*/
+int					is_dquote(char c);
+
+/*
+** get_part.c
+*/
+char				*get_part(char *arg, t_list *env_list);
 #endif
 
 #if 0

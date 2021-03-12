@@ -1,131 +1,84 @@
 #include "../incs/minishell.h"
 # define PATH_MAX 1024
-static char *parse_arg(char *arg)
+
+static char	*get_var_name(char *arg)
 {
-	char *parsed;
-	
-	if ((ft_strchr(arg, '\'')))
-	{
-		printf("invalid single quote\n");
+	char	*var_name;
+	char	*arg_delq;
+
+	var_name = NULL;
+	arg_delq = ft_strdup(arg); 
+	if (del_quote(&arg_delq))
 		return (NULL);
-	}
-	if (!(parsed = ft_strdup(arg)))
-		return (NULL);
-	if ((ft_strchr(arg, '\"') == 0)) 
-		return (parsed);
-	if (parsed[0] != '\"' || parsed[ft_strlen(arg) - 1] != '\"')
-	{
-		printf("invalid quote\n");
-		free(parsed);
-		return (NULL);
-	}
-	if (del_quote(&parsed))
-	{
-		printf("fail del quote\n");
-		free(parsed);
-		return (NULL);
-	}
-	if (ft_strchr(parsed, '\"')) 
-	{
-		printf("invalid quote\n");
-		free(parsed);
-		return (NULL);
-	}
-	return (parsed);
+	if (!arg || !(ft_strncmp(arg_delq, "~", ft_strlen(arg_delq))))
+		var_name = ft_strdup("HOME");
+	else if (!(ft_strncmp(arg_delq, "-", ft_strlen(arg_delq))))
+		var_name = ft_strdup("OLDPWD");
+	else if (!(ft_strncmp(arg_delq, "", ft_strlen(arg_delq))))
+		var_name = ft_strdup("");
+	free(arg_delq);
+	return (var_name);
 }
 
-static char	*get_combined_path(char *arg, t_list *env_list)
-{
-	int		idx;
-	int		len;
-	char	*str;
-	char	*path;
-
-	idx = -1;
-	while (arg[++idx] && arg[idx] != '$')
-		;
-	len = idx;
-	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
-		return (NULL);
-	str[len] = '\0';
-	idx = -1;
-	while (++idx < len)
-		str[idx] = arg[idx];
-	if (!(path = get_eval(env_list, &arg[len + 1])))
-	{
-		printf("cd: no such file or directory: %s\n", str);
-		free(str);
-		return (NULL);
-	}
-	path = ft_strjoin(str, path);
-	free(str);
-	return (path);
-}
-
-static char	*get_path(char **args, t_list *env_list)
+static char	*get_path(char *arg, t_list *env_list)
 {
 	char	*path;
-	char	*arg;
+	char	*var_name;
 
-	path = NULL;
-	if (!args[0])
-		path = ft_strdup(get_eval(env_list, "HOME"));
-	else if (args[1])
+	var_name = get_var_name(arg);
+	if (var_name)
 	{
-		printf("cd: string not in pwd: %s\n", args[0]);
-		return (NULL);
+		if (ft_strncmp(var_name, "", ft_strlen(var_name)))
+			path = ft_strdup("");
+		else if (!(path = ft_strdup(get_eval(env_list, var_name))))
+			path = ft_strdup(get_eval(env_list, "HOME"));
+		free(var_name);
 	}
-	if (!(arg = parse_arg(args[0])))
-		return (NULL);
 	else if (ft_strchr(arg, '$'))
 	{
-		if (!(path = get_combined_path(arg, env_list)))
-		{
-			free(arg);
-			return (NULL);
-		}
+		path = get_part(arg, env_list);
+		printf("($)path : %s\n", path);
 	}
-	else if (!(ft_strncmp(arg, "-", ft_strlen(arg))))
-	{
-		if (!(path = ft_strdup(get_eval(env_list, "OLDPWD"))))
-			path = ft_strdup(get_eval(env_list, "HOME"));
-	}
-	else if (!(ft_strncmp(arg, "", ft_strlen(arg))))
-		path = ft_strdup(get_eval(env_list, "PWD"));
 	else
 		path = ft_strdup(arg);
-	free(arg);
 	return (path);
 }
-
-int	sh_bti_cd(char **args, t_list *env_list)
+static int	renew_pwd(char *old_pwd, t_list *env_list)
 {
 	int		ret;
-	char	*path;
 	t_list	*tmp_list;
 	char	cwd[PATH_MAX];
-	char	*old_pwd;
 
 	ret = 0;
+	tmp_list = get_elist(env_list, "OLDPWD");
+	ret = mod_eval((t_env *)tmp_list->data, ft_strdup(old_pwd));
+	tmp_list = get_elist(env_list, "PWD");
+	ret = mod_eval((t_env *)tmp_list->data, ft_strdup(getcwd(cwd, PATH_MAX)));
+	return (ret);
+}
+	
+int			sh_bti_cd(char **args, t_list *env_list)
+{
+	char	*path;
+	char	*old_pwd;
+	int		ret;
+
+	ret = 0;
+	if (args[1])
+	{
+		printf("cd: string not in pwd: %s\n", args[0]);
+		return (1);
+	}
+	if (!(path = get_path(args[0], env_list)))
+		return (1);
 	old_pwd = get_eval(env_list, "PWD"); 
-	if (!(path = get_path(args, env_list)))
+	if (ft_strncmp(path, "", ft_strlen(path)) && chdir(path) == -1)
+	{
+		printf("cd: no such file or directory: %s\n", path);
 		ret = 1;
-	if (ret == 0 && path) 
-	{
-		if (chdir(path))
-		{
-			printf("cd: no such file or directory: %s\n", path);
-			ret = 1;
-		}
-		free(path);
 	}
-	if (ret == 0)
-	{
-		tmp_list = get_elist(env_list, "OLDPWD");
-		ret = mod_eval((t_env *)tmp_list->data, ft_strdup(old_pwd));
-		printf("%s\n", get_eval(env_list, "OLDPWD"));
-		tmp_list = get_elist(env_list, "PWD");
-		ret = mod_eval((t_env *)tmp_list->data, ft_strdup(getcwd(cwd, PATH_MAX)));
-	}
+	free(path);
+	if (!ret)
+		ret = renew_pwd(old_pwd, env_list);
 	return (ret);
 }
