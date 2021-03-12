@@ -1,100 +1,83 @@
 #include "../incs/minishell.h"
-#if 0
-static int	is_n_flag(char *str)
-{
-	int ret;
-	int idx;
 
-	ret = 0;
+#if 0
+char	*get_squote_part(char **str)
+{
+}
+#endif
+
+int		is_squote(char c)
+{
+	if (c == '\'')
+		return (1);
+	return (0);
+}
+
+int		is_dquote(char c)
+{
+	if (c == '\"')
+		return (1);
+	return (0);
+}
+
+static char	*get_dquote_part(char **str_addr, t_list *env_list)
+{
+	int		idx;
+	char	*str;
+	char	*prev_ret;
+	char	*tmp;
+	char	*ret;
+
+	str = *str_addr;
 	idx = 0;
-	if (str[idx] == '-')
-		ret = 1;
-	while (ret == 1 && str[++idx])
+	if (!is_dquote(str[idx++]))
+		return (NULL);
+	ret = ft_strdup("");
+	prev_ret = ret;
+	while (!is_dquote(str[idx]))
 	{
-		if (str[idx] != 'n')
-			ret = 0;
+		if (str[idx] == '$')
+			tmp = get_dollar_eval(&str[idx], env_list, &idx);
+		else
+			tmp = change_char2str(str[idx++]);
+		ret = ft_strjoin(ret, tmp);
+		free(prev_ret);
+		prev_ret = ret;
+		free(tmp);
 	}
+	*str_addr = *str_addr + idx + 1;
+	return (ret);	
+}
+
+char	*get_part(char *arg, t_list *env_list)
+{
+	char	*ret;
+	char	*tmp;
+
+	while (*arg)
+	{
+		if (is_dquote(*arg))
+		{
+			tmp = get_dquote_part(&arg, env_list);	
+			printf("after double quote: %s\n", arg);
+		}
+		++arg;
+	}
+	ret = tmp;
 	return (ret);
 }
 
-static int	get_dollar_len(char *arg)
-{
-	int		idx;
-	int		len;
-	char	*var;
-	char	*ret;
-
-	idx = -1;
-	len = 0;
-	while (arg[++idx] && arg[idx] != '\'' && arg[idx] != '\"' && arg[idx] != '$')
-		len++;
-	return (len);
-}
-
-static int print_with_var(char *arg, t_list *env_list)
-{
-	char	*var;
-	int		len;
-
-	if (!(var = get_dollar_eval(arg, env_list)))
-		return (0);
-	write (STDOUT_FILENO, var, ft_strlen(var));
-	return (get_dollar_len(arg));
-}
-
-static int	handle_arg(char *buf, char *arg, t_list *env_list)
-{
-	int idx;
-	int	buf_idx;
-	int	s_flag;
-	int	d_flag;
-
-	s_flag = 0;
-	d_flag = 0;
-	idx = -1;
-	buf_idx = 0;
-	while (arg[++idx])
-	{
-		if (d_flag == 0 && s_flag == 0 && arg[idx] == '\'')
-			s_flag = 1;
-		else if (d_flag == 0 && s_flag == 1 && arg[idx] == '\'')
-			s_flag = 0;
-		else if (s_flag == 0 && d_flag == 0 && arg[idx] == '\"')
-			d_flag = 1;
-		else if (s_flag == 0 && d_flag == 1 && arg[idx] == '\"')
-			d_flag = 0;
-		else if (arg[idx] == '$' && s_flag == 0)
-			idx += print_with_var(&arg[idx + 1], env_list);
-			idx += get_dollar_len(&arg[idx + 1]);
-		else
-			buf[buf_idx++] = arg[idx];
-	}
-	return (0);
-}
-#endif
-
 int	sh_bti_echo(char **args, t_list *env_list)
 {
-#if 0
-	int		ret;
-	int		idx;
-	int		n_flag;
-	char	buf[BUF_SIZE];
+	int	idx;
 
-	ret = 0;
-	n_flag = 0;
 	idx = -1;
-	while (args[++idx] && is_n_flag(args[idx]))
-		n_flag = 1;
-	while (args[idx])
+	while (args[++idx])
 	{
-		handle_arg(buf, args[idx], env_list);
-		if (args[idx + 1])
-			write(1, " ", 1);
-		idx++;
+		if (idx >= 1)
+			break;
+		char *tmp = get_part(args[idx], env_list);
+		write(STDOUT_FILENO, tmp, ft_strlen(tmp));
 	}
-	if (!n_flag)
-		write(1, "\n", 1);
-#endif
 	return (0);
 }

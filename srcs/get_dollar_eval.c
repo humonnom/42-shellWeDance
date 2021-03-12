@@ -3,15 +3,13 @@
 static int	is_finish_cond(char c)
 {
 	if (c == '\"')
-		return (1);
-	if (c == '\'')
-		return (1);
+		return (1); if (c == '\'') return (1);
 	if (c == ' ')
 		return (1);
 	return (0);
 }
 
-static int	inc_part(char *part)
+static int	get_word_len(char *part)
 {
 	int	ret;
 
@@ -25,30 +23,26 @@ static int	inc_part(char *part)
 	return (ret);
 }
 
-char	*get_dollar_eval(char **part_addr, t_list *env_list)
+char	*get_dollar_eval(char *part, t_list *env_list, int *idx)
 {
 	char	*ret;
-	int		len;
-	char	*part;
+	int		word_len;
 	int		dollor_eval_len;
 	char	*tmp_key;
 
-	part = *part_addr;
 	if (part[0] != '$')
 		return (NULL);
-	len = inc_part(*part_addr);
+	word_len = get_word_len(part);
 	//$
-	if (len == 0)
-	{
-		*part_addr = *part_addr + 1;
-		return (ft_strdup("$"));	
-	}
+	if (word_len == 1)
+		return (ft_strdup("$"));
 	//$$
 	//$?
 	//$HOME
-	*part_addr = *part_addr + len;
-	tmp_key = ft_substr(part, 1, len - 1);
-	ret = get_eval(env_list, tmp_key);
+	tmp_key = ft_substr(part, 1, word_len - 1);
+	ret = ft_strdup(get_eval(env_list, tmp_key));
+	*idx = *idx + word_len;
 	free(tmp_key);
+	tmp_key = NULL;
 	return (ret);
 }
