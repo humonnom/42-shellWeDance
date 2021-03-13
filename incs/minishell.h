@@ -244,11 +244,6 @@ int					sh_bti_env(t_list *env_list);
 int					sh_bti_pwd(char **args);
 
 /*
-** sh_bti_cd.c
-*/
-int					sh_bti_cd(char **args, t_list *env_list);
-
-/*
 ** sh_bti_echo.c
 */
 int					sh_bti_echo(char **args, t_list *env_list);
@@ -287,9 +282,11 @@ int					is_squote(char c);
 int					is_dquote(char c);
 
 /*
-** get_part.c
+** handle_arg.c
 */
-char				*get_part(char *arg, t_list *env_list);
+char				*handle_arg(
+					char *arg,
+					t_list *env_list);
 #endif
 
 #if 0

@@ -29,14 +29,13 @@ SRC =	main \
 		sh_bti_export \
 		sh_bti_unset \
 		sh_bti_env \
-		sh_bti_cd \
-		sh_bti_pwd \
 		sh_bti_echo \
 		get_max_strlen \
 		get_dollar_eval \
 		change_char2str \
 		is_squote \
-		is_dquote
+		is_dquote \
+		handle_arg \
 #		export_env \
 #	  	pk_lst \
 	#	parse_env \

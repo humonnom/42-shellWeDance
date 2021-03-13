@@ -16,10 +16,10 @@ int	select_sh_bti(t_info *info)
 		ret = sh_bti_unset(args, info);
 	if (!ft_strncmp(cmd, "env", get_max_strlen(cmd, "env")))
 		ret = sh_bti_env(info->env_list);
-	if (!ft_strncmp(cmd, "cd", get_max_strlen(cmd, "cd")))
-		ret = sh_bti_cd(args, info->env_list);
-	if (!ft_strncmp(cmd, "pwd", get_max_strlen(cmd, "pwd")))
-		ret = sh_bti_pwd(args);
+//	if (!ft_strncmp(cmd, "cd", get_max_strlen(cmd, "cd")))
+//		ret = sh_bti_cd(args, info->env_list);
+//	if (!ft_strncmp(cmd, "pwd", get_max_strlen(cmd, "pwd")))
+//		ret = sh_bti_pwd(args);
 	if (!ft_strncmp(cmd, "echo", get_max_strlen(cmd, "echo")))
 		ret = sh_bti_echo(args, info->env_list);
 //cd
