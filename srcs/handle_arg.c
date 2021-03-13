@@ -39,12 +39,11 @@ static char	*handle_squote_part(char **str_addr)
 
 	str = *str_addr;
 	idx = 0;
-	printf("in get_squote: %s\n", str);
 	if (!is_squote(str[idx++]))
 		return (NULL);
 	while (!is_squote(str[idx]))
 		++idx;
-	ret = ft_substr(str, 1, idx);
+	ret = ft_substr(str, 1, idx - 1);
 	*str_addr = *str_addr + idx;
 	return (ret);	
 }
@@ -88,25 +87,15 @@ char	*handle_arg(char *arg, t_list *env_list)
 
 	ret = ft_strdup("");
 	prev_ret = ret;
-	while (*arg)
+	while (arg && *arg)
 	{
 		if (is_dquote(*arg))
-		{
 			tmp = handle_dquote_part(&arg, env_list);	
-			printf("tmp: %s\n", tmp);
-			printf("after double quote: %s\n", arg);
-		}
 		else if (is_squote(*arg))
-		{
 			tmp = handle_squote_part(&arg);	
-			printf("tmp: %s\n", tmp);
-			printf("after single quote: %s\n", arg);
-		}
 		else
 		{
 			tmp = handle_nquote_part(&arg, env_list);
-			printf("tmp: %s\n", tmp);
-			printf("after none quote: %s\n", arg);
 			if (*arg == '\0')
 				--arg;
 		}

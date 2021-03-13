@@ -267,7 +267,12 @@ char				*get_dollar_eval(
 int					sh_bti_echo(char **args, t_list *env_list);
 
 /*
-** sh_bti_echo.c
+** sh_bti_cd.c
+*/
+int					sh_bti_cd(char **args, t_list *env_list);
+
+/*
+** change_char2str.c
 */
 char				*change_char2str(char c);
 

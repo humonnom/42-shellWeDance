@@ -49,7 +49,7 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-	//run(&info);
+	run(&info);
 #if 0 // get_dollar_eval test
 	char *test = "$HOME abc";
 	char *ret = get_dollar_eval(&test, info.env_list);
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *env[])
 	printf("ret: %s\n", ret);
 #endif
 
-#if 1
+#if 0
 	char arg1[100] = "\"abc$HOME $HOMEdef\"\'abc\'efg";
 	//char arg1[100] = "\"abc$HOME $HOMEdef\"\'ghi\'";
 	//char arg1[100] = "\"abc def\"\'abc\'";
@@ -66,6 +66,13 @@ int main(int argc, char *argv[], char *env[])
 	sh_bti_echo(args, info.env_list);
 #endif
 	
+#if 0
+	char arg1[100] = "\"-\"";
+	char arg2[100] = "\"abc$HOME $HOMEdef\"\'ghi\'";
+	char arg3[100] = "\"abc def\"\'abc\'";
+	char *args[2] = {NULL, NULL};
+	sh_bti_cd(args, info.env_list);
+#endif
 	
 #if 0
 	char *set_ex = "test=abcd====\"\"===";
