@@ -5,6 +5,7 @@ static char	*get_bti_path(char *cand, char *cmd)
 	DIR				*dir_name;
 	struct dirent	*item;
 	char			*ret;
+	char			*tmp;
 
 	ret = NULL;
 	if(!(dir_name = opendir(cand)))
@@ -14,7 +15,9 @@ static char	*get_bti_path(char *cand, char *cmd)
 		if (!ft_strncmp(item->d_name, cmd, ft_strlen(item->d_name)))
 		{
 			ret = ft_strjoin(cand, "/");
+			tmp = ret;
 			ret = ft_strjoin(ret, item->d_name); 
+			free(tmp);
 			return (ret);
 		}
 	}
@@ -22,7 +25,30 @@ static char	*get_bti_path(char *cand, char *cmd)
 	return (ret);
 }
 
-int	run_bti(t_info *info)
+static	int	control_process(
+			char *bti_path,
+			char **set_arr,
+			char **env_arr)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		//printf("This is Child. PID: %d\n", pid);
+		execve(bti_path, set_arr, env_arr);
+	}
+	else if (pid > 0)
+	{
+		//printf("This is Parents. PID: %d\n", pid);
+		wait((int *) 0);
+	}
+	else
+		return (1);
+	return (0);
+}
+
+int			run_bti(t_info *info)
 {
 	char	*func_path;
 	char	**cand_arr;
@@ -41,7 +67,9 @@ int	run_bti(t_info *info)
 			break ;
 	}
 	env_arr = cvt_list_to_arr(info->env_list);
-	execve(bti_path, info->set->set, env_arr);
+	printf("bti_path: %s\n", bti_path);
+	if (control_process(bti_path, info->set->set, env_arr))
+		return (1);
 	free_darr(env_arr, INF);
 	free_darr(cand_arr, INF);
 	return (0);

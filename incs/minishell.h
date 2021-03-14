@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <dirent.h>
 # include <unistd.h>
+# include <sys/types.h>
 
 // head of data is cmd
 typedef struct		s_env

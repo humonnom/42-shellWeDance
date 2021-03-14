@@ -3,27 +3,21 @@
 int categorize_cmd(t_info *info)
 {
 	int		ret;
+	int		run_check;
 	int		idx;
 
-	ret = 0;
+	ret = 1;
+	run_check = 0;
 	if (del_quote(&(info->set->set[0])))
 	{
 		printf("ERROR: trim_cmd malloc error\n");
 		return (1);
 	}
 	info->set->cmd = info->set->set[0];
-	if (select_sh_bti(info))
-	{
-		printf("ERROR: select_shell_bti error\n");
-		return (-1);
-	}
-#if 0
-	else if (run_bti(info))
-	{
-		printf("ERROR: run_bti error\n");
-		return (-1);
-	}
-#endif
+	if (!(ret = select_sh_bti(info)))
+		printf("SHELL BUILTIN CASE\n");
+	else if (ret && !(ret = run_bti(info)))
+		printf("BUILTIN CASE\n");
 
 	//if(bti_path) -> fork
 	//else bti_path is NULL -> show error message.

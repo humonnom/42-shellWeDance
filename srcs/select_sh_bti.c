@@ -7,7 +7,7 @@ int	select_sh_bti(t_info *info)
 	int		ret;
 	int		cmp_len;
 	
-	ret = 0;
+	ret = 1;
 	cmd = info->set->cmd;
 	args = info->set->args;
 	if (!ft_strncmp(cmd, "export", get_max_strlen(cmd, "export")))
@@ -22,12 +22,7 @@ int	select_sh_bti(t_info *info)
 		ret = sh_bti_pwd(args);
 	if (!ft_strncmp(cmd, "echo", get_max_strlen(cmd, "echo")))
 		ret = sh_bti_echo(args, info->env_list);
-//cd
-//echo
-//pwd
 //exit
-//export
 //unset
-//env
 	return (ret);
 }
