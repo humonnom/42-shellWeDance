@@ -29,6 +29,7 @@ typedef struct		s_info
 	t_set			*set;
     int     		exit;
     int     		ret;
+	int				dollar_ret;
 }           		t_info;
 
 #define BIT_SQUOTE 1
