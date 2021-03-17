@@ -40,7 +40,9 @@ SRC =	main \
 		handle_arg \
 		handle_sig_init \
 		handle_sig_proc \
-		display_prompt
+		display_prompt \
+		exit_shell \
+		del_env \
 #		export_env \
 #	  	pk_lst \
 	#	parse_env \

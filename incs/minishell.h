@@ -168,6 +168,11 @@ void				free_elist(t_list *list_head);
 /*
 ** free_elist.c
 */
+void				del_env(void *tar);
+
+/*
+** free_elist.c
+*/
 void				free_set(t_set *set);
 
 /*
@@ -310,6 +315,12 @@ void				handle_sig_proc(int pid);
 ** display_prompt.c
 */
 void				display_prompt();
+
+/*
+** exit_shell.c
+*/
+int					exit_shell(t_info *info);
+
 #endif
 
 #if 0

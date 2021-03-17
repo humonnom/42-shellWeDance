@@ -50,7 +50,8 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);
-#if 0 // get_dollar_eval test
+#if 0
+ // get_dollar_eval test
 	char *test = "$HOME abc";
 	char *ret = get_dollar_eval(&test, info.env_list);
 	printf("part: %s\n", test);
@@ -86,5 +87,9 @@ int main(int argc, char *argv[], char *env[])
 
 	//need to make free_slist, free_alist
 	//free_all_elist(&(info.env_list));
+	//print_elist(info.env_list);
+	exit_shell(&info);
+	while (1)
+		;
 	return (0);
 }
