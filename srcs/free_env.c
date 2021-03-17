@@ -1,20 +1,14 @@
 #include "../incs/minishell.h"
 
-void	free_env(t_env *env)
+void	free_env(void *tar)
 {
-	if (env->key)
-	{
-		free(env->key);
-		env->key = NULL;
-	}
-	if (env->val)
-	{
-		free(env->val);
-		env->val = NULL;
-	}
-	if (env)
-	{
-		free(env);
-		env = NULL;
-	}
+	t_env *env;
+
+	env = (t_env *)tar;
+	free(env->key);
+	env->key = NULL;
+	free(env->val);
+	env->val = NULL;
+	free(env);
+	env = NULL;
 }

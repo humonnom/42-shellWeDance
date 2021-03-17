@@ -187,7 +187,7 @@ t_env				*get_env(char *set);
 /*
 ** free_env.c
 */
-void				free_env(t_env *env);
+void				free_env(void *env);
 
 /*
 ** categorize_cmd.c
@@ -294,6 +294,11 @@ int					is_dquote(char c);
 char				*handle_arg(
 					char *arg,
 					t_list *env_list);
+
+/*
+** exit_shell.c
+*/
+int					exit_shell(t_info *info);
 #endif
 
 #if 0

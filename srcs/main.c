@@ -86,5 +86,6 @@ int main(int argc, char *argv[], char *env[])
 
 	//need to make free_slist, free_alist
 	//free_all_elist(&(info.env_list));
+	exit_shell(&info);
 	return (0);
 }
