@@ -29,11 +29,10 @@ int sh_bti_echo(char **args, t_list *env_list)
     idx--;
     while (args[++idx])
     {
+        if (idx >= 1)
+            break;
         char *tmp = handle_arg(args[idx], env_list);
         write(STDOUT_FILENO, tmp, ft_strlen(tmp));
-		if (args[idx + 1] != 0)
-			write(1, " ", 1);
-		free(tmp);
     }
     if (!n_flag)
         write(1, "\n", 1);
