@@ -4,15 +4,16 @@ static void	sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-//		if (in process : blocking command)
-//			stop process(minishell is still running)
+		//remove signal, and change line
 		ft_putstr_fd("\b\b  \n", 2);
 		display_prompt();
-//		change dollar_ret;
+		//change dollar_ret;
 	}
 	if (signo == SIGQUIT)
 	{
-		ft_putstr_fd("\b\b  \n", 2);
+		//remove signal(nothing to change on the screen)
+		ft_putstr_fd("\b\b  \b\b", 1);
+		//do nothing
 	}
 
 }
