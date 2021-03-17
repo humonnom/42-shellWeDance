@@ -168,11 +168,6 @@ void				free_elist(t_list *list_head);
 /*
 ** free_elist.c
 */
-void				del_env(void *tar);
-
-/*
-** free_elist.c
-*/
 void				free_set(t_set *set);
 
 /*
@@ -193,7 +188,7 @@ t_env				*get_env(char *set);
 /*
 ** free_env.c
 */
-void				free_env(t_env *env);
+void				free_env(void *env);
 
 /*
 ** categorize_cmd.c

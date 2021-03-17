@@ -15,10 +15,11 @@ t_set *parse_set(char *set_str)
 		error_num = turn_on_bit(error_num, 0);
 	if (!(tmp_set = pk_split(set_str, set_str_cpy, ' ', INF)))
 		error_num = turn_on_bit(error_num, 1);
+	free(set_str_cpy);
 	if (!(ret = (t_set *)malloc(sizeof(t_set))))
 		return (NULL);
 	ret->set = tmp_set;
-	ret->cmd = tmp_set[0];
+	ret->cmd = ft_strdup(tmp_set[0]);
 	ret->args = &tmp_set[1];
 	if (error_num)
 		return (NULL);

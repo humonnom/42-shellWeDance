@@ -6,5 +6,5 @@ void	free_elist(t_list *list_head)
 
 	tmp = list_head;
 	list_head->data = NULL;
-	ft_lstdelone(tmp, &del_env);
+	ft_lstdelone(tmp, &free_env);
 }

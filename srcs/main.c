@@ -1,5 +1,4 @@
 #include "../incs/minishell.h"
-
 //memory free about set
 void change_head(t_info *info)
 {

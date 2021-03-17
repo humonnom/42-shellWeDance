@@ -13,5 +13,6 @@ int	inc_shlvl(t_list **env_head)
 	if (mod_eval(tmp_env, new_val))
 		return (1);
 	free(new_val);
+	new_val = NULL;
 	return (0);
 }
