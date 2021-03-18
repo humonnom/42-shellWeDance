@@ -4,8 +4,7 @@ static char	*handle_nquote_part(
 			char **str_addr,
 			t_list *env_list)
 {
-	int		idx;
-	char	*str;
+	int		idx; char	*str;
 	char	*prev_ret;
 	char	*tmp;
 	char	*ret;

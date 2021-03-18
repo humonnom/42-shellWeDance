@@ -30,7 +30,6 @@ void	add_args(char **args, char **buf) {
 }
 #endif
 
-
 int run(t_set *set, char **env)
 {
 	pid_t	pid;
@@ -43,6 +42,7 @@ int run(t_set *set, char **env)
 	if (set->type == TYPE_PIPE || (set->prev && set->prev->type == TYPE_PIPE))
 	{
 		pipe_open = 1;
+		// both set1 and set2 use pipe function to connect fds[0], fds[1]
 		pipe(set->fds);
 	}
 	pid = fork();
@@ -51,8 +51,10 @@ int run(t_set *set, char **env)
 	else if (pid == 0)
 	{
 		printf("child process========================\n");
+		// fds[1] of set1 has result of ls -al
 		if (set->type == TYPE_PIPE)
 			dup2(set->fds[1], STDOUT_FILENO);
+		// fds[0] of set1 has input of ls -al for grep
 		if (set->prev && (set->prev->type == TYPE_PIPE))
 			dup2(set->prev->fds[0], STDIN_FILENO);
 		if ((ret = execve(set->args[0], set->args, env) < 0))
@@ -65,11 +67,16 @@ int run(t_set *set, char **env)
 		waitpid(pid, &status, 0);
 		if (pipe_open)
 		{
+			// close fds[1] of set1 
+			// close fds[1] of set2
 			close(set->fds[1]);
+			// fds[0] of set1 is still open
 			if (!set->next || set->type == TYPE_BREAK)
+				// fds[0] of set2 is closed
 				close(set->fds[0]);
 		}
 		if (set->prev && set->prev->type == TYPE_PIPE)
+			// fds[0] of set1 is closed
 			close(set->prev->fds[0]);
 		printf("parent process finished==============\n");
 	}
@@ -77,7 +84,6 @@ int run(t_set *set, char **env)
 }
 
 int main(int argc, char *argv[], char *env[]) {
-
 	t_set	set1;
 	set1.args[0] = "/bin/ls";
 	set1.args[1] = "-al";

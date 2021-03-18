@@ -17,6 +17,8 @@ int categorize_cmd(t_info *info)
 		printf("SHELL BUILTIN CASE\n");
 	else if (ret && !(ret = run_bti(info)))
 		printf("BUILTIN CASE\n");
+	else
+		printf("ELSE CASE\n");
 
 	return (ret);
 }

@@ -6,12 +6,12 @@ static char	*handle_shortcut(char *arg, t_list *env_list)
 	char	*ret;
 
 	ret = arg;
-	if (!ft_strlen(ret) || !(ft_strncmp(ret, "~", get_max_strlen(ret, "~"))))
+	if (!ft_strlen(ret) || !exact_strncmp(ret, "~"))
 	{
 		free(ret);
 		ret = ft_strdup(get_eval(env_list, "HOME"));
 	}
-	else if (!(ft_strncmp(ret, "-", get_max_strlen(ret, "-"))))
+	else if (!exact_strncmp(ret, "-"))
 	{
 		free(ret);
 		ret = ft_strdup(get_eval(env_list, "OLDPWD"));

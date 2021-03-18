@@ -299,6 +299,11 @@ char				*handle_arg(
 ** exit_shell.c
 */
 int					exit_shell(t_info *info);
+
+/*
+** exact_strncmp.c
+*/
+int					exact_strncmp(char *str1, char *str2);
 #endif
 
 #if 0

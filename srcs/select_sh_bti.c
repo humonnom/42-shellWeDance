@@ -10,17 +10,17 @@ int	select_sh_bti(t_info *info)
 	ret = 1;
 	cmd = info->set->cmd;
 	args = info->set->args;
-	if (!ft_strncmp(cmd, "export", get_max_strlen(cmd, "export")))
+	if (!exact_strncmp(cmd, "export"))
 		ret = sh_bti_export(args, info);
-	if (!ft_strncmp(cmd, "unset", get_max_strlen(cmd, "unset")))
+	if (!exact_strncmp(cmd, "unset"))
 		ret = sh_bti_unset(args, info);
-	if (!ft_strncmp(cmd, "env", get_max_strlen(cmd, "env")))
+	if (!exact_strncmp(cmd, "env"))
 		ret = sh_bti_env(info->env_list);
-	if (!ft_strncmp(cmd, "cd", get_max_strlen(cmd, "cd")))
+	if (!exact_strncmp(cmd, "cd"))
 		ret = sh_bti_cd(args, info->env_list);
-	if (!ft_strncmp(cmd, "pwd", get_max_strlen(cmd, "pwd")))
+	if (!exact_strncmp(cmd, "pwd"))
 		ret = sh_bti_pwd(args);
-	if (!ft_strncmp(cmd, "echo", get_max_strlen(cmd, "echo")))
+	if (!exact_strncmp(cmd, "echo"))
 		ret = sh_bti_echo(args, info->env_list);
 //exit
 //unset

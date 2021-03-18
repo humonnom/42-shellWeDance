@@ -12,7 +12,7 @@ static char	*get_bti_path(char *cand, char *cmd)
 		return (NULL);
 	while ((item = readdir(dir_name)))
 	{
-		if (!ft_strncmp(item->d_name, cmd, ft_strlen(item->d_name)))
+		if (!exact_strncmp(item->d_name, cmd))
 		{
 			ret = ft_strjoin(cand, "/");
 			tmp = ret;

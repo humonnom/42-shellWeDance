@@ -28,6 +28,7 @@ int run(t_info *info)
 			if (!(info->set_list = parse_line(line)))
 				return -1;
 		}
+		// pipe redirection
 		if (!(info->set = parse_set(info->set_list->data)))
 		{
 			printf("ERROR: info->set is empty!\n");

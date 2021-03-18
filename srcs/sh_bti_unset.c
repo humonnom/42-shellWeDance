@@ -7,7 +7,7 @@ static int	cmp_key(t_list *env_list, char *key2)
 
 	tmp_env = (t_env *)(env_list->data);
 	key = tmp_env->key;
-	return (ft_strncmp(key, key2, ft_strlen(key2)));
+	return (exact_strncmp(key, key2));
 }
 
 static void	del_elist_if(

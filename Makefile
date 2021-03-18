@@ -39,6 +39,7 @@ SRC =	main \
 		is_dquote \
 		handle_arg \
 		exit_shell \
+		exact_strncmp \
 #		export_env \
 #	  	pk_lst \
 	#	parse_env \
