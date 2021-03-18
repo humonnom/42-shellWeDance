@@ -1,4 +1,4 @@
-#include "../../incs/minishell.h"
+#include "../incs/minishell.h"
 
 t_list	*gen_elist(char **str)
 {

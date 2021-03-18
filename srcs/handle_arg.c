@@ -20,7 +20,7 @@ static char	*handle_nquote_part(
 		if (str[idx] == '$')
 			tmp = get_dollar_eval(&str[idx], env_list, &idx);
 		else
-			tmp = change_char2str(str[idx++]);
+			tmp = cvt_char_to_str(str[idx++]);
 		ret = ft_strjoin(ret, tmp);
 		free(prev_ret);
 		prev_ret = ret;
@@ -68,7 +68,7 @@ static char	*handle_dquote_part(
 		if (str[idx] == '$')
 			tmp = get_dollar_eval(&str[idx], env_list, &idx);
 		else
-			tmp = change_char2str(str[idx++]);
+			tmp = cvt_char_to_str(str[idx++]);
 		ret = ft_strjoin(ret, tmp);
 		free(prev_ret);
 		prev_ret = ret;

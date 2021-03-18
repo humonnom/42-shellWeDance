@@ -10,4 +10,5 @@ void	print_set(t_set *set)
 	{
 		printf("arg[%d]: %s\n", idx, set->args[idx]);
 	}
+	printf("type: %d\n", set->type);
 }

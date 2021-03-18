@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-char	*change_char2str(char c)
+char	*cvt_char_to_str(char c)
 {
 	char	*ret;
 

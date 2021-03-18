@@ -1,6 +1,6 @@
-#include "../../incs/minishell.h"
+#include "../incs/minishell.h"
 
-int	get_list(
+int	set_darr_to_list(
 	t_list **list_head,
 	char **str)
 {

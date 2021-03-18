@@ -1,4 +1,4 @@
-#include "../../incs/minishell.h"
+#include "../incs/minishell.h"
 
 int			mod_elist(
 			t_list **list_head,

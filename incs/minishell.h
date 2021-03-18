@@ -8,6 +8,9 @@
 # include <unistd.h>
 # include <sys/types.h>
 
+# define TYPE_PIPE 1
+# define TYPE_BREAK 2
+
 // head of data is cmd
 typedef struct		s_env
 {
@@ -20,12 +23,15 @@ typedef struct		s_set
 	char			**set;
 	char			*cmd;
 	char			**args;
+	int				type;
+	int				fds[2];
 }					t_set;
 
 typedef struct		s_info
 {
 	t_list			*env_list;
 	t_list			*set_list;
+	t_list			*set_str_list;
 	t_set			*set;
     int     		exit;
     int     		ret;
@@ -126,13 +132,6 @@ int					mod_elist(
 					char *val);
 
 /*
-** handle_list_index.c
-*/
-int					get_list_index(
-					t_list *list_head,
-					char *target);
-
-/*
 ** print_list.c
 */
 void				print_list(
@@ -147,7 +146,7 @@ void				print_set(t_set *set);
 ** print_slist.c
 */
 void				print_slist(
-					t_list *set_list);
+					t_list *head);
 
 /*
 ** print_elist.c
@@ -167,7 +166,7 @@ void				free_elist(t_list *list_head);
 /*
 ** free_elist.c
 */
-void				free_set(t_set *set);
+void				free_set(void *_set);
 
 /*
 ** parse_line.c
@@ -175,9 +174,9 @@ void				free_set(t_set *set);
 t_list				*parse_line(char *line);
 
 /*
-** parse_set.c
+** get_set.c
 */
-t_set				*parse_set(char *set_str);
+t_set				*get_set(char *set_str);
 
 /*
 ** get_env.c
@@ -187,12 +186,14 @@ t_env				*get_env(char *set);
 /*
 ** free_env.c
 */
-void				free_env(void *env);
+void				free_env(void *_env);
 
 /*
 ** categorize_cmd.c
 */
-int					categorize_cmd(t_info *info);
+int					categorize_cmd(
+					t_set *set,
+					t_list *env_list);
 
 /*
 ** del_quote.c
@@ -202,7 +203,7 @@ int					del_quote(char **str);
 /*
 ** cvt_list_to_arr
 */
-char				**cvt_list_to_arr(t_list *env_list);
+char				**set_list_to_darr(t_list *env_list);
 
 /*
 ** print_darr
@@ -217,23 +218,27 @@ char				**free_darr(char **tab, int limit);
 /*
 ** select_sh_bti.c
 */
-int					select_sh_bti(t_info *info);
+int					select_sh_bti(
+					t_set *set,
+					t_list *env_list);
 
 /*
 ** run_bti.c
 */
-int					run_bti(t_info *info);
+int					run_bti(
+					t_set *set,
+					t_list *env_list);
 
 /*
 ** sh_bti_export.c
 */
 int					sh_bti_export(	
 					char **args,
-					t_info *info);
+					t_list *env_list);
 
 int					sh_bti_unset(
 					char **args,
-					t_info *info);
+					t_list *env_list);
 
 /*
 ** sh_bti_env.c
@@ -274,9 +279,9 @@ int					sh_bti_echo(char **args, t_list *env_list);
 int					sh_bti_cd(char **args, t_list *env_list);
 
 /*
-** change_char2str.c
+** cvt_char_to_str.c
 */
-char				*change_char2str(char c);
+char				*cvt_char_to_str(char c);
 
 /*
 ** is_squote.c
@@ -304,6 +309,17 @@ int					exit_shell(t_info *info);
 ** exact_strncmp.c
 */
 int					exact_strncmp(char *str1, char *str2);
+
+/*
+** get_list.c
+*/
+int					set_darr_to_list(
+					t_list **list_head,
+					char **str);
+/*
+** parse_set_list.c
+*/
+t_list				*parse_set(char *line);
 #endif
 
 #if 0

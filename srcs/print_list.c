@@ -1,4 +1,4 @@
-#include "../../incs/minishell.h"
+#include "../incs/minishell.h"
 
 void	print_list(t_list *head)
 {

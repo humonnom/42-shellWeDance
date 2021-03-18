@@ -1,27 +1,50 @@
 #include "../incs/minishell.h"
 
-t_set *parse_set(char *set_str)
+t_list	*gen_slist(char **str)
 {
-    char	*set_str_cpy;
-    int		error_num;
-	char	**tmp_set;
-	t_set	*ret;
-	
+	int		error_num;
+	int		idx;
+	t_set	*tmp_set;
+	t_list	*ret;
+
 	ret = NULL;
-    error_num = 0;
-    if (!(set_str_cpy = ft_strdup(set_str)))
+	error_num = 0;
+	idx = -1;
+	while (error_num == 0 && str[++idx])
+	{
+		if (!(tmp_set = get_set(str[idx])))
+			error_num = 1;
+		if (str[idx + 1] == 0)
+			tmp_set->type = TYPE_BREAK;
+		else
+			tmp_set->type = TYPE_PIPE;
+		print_set(tmp_set);
+		ft_lstadd_back(&ret, ft_lstnew(tmp_set));
+	}
+	return (ret);
+}
+
+// generate set_list having data as set
+t_list	*parse_set(char *line)
+{
+	char	*line_cpy;
+	char	**line_part;
+	t_list	*ret;
+	int		error_num;
+
+	ret = NULL;
+	error_num = 0;
+	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
-	if (handle_quote(set_str, &set_str_cpy, ' ') > 0)
+	if (handle_quote(line, &line_cpy, '|'))
 		error_num = turn_on_bit(error_num, 0);
-	if (!(tmp_set = pk_split(set_str, set_str_cpy, ' ', INF)))
+	if (!(line_part = pk_split(line, line_cpy, '|', INF)))
 		error_num = turn_on_bit(error_num, 1);
-	free(set_str_cpy);
-	if (!(ret = (t_set *)malloc(sizeof(t_set))))
-		return (NULL);
-	ret->set = tmp_set;
-	ret->cmd = ft_strdup(tmp_set[0]);
-	ret->args = &tmp_set[1];
+	ret = gen_slist(line_part);	
+	free (line_cpy);
+	if (!check_bit(error_num, 1))
+		free_darr(line_part, INF);
 	if (error_num)
 		return (NULL);
-    return (ret);
+	return (ret);
 }

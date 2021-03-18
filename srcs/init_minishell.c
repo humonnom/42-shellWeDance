@@ -4,6 +4,7 @@ static void			init_info(
 					t_info *info)
 {
 	info->set_list = NULL;
+	info->set_str_list = NULL;
 	info->env_list = NULL;
 	info->exit = 0;
 	info->ret = 0;
@@ -17,6 +18,7 @@ int					init_minishell
 	int ret;
 
 	ret = 0;
+	
 	init_info(info);
 	if (ret == 0)
 		if (!(info->env_list = gen_elist(env)))

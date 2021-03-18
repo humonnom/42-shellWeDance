@@ -5,11 +5,10 @@ void change_head(t_info *info)
 {
 	t_list *tmp;
 
-	tmp = (info->set_list)->next;
-	free_set(info->set);
-	// modified lstdelone to free data type -> data 
-	ft_lstdelone(info->set_list, &free);
-	info->set_list = tmp;
+	tmp = (info->set_str_list)->next;
+	//free_set(info->set);
+	ft_lstdelone(info->set_str_list, &free);
+	info->set_str_list = tmp;
 }
 
 int run(t_info *info)
@@ -20,22 +19,26 @@ int run(t_info *info)
 	while (info->exit == 0)
 	{
 		//init_sig();
-		if (info->set_list == NULL)
+		if (info->set_str_list == NULL)
 		{
 			if ((get_next_line(&line)) == -1)
 				return -1;
-			// get set list
-			if (!(info->set_list = parse_line(line)))
+			if (!(info->set_str_list = parse_line(line)))
 				return -1;
 		}
-		// pipe redirection
-		if (!(info->set = parse_set(info->set_list->data)))
+		info->set_list = parse_set(info->set_str_list->data);
+#if 1
+		tmp_list = info->set_list;	
+		//print_list(tmp_list);
+		while (tmp_list)
 		{
-			printf("ERROR: info->set is empty!\n");
-			return (-1);
-		} 
-		//print_set(info->set);
-		categorize_cmd(info);
+			info->set = tmp_list->data;	
+			//print_set(info->set);
+			categorize_cmd(info->set, info->env_list);
+			tmp_list = tmp_list->next;
+		}
+#endif
+		ft_lstclear(&(info->set_list), &free_set);
 		change_head(info);
 	}
 	return (0);
@@ -51,6 +54,11 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);
+
+	exit_shell(&info);
+	return (0);
+}
+
 #if 0 // get_dollar_eval test
 	char *test = "$HOME abc";
 	char *ret = get_dollar_eval(&test, info.env_list);
@@ -84,9 +92,3 @@ int main(int argc, char *argv[], char *env[])
 		return (-1);
 	printf("err_num: %d\n", err_num);
 #endif
-
-	//need to make free_slist, free_alist
-	//free_all_elist(&(info.env_list));
-	exit_shell(&info);
-	return (0);
-}

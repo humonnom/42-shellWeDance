@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-char	**cvt_list_to_arr(t_list *env_list)
+char	**set_list_to_darr(t_list *env_list)
 {
 	char	**ret;
 	int		idx;

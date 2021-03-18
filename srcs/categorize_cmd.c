@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-int categorize_cmd(t_info *info)
+int categorize_cmd(t_set *set, t_list *env_list)
 {
 	int		ret;
 	int		run_check;
@@ -8,14 +8,14 @@ int categorize_cmd(t_info *info)
 
 	ret = 1;
 	run_check = 0;
-	if (del_quote(&(info->set->cmd)))
+	if (del_quote(&(set->cmd)))
 	{
 		printf("ERROR: trim_cmd malloc error\n");
 		return (1);
 	}
-	if (!(ret = select_sh_bti(info)))
+	if (!(ret = select_sh_bti(set, env_list)))
 		printf("SHELL BUILTIN CASE\n");
-	else if (ret && !(ret = run_bti(info)))
+	else if (ret && !(ret = run_bti(set, env_list)))
 		printf("BUILTIN CASE\n");
 	else
 		printf("ELSE CASE\n");

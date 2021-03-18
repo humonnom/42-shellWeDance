@@ -15,9 +15,10 @@ SRC =	main \
 		del_quote \
 		get_eval \
 		parse_set \
+		get_set \
 		print_set \
 		free_set \
-		cvt_list_to_arr \
+		set_list_to_darr \
 		print_darr \
 		free_darr \
 		categorize_cmd \
@@ -34,29 +35,33 @@ SRC =	main \
 		sh_bti_pwd \
 		get_max_strlen \
 		get_dollar_eval \
-		change_char2str \
+		cvt_char_to_str \
 		is_squote \
 		is_dquote \
 		handle_arg \
 		exit_shell \
 		exact_strncmp \
-#		export_env \
-#	  	pk_lst \
-	#	parse_env \
-
-LIST =	gen_elist \
+		gen_elist \
 		get_elist \
 		mod_elist \
 		add_elist \
 		free_elist \
 		print_elist \
-		print_slist
-#get_list \
-		get_list_data \
+		print_slist \
+		set_darr_to_list \
+		print_list \
+
+
+LIST = 
+#		export_env \
+#	  	pk_lst \
+	#	parse_env \
+
+
+#		get_list_data \
 		get_list_index \
 		add_list_data \
 		mod_list_data \
-		print_list \
 
 SRCDIR = ./srcs
 SRCS = $(addsuffix .c, $(addprefix $(SRCDIR)/, $(SRC))) \
