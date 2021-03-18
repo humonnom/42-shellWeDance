@@ -255,6 +255,11 @@ int					sh_bti_pwd(char **args);
 int					sh_bti_echo(char **args, t_list *env_list);
 
 /*
+** sh_bti_exit.c
+*/
+int					sh_bti_exit(t_info *info);
+
+/*
 ** get_max_strlen.c
 */
 int					get_max_strlen(char *str1, char *str2);

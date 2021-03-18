@@ -32,6 +32,7 @@ SRC =	main \
 		sh_bti_echo \
 		sh_bti_cd \
 		sh_bti_pwd \
+		sh_bti_exit \
 		get_max_strlen \
 		get_dollar_eval \
 		change_char2str \

@@ -22,6 +22,8 @@ int	select_sh_bti(t_info *info)
 		ret = sh_bti_pwd(args);
 	if (!ft_strncmp(cmd, "echo", get_max_strlen(cmd, "echo")))
 		ret = sh_bti_echo(args, info->env_list);
+	if (!ft_strncmp(cmd, "exit", get_max_strlen(cmd, "exit")))
+		ret = sh_bti_exit(info);
 //exit
 //unset
 	return (ret);
