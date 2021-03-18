@@ -14,7 +14,6 @@ void change_head(t_info *info)
 int run(t_info *info)
 {
 	char	*line;
-	t_list	*tmp_list;
 
 	while (info->exit == 0)
 	{
@@ -28,14 +27,10 @@ int run(t_info *info)
 		}
 		info->set_list = parse_set(info->set_str_list->data);
 #if 1
-		tmp_list = info->set_list;	
-		//print_list(tmp_list);
-		while (tmp_list)
+		while (info->set_list)
 		{
-			info->set = tmp_list->data;	
-			//print_set(info->set);
-			categorize_cmd(info->set, info->env_list);
-			tmp_list = tmp_list->next;
+			run_cmd(info->set_list, info->env_list);
+			info->set_list = info->set_list->next;
 		}
 #endif
 		ft_lstclear(&(info->set_list), &free_set);

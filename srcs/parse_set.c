@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-t_list	*gen_slist(char **str)
+static t_list	*gen_slist(char **str)
 {
 	int		error_num;
 	int		idx;
@@ -18,14 +18,12 @@ t_list	*gen_slist(char **str)
 			tmp_set->type = TYPE_BREAK;
 		else
 			tmp_set->type = TYPE_PIPE;
-		print_set(tmp_set);
 		ft_lstadd_back(&ret, ft_lstnew(tmp_set));
 	}
 	return (ret);
 }
 
-// generate set_list having data as set
-t_list	*parse_set(char *line)
+t_list			*parse_set(char *line)
 {
 	char	*line_cpy;
 	char	**line_part;

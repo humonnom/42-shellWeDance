@@ -320,6 +320,13 @@ int					set_darr_to_list(
 ** parse_set_list.c
 */
 t_list				*parse_set(char *line);
+
+/*
+** run_cmd.c
+*/
+int					run_cmd(
+					t_list *set_list,
+					t_list *env_list);
 #endif
 
 #if 0

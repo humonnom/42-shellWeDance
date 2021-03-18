@@ -50,6 +50,7 @@ SRC =	main \
 		print_slist \
 		set_darr_to_list \
 		print_list \
+		run_cmd
 
 
 LIST = 

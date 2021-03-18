@@ -14,11 +14,13 @@ int categorize_cmd(t_set *set, t_list *env_list)
 		return (1);
 	}
 	if (!(ret = select_sh_bti(set, env_list)))
+	{
 		printf("SHELL BUILTIN CASE\n");
-	else if (ret && !(ret = run_bti(set, env_list)))
+		exit(ret);
+	}
+	if (ret && !(ret = run_bti(set, env_list)))
 		printf("BUILTIN CASE\n");
 	else
 		printf("ELSE CASE\n");
-
 	return (ret);
 }

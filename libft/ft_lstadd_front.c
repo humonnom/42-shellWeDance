@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+#include <stdio.h>
 void	ft_lstadd_front(t_list **lst, t_list *new_lst)
 {
 	if (lst == 0 || new_lst == NULL)

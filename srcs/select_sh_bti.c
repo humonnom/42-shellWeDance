@@ -22,7 +22,7 @@ int	select_sh_bti(t_set *set, t_list *env_list)
 		ret = sh_bti_pwd(args);
 	if (!exact_strncmp(cmd, "echo"))
 		ret = sh_bti_echo(args, env_list);
+	return (ret);
 //exit
 //unset
-	return (ret);
 }

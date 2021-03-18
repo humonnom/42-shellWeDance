@@ -20,5 +20,6 @@ t_list	*ft_lstnew(void *data)
 		return (NULL);
 	ret->data = data;
 	ret->next = NULL;
+	ret->prev = NULL;
 	return (ret);
 }
