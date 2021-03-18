@@ -67,11 +67,13 @@ int			run_bti(t_info *info)
 		if ((bti_path = get_bti_path(cand_arr[idx], info->set->cmd)))
 			break ;
 	}
+	free_darr(cand_arr, INF);
+	if (!bti_path)
+		return (1);
 	env_arr = cvt_list_to_arr(info->env_list);
-	//printf("bti_path: %s\n", bti_path);
 	if (control_process(bti_path, info->set->set, env_arr))
 		return (1);
+	free(bti_path);
 	free_darr(env_arr, INF);
-	free_darr(cand_arr, INF);
 	return (0);
 }

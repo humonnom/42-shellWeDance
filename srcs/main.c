@@ -18,10 +18,11 @@ int run(t_info *info)
 
 	while (info->exit == 0)
 	{
-		handle_sig_init();
 		if (info->set_list == NULL)
 		{
-			if ((get_next_line(&line)) == -1)
+			display_prompt();
+			handle_sig_init(info);
+			if ((get_next_line(info, &line)) == -1)
 				return -1;
 			// get set list
 			if (!(info->set_list = parse_line(line)))
@@ -48,6 +49,7 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
+	init_global();
 	run(&info);
 #if 0
  // get_dollar_eval test
@@ -87,8 +89,5 @@ int main(int argc, char *argv[], char *env[])
 	//need to make free_slist, free_alist
 	//free_all_elist(&(info.env_list));
 	//print_elist(info.env_list);
-	exit_shell(&info);
-	while (1)
-		;
-	return (0);
+	return (exit_shell(&info));
 }

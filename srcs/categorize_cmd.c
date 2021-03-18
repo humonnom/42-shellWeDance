@@ -14,9 +14,10 @@ int categorize_cmd(t_info *info)
 		return (1);
 	}
 	if (!(ret = select_sh_bti(info)))
-		printf("SHELL BUILTIN CASE\n");
+		ft_putstr_fd("[SHELL BUILTIN CASE]\n", STDERR);
 	else if (ret && !(ret = run_bti(info)))
-		printf("BUILTIN CASE\n");
-
+		ft_putstr_fd("[BUILTIN CASE]\n", STDERR);
+	else
+		printf("zsh: command not found: %s\n", info->set->cmd);
 	return (ret);
 }
