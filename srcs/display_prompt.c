@@ -2,5 +2,5 @@
 
 void	display_prompt()
 {
-	ft_putstr_fd("minishell===> ", 2);
+	ft_putstr_fd("minishell===> ", STDERR);
 }

@@ -39,7 +39,10 @@ typedef struct		s_info
 #define OFF 0x00000
 #define INF 987654321
 #define BUF_SIZE 1024
+#define STDERR 2
 
+int	g_ret;
+int	g_cmd_ret;
 /*
 ** handle_quote.c
 */
@@ -60,7 +63,7 @@ char			**pk_split(
 /*
 ** get_next_line.c
 */
-int				get_next_line(char **line);
+int				get_next_line(t_info *info, char **line);
 
 /*
 ** handle_bit.c
@@ -299,7 +302,7 @@ char				*handle_arg(
 /*
 ** handle_sig_init.c
 */
-void				handle_sig_init();
+void				handle_sig_init(t_info *info);
 
 /*
 ** handle_sig_proc.c
@@ -315,6 +318,11 @@ void				display_prompt();
 ** exit_shell.c
 */
 int					exit_shell(t_info *info);
+
+/*
+** exit_shell.c
+*/
+void				init_global();
 
 #endif
 

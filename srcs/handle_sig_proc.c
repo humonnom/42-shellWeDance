@@ -1,40 +1,34 @@
 #include "../incs/minishell.h"
 
-static void	sig_handler_proc(int signo)
+static void	sigint_handler_proc(int signo)
 {
-	if (signo == SIGINT)
-	{
-		//no need to remove signal
-		//stop process(minishell is still running)
-		
-		//change dollar_ret;
-		
-		//display prompt
-		ft_putstr_fd("\n", 2);
-		display_prompt();
-	}
-	if (signo == SIGQUIT)
-	{
-		//no need to remove signal
-		//put messege
-		ft_putstr_fd("Quit: 3", 2);
-		
-		//stop process(minishell is still running)
-		
-		//change dollar_ret
-		
-		//display prompt
-		ft_putstr_fd("\n", 2);
-		display_prompt();
-	}
-
+	//no need to remove signal
+	//stop process(minishell is still running)
+	//change dollar_ret;
+	g_cmd_ret = 130;
+	//display prompt
+	ft_putstr_fd("\n", STDERR);
+	display_prompt();
 }
+
+static void	sigquit_handler_proc(int signo)
+{
+	//no need to remove signal
+	//put messege
+	ft_putstr_fd("Quit: 3", STDERR);
+	//stop process(minishell is still running)
+	//change dollar_ret
+	g_cmd_ret = 131;
+	//display prompt
+	ft_putstr_fd("\n", STDERR);
+	display_prompt();
+}
+
 //when signal pressed in processing.
 void		handle_sig_proc(int pid)
 {
-	if (signal(SIGINT, (void *)sig_handler_proc) == SIG_ERR)
-		ft_putstr_fd("\n\e[1;31m can't catch cnrtl-C", 2);
-	if (signal(SIGQUIT, (void *)sig_handler_proc) == SIG_ERR)
-		ft_putstr_fd("\n\e[1;31m can't catch cnrtl-\\", 2);
-	display_prompt();
+	if (signal(SIGINT, (void *)sigint_handler_proc) == SIG_ERR)
+		ft_putstr_fd("\n\e[1;31m can't catch cnrtl-C", STDERR);
+	if (signal(SIGQUIT, (void *)sigquit_handler_proc) == SIG_ERR)
+		ft_putstr_fd("\n\e[1;31m can't catch cnrtl-\\", STDERR);
 }
