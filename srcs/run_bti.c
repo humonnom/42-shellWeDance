@@ -24,30 +24,6 @@ static char	*get_bti_path(char *cand, char *cmd)
 	closedir(dir_name);
 	return (ret);
 }
-#if 0
-static	int	control_process(
-			char *bti_path,
-			char **set_arr,
-			char **env_arr)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		//printf("This is Child. PID: %d\n", pid);
-		execve(bti_path, set_arr, env_arr);
-	}
-	else if (pid > 0)
-	{
-		//printf("This is Parents. PID: %d\n", pid);
-		wait((int *) 0);
-	}
-	else
-		return (1);
-	return (0);
-}
-#endif
 
 int			run_bti(t_set *set, t_list *env_list)
 {
@@ -71,10 +47,6 @@ int			run_bti(t_set *set, t_list *env_list)
 	printf("bti_path: %s\n", bti_path);
 	if (execve(bti_path, set->set, env_arr) < 0)
 		return (1);
-#if 0
-	if (control_process(bti_path, set->set, env_arr))
-		return (1);
-#endif
 	free_darr(env_arr, INF);
 	free_darr(cand_arr, INF);
 	return (0);

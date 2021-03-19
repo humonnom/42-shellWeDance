@@ -26,6 +26,7 @@ int run(t_info *info)
 				return -1;
 		}
 		info->set_list = parse_set(info->set_str_list->data);
+		//print_slist(info->set_list);
 		while (info->set_list)
 		{
 			run_cmd(info->set_list, &(info->env_list));
