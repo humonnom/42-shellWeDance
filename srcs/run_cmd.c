@@ -36,6 +36,7 @@ static int	run_cmd_part(
 	int		ret;
 
 	pid = fork();
+	handle_sig_proc(pid);
 	if (pid < 0)
 		return (exit_fatal());
 	if (pid == 0)

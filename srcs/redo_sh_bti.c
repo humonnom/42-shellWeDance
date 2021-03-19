@@ -14,6 +14,10 @@ int	redo_sh_bti(t_set *set, t_list **env_list)
 		ret = sh_bti_export(args, env_list);
 	else if (!exact_strncmp(cmd, "unset"))
 		ret = sh_bti_unset(args, env_list);
+	else if (!exact_strncmp(cmd, "cd"))
+		ret = sh_bti_cd(args, *env_list);
+//	else if (!exact_strncmp(cmd, "exit"))
+//		ret = sh_bti_exit(info);
 	else
 		ret = 0;
 	return (ret);

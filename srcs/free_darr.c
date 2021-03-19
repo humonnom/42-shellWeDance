@@ -8,5 +8,6 @@ char	**free_darr(char **tab, int limit)
 	while (tab[++idx] && limit--)
 		free(tab[idx]);
 	free(tab);
+	tab = NULL;
 	return (0);
 }

@@ -18,7 +18,6 @@ int categorize_cmd(t_set *set, t_list **env_list)
 	else if (ret && !(ret = run_bti(set, *env_list)))
 		printf("BUILTIN CASE\n");
 	else
-		printf("ELSE CASE\n");
-		
+		printf("zsh: command not found: %s\n", set->cmd);
 	return (ret);
 }

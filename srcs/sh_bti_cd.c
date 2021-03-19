@@ -16,7 +16,6 @@ static char	*handle_shortcut(char *arg, t_list *env_list)
 		free(ret);
 		ret = ft_strdup(get_eval(env_list, "OLDPWD"));
 	}
-	printf("ret: %s\n", ret);
 	return (ret);
 }
 
@@ -27,7 +26,6 @@ static char	*get_path(char *arg, t_list *env_list)
 
 	tmp_path = handle_arg(arg, env_list);
 	ret = handle_shortcut(tmp_path, env_list);
-	printf("[[[path]]] : %s\n", ret);
 	return (ret);
 }
 

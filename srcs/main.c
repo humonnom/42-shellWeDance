@@ -17,10 +17,11 @@ int run(t_info *info)
 
 	while (info->exit == 0)
 	{
-		//init_sig();
 		if (info->set_str_list == NULL)
 		{
-			if ((get_next_line(&line)) == -1)
+			display_prompt();
+			handle_sig_init(info);
+			if ((get_next_line(info, &line)) == -1)
 				return -1;
 			if (!(info->set_str_list = parse_line(line)))
 				return -1;
@@ -46,6 +47,7 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
+	init_global();
 	run(&info);
 
 	exit_shell(&info);
