@@ -11,9 +11,3 @@ void	handle_eof(t_info *info, char *backup)
 	}
 	ft_putstr_fd("  \b\b", STDERR);
 }
-//	if (g_fsh_buf)
-//	{
-//		free(backup);
-//		backup = ft_strjoin("", "");
-//		g_fsh_buf = 0;
-//	}
