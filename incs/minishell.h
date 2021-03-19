@@ -337,6 +337,11 @@ int					show_error(char const *str);
 ** exit_fatal.c
 */
 int					exit_fatal(void);
+
+/*
+** redo_sh_bti.c
+*/
+int					redo_sh_bti(t_set *set, t_list **env_list);
 #endif
 
 #if 0

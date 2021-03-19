@@ -77,6 +77,8 @@ int	run_cmd(t_list *set_list, t_list **env_list)
 		if (pipe(curr->fds))
 			return (exit_fatal());	
 	}
-	run_cmd_part(curr, prev, env_list, pipe_open);
+	ret = run_cmd_part(curr, prev, env_list, pipe_open);
+	if (ret != EXIT_FAILURE && curr->type == TYPE_BREAK)
+		ret = redo_sh_bti(curr, env_list);
 	return (ret);
 }

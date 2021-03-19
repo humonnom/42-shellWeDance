@@ -23,6 +23,7 @@ SRC =	main \
 		free_darr \
 		categorize_cmd \
 		select_sh_bti \
+		redo_sh_bti \
 		run_bti \
 		mod_eval \
 		get_env \
