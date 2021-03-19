@@ -41,6 +41,7 @@ typedef struct		s_info
 
 //global return value
 int	g_ret;
+int	g_fsh_buf;
 
 #define BIT_SQUOTE 1
 #define BIT_DQUOTE 2
@@ -389,6 +390,11 @@ char				handle_enter(
 					int backup_len,
 					char buf,
 					int read_size);
+
+/*
+** handle_fflush.c
+*/
+char				*handle_fflush(char *backup);
 
 #endif
 

@@ -61,6 +61,7 @@ SRC =	main \
 		handle_sig_proc \
 		handle_eof \
 		handle_enter \
+		handle_fflush
 
 
 LIST = 

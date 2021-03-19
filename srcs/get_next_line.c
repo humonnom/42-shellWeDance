@@ -11,6 +11,8 @@ int get_next_line(t_info *info, char **line)
 	{
 		read_size = read(STDIN_FILENO, buf, 1);
 		buf[1] = '\0';
+		if (g_fsh_buf)
+			backup = handle_fflush(backup);
 		if (read_size == 0)
 			handle_eof(info, backup);
 		else if (buf[0] != '\n' && read_size > 0) 
@@ -23,5 +25,6 @@ int get_next_line(t_info *info, char **line)
 			buf[0] = '\0';
 	}
 	*line = backup;
+	printf("line: [%s]\n", *line);
 	return (read_size);
 }

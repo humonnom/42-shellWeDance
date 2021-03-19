@@ -6,7 +6,8 @@ static void	sigint_handler(int signo)
 	ft_putstr_fd("\b\b  \n", STDERR);
 	display_prompt();
 	//change dollar_ret
-	g_ret = 1;
+	g_ret = 130;
+	g_fsh_buf = 1;
 }
 
 static void	sigquit_handler(int signo)

@@ -9,6 +9,11 @@ void	handle_eof(t_info *info, char *backup)
 		g_ret = exit_shell(info);
 		exit(0);
 	}
-	else
-		ft_putstr_fd("  \b\b", STDERR);
+	ft_putstr_fd("  \b\b", STDERR);
 }
+//	if (g_fsh_buf)
+//	{
+//		free(backup);
+//		backup = ft_strjoin("", "");
+//		g_fsh_buf = 0;
+//	}
