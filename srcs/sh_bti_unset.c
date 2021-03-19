@@ -41,7 +41,7 @@ static void	del_elist_if(
 
 int	sh_bti_unset(
 	char **args,
-	t_list *env_list)
+	t_list **env_list)
 {
 	int		idx;
 
@@ -49,6 +49,6 @@ int	sh_bti_unset(
 		return (1);
 	idx = -1;
 	while (args[++idx])
-		del_elist_if(&(env_list), args[idx]);
+		del_elist_if(env_list, args[idx]);
 	return (0);
 }

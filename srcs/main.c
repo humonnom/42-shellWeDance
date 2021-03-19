@@ -5,8 +5,8 @@ void change_head(t_info *info)
 {
 	t_list *tmp;
 
+	ft_lstclear(&(info->set_list), &free_set);
 	tmp = (info->set_str_list)->next;
-	//free_set(info->set);
 	ft_lstdelone(info->set_str_list, &free);
 	info->set_str_list = tmp;
 }
@@ -26,14 +26,11 @@ int run(t_info *info)
 				return -1;
 		}
 		info->set_list = parse_set(info->set_str_list->data);
-#if 1
 		while (info->set_list)
 		{
-			run_cmd(info->set_list, info->env_list);
+			run_cmd(info->set_list, &(info->env_list));
 			info->set_list = info->set_list->next;
 		}
-#endif
-		ft_lstclear(&(info->set_list), &free_set);
 		change_head(info);
 	}
 	return (0);

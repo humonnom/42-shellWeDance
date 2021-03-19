@@ -99,7 +99,7 @@ static int	run_export(t_list *env_list, char *arg)
 	return (ret);
 }
 
-int	sh_bti_export(char **args, t_list *env_list)
+int	sh_bti_export(char **args, t_list **env_list)
 {
 	int	idx;
 
@@ -111,9 +111,9 @@ int	sh_bti_export(char **args, t_list *env_list)
 		g_equal_in_key = 0;
 		if (ft_strchr(args[idx], '='))
 			g_equal_in_key = 1;
-		run_export(env_list, args[idx]);
+		run_export(*env_list, args[idx]);
 	}
 	if (idx == 0)
-		print_elist(env_list);
+		print_elist(*env_list);
 	return (0);
 }
