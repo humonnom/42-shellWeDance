@@ -49,7 +49,7 @@ static int	run_cmd_part(
 		if ((ret = categorize_cmd(curr, env_list)) != 0)
 			show_cmd_error(curr->cmd);
 		// test about sh_bti_exit case
-		//exit(ret);
+		exit(ret);
 	}
 	else
 		ret = close_fds(pid, curr, prev, pipe_open);
