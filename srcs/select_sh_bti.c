@@ -5,7 +5,6 @@ int	select_sh_bti(t_set *set, t_info *info)
 	char	*cmd;
 	char	**args;
 	int		ret;
-	int		cmp_len;
 	
 	ret = 1;
 	cmd = set->cmd;

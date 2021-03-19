@@ -14,6 +14,7 @@ void change_head(t_info *info)
 int run(t_info *info)
 {
 	char	*line;
+	t_list	*next;
 
 	while (info->exit == 0)
 	{
@@ -25,13 +26,16 @@ int run(t_info *info)
 				return -1;
 			if (!(info->set_str_list = parse_line(line)))
 				return -1;
+			free(line);
 		}
 		info->set_list = parse_set(info->set_str_list->data);
 		//print_slist(info->set_list);
 		while (info->set_list)
 		{
 			run_cmd(info);
-			info->set_list = info->set_list->next;
+			next = info->set_list->next;
+			ft_lstdelone(info->set_list, &free_set);
+			info->set_list = next;
 		}
 		change_head(info);
 	}
