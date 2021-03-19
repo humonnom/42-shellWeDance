@@ -199,7 +199,7 @@ void				free_env(void *_env);
 */
 int					categorize_cmd(
 					t_set *set,
-					t_list **env_list);
+					t_info *info);
 
 /*
 ** del_quote.c
@@ -226,7 +226,7 @@ char				**free_darr(char **tab, int limit);
 */
 int					select_sh_bti(
 					t_set *set,
-					t_list **env_list);
+					t_info *info);
 
 /*
 ** run_bti.c
@@ -333,8 +333,7 @@ t_list				*parse_set(char *line);
 ** run_cmd.c
 */
 int					run_cmd(
-					t_list *set_list,
-					t_list **env_list);
+					t_info *info);
 
 /*
 ** show_error.c
@@ -355,7 +354,7 @@ int					exit_fatal(void);
 /*
 ** redo_sh_bti.c
 */
-int					redo_sh_bti(t_set *set, t_list **env_list);
+int					redo_sh_bti(t_set *set, t_info *info);
 
 
 /*

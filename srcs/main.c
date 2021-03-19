@@ -30,7 +30,7 @@ int run(t_info *info)
 		//print_slist(info->set_list);
 		while (info->set_list)
 		{
-			run_cmd(info->set_list, &(info->env_list));
+			run_cmd(info);
 			info->set_list = info->set_list->next;
 		}
 		change_head(info);
