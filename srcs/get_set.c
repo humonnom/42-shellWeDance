@@ -1,5 +1,45 @@
 #include "../incs/minishell.h"
 
+g_fds[1024];
+g_k;
+
+// in exit
+for (i = 0; i < g_k; ++i)
+	close(g_fds[i]);
+
+// in init_minishell
+//init_minishell -> g_k = 0;
+
+void handle_redirect(char **tmp_set) {
+
+	// use get_bti_path function in run_bti
+	// to check if command or file name
+
+	// nothing after > | < | << -> showerror(\n error ~)
+
+	while (< | > | >>)
+		idx++
+		break
+
+	while (tmp_set[idx])
+	{
+		
+		if <
+			tmp_fd = open("test.txt", O_CREAT | O_TRUNC | O_RDONLY, 0755);
+			dup2(g_fds[g_k++], STDIN_FILENO)
+		if >
+			tmp_fd = open("test.txt", O_CREAT | O_TRUNC | O_WRONLY, 0755);
+			// test after closing tmp_fd write something on STDOUT
+			dup2(tmp_fd, STDOUT_FILENO)
+		if >>
+			tmp_fd = open("test.txt", O_CREAT | O_APPEND | O_WRONLY, 0755);
+			dup2(tmp_fd, STDOUT_FILENO)
+	}
+
+	// free after last args
+	
+}
+
 t_set *get_set(char *set_str)
 {
     char	*set_str_cpy;
