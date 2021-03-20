@@ -6,8 +6,6 @@ int		exit_shell(t_info *info)
 
 	ret = 0;
 
-#if 0
-#endif
 	ft_lstclear(&(info->set_str_list), &free);
 	ft_lstclear(&(info->set_list), &free_set);
 	ft_lstclear(&(info->env_list), &free_env);
@@ -17,6 +15,9 @@ int		exit_shell(t_info *info)
 		free(info->env_list);
 		info->env_list = NULL;
 	}
+// in exit
+//for (i = 0; i < g_k; ++i)
+//	close(g_fds[i]);
 	return (ret);
 }
 

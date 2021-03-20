@@ -7,11 +7,17 @@
 # include <dirent.h>
 # include <unistd.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <sys/types.h>
 
 # define TYPE_PIPE 1
 # define TYPE_BREAK 2
+# define TYPE_REIN 3
+# define TYPE_REOUT 4
+# define TYPE_REOUT_D 5
 
+# define OPEN 1
+# define CLOSE 0
 // head of data is cmd
 typedef struct		s_env
 {
@@ -26,6 +32,7 @@ typedef struct		s_set
 	char			**args;
 	int				type;
 	int				fds[2];
+	int				redir_fds;
 }					t_set;
 
 typedef struct		s_info
@@ -42,6 +49,8 @@ typedef struct		s_info
 //global return value
 int	g_ret;
 int	g_fsh_buf;
+int	g_fds[1024];
+int g_k;
 
 #define BIT_SQUOTE 1
 #define BIT_DQUOTE 2
@@ -110,6 +119,11 @@ t_list				*gen_elist(char **str);
 t_list				*get_elist(
 					t_list *list_head,
 					char *tar);
+
+/*
+** gen_slist
+*/
+t_list				*gen_slist(char **str);
 
 /*
 ** get_eval.c
@@ -235,6 +249,10 @@ int					select_sh_bti(
 int					run_bti(
 					t_set *set,
 					t_list *env_list);
+/*
+** get_bti_path.c
+*/
+char				*get_bti_path(char *cand, char *cmd);
 
 /*
 ** sh_bti_export.c
@@ -315,6 +333,11 @@ char				*handle_arg(
 					char *arg,
 					t_list *env_list);
 /*
+** handle_redirect.c
+*/
+char				**handle_redirect(char **tmp_set);
+
+/*
 ** exact_strncmp.c
 */
 int					exact_strncmp(char *str1, char *str2);
@@ -326,7 +349,7 @@ int					set_darr_to_list(
 					t_list **list_head,
 					char **str);
 /*
-** parse_set_list.c
+** parse_set.c
 */
 t_list				*parse_set(char *line);
 

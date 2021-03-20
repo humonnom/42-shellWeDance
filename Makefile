@@ -8,6 +8,7 @@ SRC =	main \
 		init_global \
 	  	init_minishell \
 		pk_split \
+		handle_redirect \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
@@ -26,6 +27,7 @@ SRC =	main \
 		select_sh_bti \
 		redo_sh_bti \
 		run_bti \
+		get_bti_path \
 		mod_eval \
 		get_env \
 		free_env \
@@ -43,6 +45,7 @@ SRC =	main \
 		is_dquote \
 		handle_arg \
 		exact_strncmp \
+		gen_slist \
 		gen_elist \
 		get_elist \
 		mod_elist \

@@ -4,4 +4,5 @@ void	init_global()
 {
 	g_ret = 0;
 	g_fsh_buf = 0;
+	g_k = 0;
 }
