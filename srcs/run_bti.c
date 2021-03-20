@@ -43,11 +43,13 @@ int			run_bti(t_set *set, t_list *env_list)
 		if ((bti_path = get_bti_path(cand_arr[idx], set->cmd)))
 			break ;
 	}
+	free_darr(cand_arr, INF);
+	if (!bti_path)
+		return (1);
 	env_arr = set_list_to_darr(env_list);
-	printf("bti_path: %s\n", bti_path);
 	if (execve(bti_path, set->set, env_arr) < 0)
 		return (1);
+	free(bti_path);
 	free_darr(env_arr, INF);
-	free_darr(cand_arr, INF);
 	return (0);
 }

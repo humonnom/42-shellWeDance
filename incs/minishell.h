@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <dirent.h>
 # include <unistd.h>
+# include <signal.h>
 # include <sys/types.h>
 
 # define TYPE_PIPE 1
@@ -38,12 +39,18 @@ typedef struct		s_info
 	int				dollar_ret;
 }           		t_info;
 
+//global return value
+int	g_ret;
+int	g_fsh_buf;
+
 #define BIT_SQUOTE 1
 #define BIT_DQUOTE 2
 #define ON 0x00001
 #define OFF 0x00000
 #define INF 987654321
 #define BUF_SIZE 1024
+
+#define STDERR 2
 
 /*
 ** handle_quote.c
@@ -65,7 +72,7 @@ char			**pk_split(
 /*
 ** get_next_line.c
 */
-int				get_next_line(char **line);
+int				get_next_line(t_info *info, char **line);
 
 /*
 ** handle_bit.c
@@ -193,7 +200,7 @@ void				free_env(void *_env);
 */
 int					categorize_cmd(
 					t_set *set,
-					t_list **env_list);
+					t_info *info);
 
 /*
 ** del_quote.c
@@ -220,7 +227,7 @@ char				**free_darr(char **tab, int limit);
 */
 int					select_sh_bti(
 					t_set *set,
-					t_list **env_list);
+					t_info *info);
 
 /*
 ** run_bti.c
@@ -236,6 +243,9 @@ int					sh_bti_export(
 					char **args,
 					t_list **env_list);
 
+/*
+** sh_bti_unset.c
+*/
 int					sh_bti_unset(
 					char **args,
 					t_list **env_list);
@@ -254,6 +264,11 @@ int					sh_bti_pwd(char **args);
 ** sh_bti_echo.c
 */
 int					sh_bti_echo(char **args, t_list *env_list);
+
+/*
+** sh_bti_exit.c
+*/
+int					sh_bti_exit(t_info *info);
 
 /*
 ** get_max_strlen.c
@@ -299,12 +314,6 @@ int					is_dquote(char c);
 char				*handle_arg(
 					char *arg,
 					t_list *env_list);
-
-/*
-** exit_shell.c
-*/
-int					exit_shell(t_info *info);
-
 /*
 ** exact_strncmp.c
 */
@@ -325,13 +334,18 @@ t_list				*parse_set(char *line);
 ** run_cmd.c
 */
 int					run_cmd(
-					t_list *set_list,
-					t_list **env_list);
+					t_info *info);
 
 /*
 ** show_error.c
 */
 int					show_error(char const *str);
+
+
+/*
+** exit_shell.c
+*/
+int					exit_shell(t_info *info);
 
 /*
 ** exit_fatal.c
@@ -341,10 +355,52 @@ int					exit_fatal(void);
 /*
 ** redo_sh_bti.c
 */
-int					redo_sh_bti(t_set *set, t_list **env_list);
+int					redo_sh_bti(t_set *set, t_info *info);
+
+
+/*
+** init_global.c
+*/
+void				init_global();
+
+/*
+** display_prompt.c
+*/
+void				display_prompt();
+
+/*
+** handle_sig_init.c
+*/
+void				handle_sig_init(t_info *info);
+
+/*
+** handle_sig_proc.c
+*/
+void				handle_sig_proc(int pid);
+
+/*
+** handle_eof.c
+*/
+void				handle_eof(t_info *info, char *backup);
+
+/*
+** handle_enter.c
+*/
+char				handle_enter(
+					int backup_len,
+					char buf,
+					int read_size);
+
+/*
+** handle_fflush.c
+*/
+char				*handle_fflush(char *backup);
+
 #endif
 
 #if 0
+
+
 /*
 ** pk_lst.c
 */

@@ -14,23 +14,28 @@ void change_head(t_info *info)
 int run(t_info *info)
 {
 	char	*line;
+	t_list	*next;
 
 	while (info->exit == 0)
 	{
-		//init_sig();
 		if (info->set_str_list == NULL)
 		{
-			if ((get_next_line(&line)) == -1)
+			display_prompt();
+			handle_sig_init(info);
+			if ((get_next_line(info, &line)) == -1)
 				return -1;
 			if (!(info->set_str_list = parse_line(line)))
 				return -1;
+			free(line);
 		}
 		info->set_list = parse_set(info->set_str_list->data);
 		//print_slist(info->set_list);
 		while (info->set_list)
 		{
-			run_cmd(info->set_list, &(info->env_list));
-			info->set_list = info->set_list->next;
+			run_cmd(info);
+			next = info->set_list->next;
+			ft_lstdelone(info->set_list, &free_set);
+			info->set_list = next;
 		}
 		change_head(info);
 	}
@@ -46,6 +51,7 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
+	init_global();
 	run(&info);
 
 	exit_shell(&info);

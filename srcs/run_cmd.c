@@ -29,13 +29,14 @@ static int	close_fds(pid_t pid, t_set *curr, t_set *prev, int pipe_open)
 static int	run_cmd_part(
 			t_set *curr,
 			t_set *prev,
-			t_list **env_list,
+			t_info *info,
 			int pipe_open)
 {
 	pid_t	pid;
 	int		ret;
 
 	pid = fork();
+	handle_sig_proc(pid);
 	if (pid < 0)
 		return (exit_fatal());
 	if (pid == 0)
@@ -46,7 +47,7 @@ static int	run_cmd_part(
 		if (prev && prev->type == TYPE_PIPE
 			&& dup2(prev->fds[0], STDIN_FILENO) < 0)
 			return (exit_fatal());
-		if ((ret = categorize_cmd(curr, env_list)) != 0)
+		if ((ret = categorize_cmd(curr, info)) != 0)
 			show_cmd_error(curr->cmd);
 		// test about sh_bti_exit case
 		exit(ret);
@@ -56,7 +57,7 @@ static int	run_cmd_part(
 	return (ret);
 }
 
-int	run_cmd(t_list *set_list, t_list **env_list)
+int	run_cmd(t_info *info)
 {
 	int		ret;
 	int		status;
@@ -66,19 +67,19 @@ int	run_cmd(t_list *set_list, t_list **env_list)
 
 	ret = EXIT_FAILURE;
 	pipe_open = 0;
-	curr = (t_set *)(set_list->data);
-	if (!(set_list->prev))
+	curr = (t_set *)(info->set_list->data);
+	if (!(info->set_list->prev))
 		prev = NULL;
 	else
-		prev = (t_set *)(set_list->prev->data);
+		prev = (t_set *)(info->set_list->prev->data);
 	if (curr->type == TYPE_PIPE || (prev && prev->type == TYPE_PIPE))
 	{
 		pipe_open = 1;
 		if (pipe(curr->fds))
 			return (exit_fatal());	
 	}
-	ret = run_cmd_part(curr, prev, env_list, pipe_open);
+	ret = run_cmd_part(curr, prev, info, pipe_open);
 	if (ret != EXIT_FAILURE && curr->type == TYPE_BREAK)
-		ret = redo_sh_bti(curr, env_list);
+		ret = redo_sh_bti(curr, info);
 	return (ret);
 }

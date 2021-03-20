@@ -5,6 +5,7 @@ CC = gcc
 CFLAGS = 
 
 SRC =	main \
+		init_global \
 	  	init_minishell \
 		pk_split \
 		handle_quote \
@@ -34,13 +35,13 @@ SRC =	main \
 		sh_bti_echo \
 		sh_bti_cd \
 		sh_bti_pwd \
+		sh_bti_exit \
 		get_max_strlen \
 		get_dollar_eval \
 		cvt_char_to_str \
 		is_squote \
 		is_dquote \
 		handle_arg \
-		exit_shell \
 		exact_strncmp \
 		gen_elist \
 		get_elist \
@@ -53,7 +54,14 @@ SRC =	main \
 		print_list \
 		run_cmd \
 		show_error \
-		exit_fatal
+		exit_fatal \
+		exit_shell \
+		display_prompt \
+		handle_sig_init \
+		handle_sig_proc \
+		handle_eof \
+		handle_enter \
+		handle_fflush
 
 
 LIST = 

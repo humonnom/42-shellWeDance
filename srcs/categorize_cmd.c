@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-int categorize_cmd(t_set *set, t_list **env_list)
+int categorize_cmd(t_set *set, t_info *info)
 {
 	int		ret;
 	int		run_check;
@@ -13,12 +13,11 @@ int categorize_cmd(t_set *set, t_list **env_list)
 		printf("ERROR: trim_cmd malloc error\n");
 		return (1);
 	}
-	if (!(ret = select_sh_bti(set, env_list)))
+	if (!(ret = select_sh_bti(set, info)))
 		printf("SHELL BUILTIN CASE\n");
-	else if (ret && !(ret = run_bti(set, *env_list)))
+	else if (ret && !(ret = run_bti(set, info->env_list)))
 		printf("BUILTIN CASE\n");
 	else
-		printf("ELSE CASE\n");
-		
+		printf("zsh: command not found: %s\n", set->cmd);
 	return (ret);
 }
