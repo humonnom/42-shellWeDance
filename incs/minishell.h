@@ -44,13 +44,15 @@ typedef struct		s_info
     int     		exit;
     int     		ret;
 	int				dollar_ret;
+	int				fd_in_idx;
+	int				fd_in[1024];
+	int				fd_out_idx;
+	int				fd_out[1024];
 }           		t_info;
 
 //global return value
 int	g_ret;
 int	g_fsh_buf;
-int	g_fds[1024];
-int g_k;
 
 #define BIT_SQUOTE 1
 #define BIT_DQUOTE 2
@@ -123,7 +125,7 @@ t_list				*get_elist(
 /*
 ** gen_slist
 */
-t_list				*gen_slist(char **str);
+t_list				*gen_slist(t_info *info, char **str);
 
 /*
 ** get_eval.c
@@ -197,7 +199,7 @@ t_list				*parse_line(char *line);
 /*
 ** get_set.c
 */
-t_set				*get_set(char *set_str);
+t_set				*get_set(t_info *info, char *set_str);
 
 /*
 ** get_env.c
@@ -332,10 +334,6 @@ int					is_dquote(char c);
 char				*handle_arg(
 					char *arg,
 					t_list *env_list);
-/*
-** handle_redirect.c
-*/
-char				**handle_redirect(char **tmp_set);
 
 /*
 ** exact_strncmp.c
@@ -351,7 +349,7 @@ int					set_darr_to_list(
 /*
 ** parse_set.c
 */
-t_list				*parse_set(char *line);
+t_list				*parse_set(t_info *info);
 
 /*
 ** run_cmd.c
@@ -419,6 +417,10 @@ char				handle_enter(
 */
 char				*handle_fflush(char *backup);
 
+int					has_bracket(char *c);
+int					is_bracket(char c1, char c2);
+char				*parse_redirect(t_info *info, char *str);
+int					set_redir_info(t_info *info, char *str, int type);
 #endif
 
 #if 0

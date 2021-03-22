@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-t_set *get_set(char *set_str)
+t_set *get_set(t_info *info, char *set_str)
 {
     char	*set_str_cpy;
     int		error_num;
@@ -12,12 +12,13 @@ t_set *get_set(char *set_str)
     if (!(set_str_cpy = ft_strdup(set_str)))
 		return (NULL);
 	// insert ' ' -> side of "<, >, >>"
+	set_str_cpy = parse_redirect(info, set_str_cpy);
 	if (handle_quote(set_str, &set_str_cpy, ' ') > 0)
 		error_num = turn_on_bit(error_num, 0);
 	if (!(tmp_set = pk_split(set_str, set_str_cpy, ' ', INF)))
 		error_num = turn_on_bit(error_num, 1);
 	free(set_str_cpy);
-	tmp_set = handle_redirect(tmp_set);
+//	tmp_set = handle_redirect(tmp_set);
 //	int idx = -1;
 //	while (tmp_set[++idx])
 //		printf("after handle_redirect: %s\n", tmp_set[idx]);

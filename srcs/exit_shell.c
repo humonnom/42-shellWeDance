@@ -16,9 +16,6 @@ int		exit_shell(t_info *info)
 		free(info->env_list);
 		info->env_list = NULL;
 	}
-// in exit
-	for (i = 0; i < g_k; ++i)
-		close(g_fds[i]);
 	return (ret);
 }
 

@@ -8,7 +8,6 @@ SRC =	main \
 		init_global \
 	  	init_minishell \
 		pk_split \
-		handle_redirect \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
@@ -64,7 +63,11 @@ SRC =	main \
 		handle_sig_proc \
 		handle_eof \
 		handle_enter \
-		handle_fflush
+		handle_fflush \
+		is_bracket \
+		has_bracket \
+		parse_redirect \
+		set_redir_info
 
 
 LIST = 
