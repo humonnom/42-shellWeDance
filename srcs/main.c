@@ -4,11 +4,19 @@
 void change_head(t_info *info)
 {
 	t_list *tmp;
+	int		i;
 
 	ft_lstclear(&(info->set_list), &free_set);
 	tmp = (info->set_str_list)->next;
 	ft_lstdelone(info->set_str_list, &free);
 	info->set_str_list = tmp;
+	for (i = 0; i < g_k; ++i)
+	{
+		printf("g_k: %d\ng_fds: %d\n", g_k, g_fds[i]);
+		close(g_fds[i]);
+	}
+	dup2(STDOUT_FILENO, STDOUT_FILENO);
+	g_k = 0;
 }
 
 int run(t_info *info)

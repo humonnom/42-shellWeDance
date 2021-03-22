@@ -11,15 +11,16 @@ t_set *get_set(char *set_str)
     error_num = 0;
     if (!(set_str_cpy = ft_strdup(set_str)))
 		return (NULL);
+	// insert ' ' -> side of "<, >, >>"
 	if (handle_quote(set_str, &set_str_cpy, ' ') > 0)
 		error_num = turn_on_bit(error_num, 0);
 	if (!(tmp_set = pk_split(set_str, set_str_cpy, ' ', INF)))
 		error_num = turn_on_bit(error_num, 1);
 	free(set_str_cpy);
 	tmp_set = handle_redirect(tmp_set);
-	int idx = -1;
-	while (tmp_set[++idx])
-		printf("after handle_redirect: %s\n", tmp_set[idx]);
+//	int idx = -1;
+//	while (tmp_set[++idx])
+//		printf("after handle_redirect: %s\n", tmp_set[idx]);
 	if (!(ret = (t_set *)malloc(sizeof(t_set))))
 		return (NULL);
 	ret->set = tmp_set;

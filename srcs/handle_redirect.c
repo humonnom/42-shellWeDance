@@ -51,20 +51,27 @@ static int modify_fd(char *file_name, int type)
 
 	ret = 1;
 	printf("modify fd!\n");
-	if (type == TYPE_REIN)
+	if (type == TYPE_REIN) // <
 	{
-		g_fds[g_k] = open(file_name, O_CREAT | O_TRUNC | O_RDONLY, 0755);
-		dup2(g_fds[g_k++], STDIN_FILENO);
+		printf("type: <, %s is open\n", file_name);
+//		g_fds[g_k] = open(file_name, O_CREAT | O_TRUNC | O_RDONLY, 0755);
+//		dup2(g_fds[g_k++], STDIN_FILENO);
 	}
-	else if (type == TYPE_REOUT)
+	else if (type == TYPE_REOUT) // >
 	{
-		g_fds[g_k] = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0755);
-		dup2(g_fds[g_k++], STDOUT_FILENO);
+		printf("type: >, %s is open\n", file_name);
+//		g_fds[g_k] = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0755);
+//		dup2(g_fds[g_k++], STDOUT_FILENO);
 	}
-	else if (type == TYPE_REOUT_D)
+	else if (type == TYPE_REOUT_D) // >>
 	{
+//		printf("type: >>, %s is open\n", file_name);
 		g_fds[g_k] = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0755);
-		dup2(g_fds[g_k++], STDOUT_FILENO);
+		if (g_k == 0)
+			dup2(g_fds[g_k], STDOUT_FILENO);
+		else
+			g_fds[g_k] = dup(g_fds[g_k - 1]);
+		g_k++;
 	}
 	else
 		ret = 0;

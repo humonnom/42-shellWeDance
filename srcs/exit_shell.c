@@ -3,6 +3,7 @@
 int		exit_shell(t_info *info)
 {
 	int ret;
+	int i;
 
 	ret = 0;
 
@@ -16,8 +17,8 @@ int		exit_shell(t_info *info)
 		info->env_list = NULL;
 	}
 // in exit
-//for (i = 0; i < g_k; ++i)
-//	close(g_fds[i]);
+	for (i = 0; i < g_k; ++i)
+		close(g_fds[i]);
 	return (ret);
 }
 
