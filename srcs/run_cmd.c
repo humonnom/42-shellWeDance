@@ -49,7 +49,6 @@ static int	run_cmd_part(
 			return (exit_fatal());
 		if ((ret = categorize_cmd(curr, info)) != 0)
 			show_cmd_error(curr->cmd);
-		// test about sh_bti_exit case
 		exit(ret);
 	}
 	else

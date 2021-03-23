@@ -63,10 +63,7 @@ static int	set_fd_info(t_info *info, char *filename, int type)
 	if (type == TYPE_REIN)
 		info->fd_in[info->fd_in_idx++] = fd;
 	if (type == TYPE_REOUT || type == TYPE_REOUT_D)
-	{
 		info->fd_out[info->fd_out_idx++] = fd;
-		dup2(fd, STDOUT_FILENO);
-	}
 	return (0);
 }
 
@@ -88,10 +85,3 @@ int			set_redir_info(t_info *info, char *str, int type)
 	free(filename);
 	return (ret);
 }
-// if there is two file names, treat first one only.
-// second one treat like args.
-// echo abc >> test.txt test2.txt -> work
-//			cat test.txt 
-//			result : abc test2.txt
-// ls -al >> test.txt test2.txt -> error occured.
-

@@ -1,0 +1,45 @@
+a b c
+SHELL BUILTIN CASE
+DEBUG=============================
+line: [ls]
+after handle_quote redir: ls
+parse_redir::ret: ls
+[args] :ls
+Makefile
+README.md
+backup_files
+incs
+libft
+mini
+pipe_test
+playground
+srcs
+test.txt
+test2.txt
+DEBUG=============================
+line: [ls -al]
+after handle_quote redir: ls -al
+parse_redir::ret: ls -al
+[args] :ls
+[args] :-al
+total 184
+drwxr-xr-x@  15 yamkim  staff    480 Mar 23 23:25 .
+drwx------@  23 yamkim  staff    736 Mar 23 23:25 ..
+drwxr-xr-x@  16 yamkim  staff    512 Mar 23 22:42 .git
+-rw-r--r--    1 yamkim  staff     18 Mar 22 20:56 .gitignore
+-rw-r--r--    1 yamkim  staff   1971 Mar 23 22:34 Makefile
+-rw-r--r--    1 yamkim  staff     26 Mar 22 20:56 README.md
+drwxr-xr-x@  20 yamkim  staff    640 Mar 22 20:58 backup_files
+drwxr-xr-x@   3 yamkim  staff     96 Mar 23 22:42 incs
+drwxr-xr-x@ 122 yamkim  staff   3904 Mar 23 23:25 libft
+-rwxr-xr-x    1 yamkim  staff  72528 Mar 23 23:25 mini
+drwxr-xr-x@  12 yamkim  staff    384 Mar 23 22:42 pipe_test
+drwxr-xr-x@   7 yamkim  staff    224 Mar 22 20:57 playground
+drwxr-xr-x@ 131 yamkim  staff   4192 Mar 23 23:25 srcs
+-rwxr-xr-x    1 yamkim  staff   1119 Mar 23 23:24 test.txt
+-rwxr-xr-x    1 yamkim  staff    356 Mar 23 23:25 test2.txt
+DEBUG=============================
+line: [exit]
+after handle_quote redir: exit
+parse_redir::ret: exit
+[args] :exit

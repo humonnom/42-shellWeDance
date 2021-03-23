@@ -14,14 +14,6 @@ void change_head(t_info *info)
 	//renew variable regarding redir
 	info->fd_in_idx = 0;
 	info->fd_out_idx = 0;
-	close(info->fd_out[0]);
-//	for (i = 0; i < g_k; ++i)
-//	{
-//		printf("g_k: %d\ng_fds: %d\n", g_k, g_fds[i]);
-//		close(g_fds[i]);
-//	}
-//	dup2(STDOUT_FILENO, STDOUT_FILENO);
-//	g_k = 0;
 }
 
 int run(t_info *info)
@@ -45,7 +37,9 @@ int run(t_info *info)
 		//print_slist(info->set_list);
 		while (info->set_list)
 		{
+			int flag = 0;
 			run_cmd(info);
+			printf("DEBUG=============================\n");
 			next = info->set_list->next;
 			ft_lstdelone(info->set_list, &free_set);
 			info->set_list = next;
