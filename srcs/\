@@ -1,4 +1,12 @@
 #include "../incs/minishell.h"
+static int is_bracket(char c)
+{
+	if (c == '>')
+		return (1);
+	if (c == '<')
+		return (1);
+	return (0);
+}
 
 static int is_valid_filename(char *filename, int type)
 {
@@ -39,12 +47,15 @@ static int	seek_filename(
 	while (str[idx] && str[idx] == ' ')
 		idx++;
 	beg = idx;
-	while (str[idx] && str[idx] != ' ' && !is_bracket(str[idx]))
+	printf("filename seek start: %c\n", str[idx]);
+	while (str[idx] && str[idx] != ' ' && is_bracket(str[idx]))
 		idx++;
+	printf("filename seek end: %c\n", str[idx]);
 	end = idx;
 	*filename = ft_substr(str, beg, end - beg);
 	if (!filename)
 		return (-1);
+	printf("filename: %s\n", *filename);
 	return (end);
 }
 
@@ -63,10 +74,9 @@ static int	set_fd_info(t_info *info, char *filename, int type)
 	if (type == TYPE_REIN)
 		info->fd_in[info->fd_in_idx++] = fd;
 	if (type == TYPE_REOUT || type == TYPE_REOUT_D)
-	{
 		info->fd_out[info->fd_out_idx++] = fd;
-		dup2(fd, STDOUT_FILENO);
-	}
+	printf("info->fd_in_idx: %d\n", info->fd_in_idx);
+	printf("info->fd_out_idx: %d\n", info->fd_out_idx);
 	return (0);
 }
 

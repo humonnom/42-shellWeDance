@@ -1,12 +1,10 @@
 #include "../incs/minishell.h"
 
-int is_bracket(char c1, char c2)
+int is_bracket(char c)
 {
-	if (c1 == '>' && c2 == '>')
-		return (TYPE_REOUT_D);
-	if (c1 == '>')
-		return (TYPE_REOUT);
-	if (c1 == '<')
-		return (TYPE_REIN);
+	if (c == '>')
+		return (1);
+	if (c == '<')
+		return (1);
 	return (0);
 }

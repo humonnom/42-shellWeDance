@@ -12,9 +12,10 @@
 
 # define TYPE_PIPE 1
 # define TYPE_BREAK 2
-# define TYPE_REIN 3
-# define TYPE_REOUT 4
-# define TYPE_REOUT_D 5
+# define TYPE_REIN 2
+# define TYPE_REOUT 3
+# define TYPE_REOUT_D 4
+# define TYPE_ERROR 1
 
 # define OPEN 1
 # define CLOSE 0
@@ -400,27 +401,27 @@ void				handle_sig_init(t_info *info);
 void				handle_sig_proc(int pid);
 
 /*
-** handle_eof.c
+** set_bracet_type.c
 */
-void				handle_eof(t_info *info, char *backup);
-
+int					set_bracket_type(char *str, int *idx);
 /*
-** handle_enter.c
+** parse_redir.c
 */
-char				handle_enter(
-					int backup_len,
-					char buf,
-					int read_size);
-
+char				*parse_redir(
+					t_info *info,
+					char *str,
+					char *str_cpy);
 /*
-** handle_fflush.c
+** set_redir_info.c
 */
-char				*handle_fflush(char *backup);
-
-int					has_bracket(char *c);
-int					is_bracket(char c1, char c2);
-char				*parse_redirect(t_info *info, char *str);
-int					set_redir_info(t_info *info, char *str, int type);
+int					set_redir_info(
+					t_info *info,
+					char *str,
+					int type);
+/*
+** is_bracket
+*/
+int					is_bracket(char c);
 #endif
 
 #if 0

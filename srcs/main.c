@@ -14,6 +14,7 @@ void change_head(t_info *info)
 	//renew variable regarding redir
 	info->fd_in_idx = 0;
 	info->fd_out_idx = 0;
+	close(info->fd_out[0]);
 //	for (i = 0; i < g_k; ++i)
 //	{
 //		printf("g_k: %d\ng_fds: %d\n", g_k, g_fds[i]);
@@ -51,6 +52,7 @@ int run(t_info *info)
 		}
 		change_head(info);
 	}
+
 	return (0);
 }
 
@@ -65,7 +67,11 @@ int main(int argc, char *argv[], char *env[])
 	init_minishell(&info, env);
 	init_global();
 	run(&info);
-
+#if 0
+	char *str     = "echo abc >>text.txt args args2";
+	char *str_cpy = "echo abc >>text.txt args args2";
+	parse_redir(&info, str, str_cpy);
+#endif
 	exit_shell(&info);
 	return (0);
 }

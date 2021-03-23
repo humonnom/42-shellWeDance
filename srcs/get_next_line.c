@@ -1,6 +1,45 @@
 #include "../incs/minishell.h"
 
-int get_next_line(t_info *info, char **line) 
+static char	handle_enter(
+			int backup_len,
+			char buf,
+			int read_size)
+{
+	int ret;
+
+	ret = 0;
+	if((backup_len == 0) && buf == '\n' && read_size == 1)
+	{
+		display_prompt();
+		ret = 1;
+	}
+	return (ret);
+}
+
+static char	*handle_fflush(char *backup)
+{
+	char *ret;
+
+	free(backup);
+	backup = NULL;
+	ret = ft_strjoin("", "");
+	g_fsh_buf = 0; 
+	return (ret);
+}
+
+static void	handle_eof(t_info *info, char *backup)
+{
+	if (ft_strlen(backup) == 0)
+	{
+		free(backup);
+		g_ret = 0;
+		g_ret = exit_shell(info);
+		exit(0);
+	}
+	ft_putstr_fd("  \b\b", STDERR);
+}
+
+int 		get_next_line(t_info *info, char **line) 
 {
 	int read_size = 1;
 	char buf[2];

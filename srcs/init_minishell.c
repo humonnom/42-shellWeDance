@@ -8,6 +8,8 @@ static void			init_info(
 	info->env_list = NULL;
 	info->exit = 0;
 	info->ret = 0;
+	info->fd_in_idx = 0;
+	info->fd_out_idx = 0;
 }
 
 //env_list has to be sort with printing.

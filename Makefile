@@ -61,12 +61,9 @@ SRC =	main \
 		display_prompt \
 		handle_sig_init \
 		handle_sig_proc \
-		handle_eof \
-		handle_enter \
-		handle_fflush \
 		is_bracket \
-		has_bracket \
-		parse_redirect \
+		set_bracket_type \
+		parse_redir \
 		set_redir_info
 
 
