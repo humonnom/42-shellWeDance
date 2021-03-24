@@ -33,7 +33,10 @@ typedef struct		s_set
 	char			**args;
 	int				type;
 	int				fds[2];
-	int				redir_fds;
+	int				fd_in_idx;
+	int				fd_in[1024];
+	int				fd_out_idx;
+	int				fd_out[1024];
 }					t_set;
 
 typedef struct		s_info
@@ -45,10 +48,6 @@ typedef struct		s_info
     int     		exit;
     int     		ret;
 	int				dollar_ret;
-	int				fd_in_idx;
-	int				fd_in[1024];
-	int				fd_out_idx;
-	int				fd_out[1024];
 }           		t_info;
 
 //global return value
@@ -193,19 +192,19 @@ void				free_elist(t_list *list_head);
 void				free_set(void *_set);
 
 /*
-** parse_line.c
+** gen_set_str_list.c
 */
-t_list				*parse_line(char *line);
+t_list				*gen_set_str_list(char *line);
 
 /*
-** get_set.c
+** gen_set.c
 */
-t_set				*get_set(t_info *info, char *set_str);
+t_set				*gen_set(t_info *info, char *set_str);
 
 /*
-** get_env.c
+** gen_env.c
 */
-t_env				*get_env(char *set);
+t_env				*gen_env(char *set);
 
 /*
 ** free_env.c
@@ -348,9 +347,9 @@ int					set_darr_to_list(
 					t_list **list_head,
 					char **str);
 /*
-** parse_set.c
+** gen_set_list.c
 */
-t_list				*parse_set(t_info *info);
+t_list				*gen_set_list(t_info *info);
 
 /*
 ** run_cmd.c
@@ -405,17 +404,14 @@ void				handle_sig_proc(int pid);
 */
 int					set_bracket_type(char *str, int *idx);
 /*
-** parse_redir.c
+** set_fd.c
 */
-char				*parse_redir(
-					t_info *info,
-					char *str,
-					char *str_cpy);
+char				*set_fd(t_set *set, char *set_str);
 /*
-** set_redir_info.c
+** set_fd_info.c
 */
-int					set_redir_info(
-					t_info *info,
+int					set_fd_info(
+					t_set *set,
 					char *str,
 					int type);
 /*

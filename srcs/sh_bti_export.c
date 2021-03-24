@@ -76,7 +76,7 @@ static int	run_export(t_list *env_list, char *arg)
 	t_env	*tmp_env;
 	char	*tmp_val;
 
-	if (!(tmp_env = get_env(arg)))
+	if (!(tmp_env = gen_env(arg)))
 		return (1);
 	printf("tmp_env->key: %s, tmp_env->val: %s\n", tmp_env->key, tmp_env->val);
 	if (del_quote(&(tmp_env->key)))

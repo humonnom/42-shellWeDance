@@ -12,11 +12,11 @@ SRC =	main \
 		handle_bit \
 		inc_shlvl \
 		get_next_line \
-		parse_line \
+		gen_set_str_list \
+		gen_set_list \
 		del_quote \
 		get_eval \
-		parse_set \
-		get_set \
+		gen_set \
 		print_set \
 		free_set \
 		set_list_to_darr \
@@ -28,7 +28,7 @@ SRC =	main \
 		run_bti \
 		get_bti_path \
 		mod_eval \
-		get_env \
+		gen_env \
 		free_env \
 		sh_bti_export \
 		sh_bti_unset \
@@ -44,10 +44,8 @@ SRC =	main \
 		is_dquote \
 		handle_arg \
 		exact_strncmp \
-		gen_slist \
 		gen_elist \
 		get_elist \
-		mod_elist \
 		add_elist \
 		free_elist \
 		print_elist \
@@ -63,8 +61,8 @@ SRC =	main \
 		handle_sig_proc \
 		is_bracket \
 		set_bracket_type \
-		parse_redir \
-		set_redir_info
+		set_fd \
+		set_fd_info \
 
 
 LIST = 

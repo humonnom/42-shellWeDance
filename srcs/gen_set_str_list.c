@@ -2,7 +2,7 @@
 
 // devide cmd, args set by ;
 // return line_list as linked_list form
-t_list	*parse_line(char *line)
+t_list	*gen_set_str_list(char *line)
 {
 	char	*line_cpy;
 	char	**line_part;

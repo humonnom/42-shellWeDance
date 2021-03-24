@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-t_set *parse_set(char *set_str)
+t_set *gen_set_list(char *set_str)
 {
     char	*set_str_cpy;
     int		error_num;

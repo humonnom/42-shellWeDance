@@ -48,7 +48,7 @@ static int	seek_filename(
 	return (end);
 }
 
-static int	set_fd_info(t_info *info, char *filename, int type)
+static int	set_fd_info_part(t_set *set, char *filename, int type)
 {
 	int	fd;
 
@@ -61,13 +61,13 @@ static int	set_fd_info(t_info *info, char *filename, int type)
 	if (fd < 0)
 		return (1);
 	if (type == TYPE_REIN)
-		info->fd_in[info->fd_in_idx++] = fd;
+		set->fd_in[set->fd_in_idx++] = fd;
 	if (type == TYPE_REOUT || type == TYPE_REOUT_D)
-		info->fd_out[info->fd_out_idx++] = fd;
+		set->fd_out[set->fd_out_idx++] = fd;
 	return (0);
 }
 
-int			set_redir_info(t_info *info, char *str, int type)
+int			set_fd_info(t_set *set, char *str, int type)
 {
 	int		ret;
 	int		idx_inc;
@@ -75,12 +75,13 @@ int			set_redir_info(t_info *info, char *str, int type)
 
 	filename = NULL;
 	idx_inc = seek_filename(str, &filename, type);
+	printf("set_redir_info::filename:%s\n", filename);
 	if (!(idx_inc > 0))
 		return (-1);
 	ret = idx_inc;
 	if (!is_valid_filename(filename, type))
 		ret = -1;
-	if (ret != -1 && set_fd_info(info, filename, type))
+	if (ret != -1 && set_fd_info_part(set, filename, type))
 		ret = -1;
 	free(filename);
 	return (ret);

@@ -39,7 +39,7 @@ static t_env	*get_env_form(char *key, char *val)
 	return (ret);
 }
 
-t_env	*get_env(char *str)
+t_env	*gen_env(char *str)
 {
 	char	*str_cpy;
 	char	*key;

@@ -15,7 +15,7 @@ t_list	*gen_slist(t_info *info, char **str)
 	idx = -1;
 	while (error_num == 0 && str[++idx])
 	{
-		if (!(tmp_set = get_set(info, str[idx])))
+		if (!(tmp_set = gen_set(info, str[idx])))
 			error_num = 1;
 		if (str[idx + 1] == 0)
 			tmp_set->type = TYPE_BREAK;

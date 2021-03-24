@@ -34,7 +34,7 @@ static int	get_alist(
 	return (ret);
 }
 
-t_list *parse_set(char *set)
+t_list *gen_set_list(char *set)
 {
     char	*set_cpy;
 	char	**arg_part;

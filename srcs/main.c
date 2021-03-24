@@ -11,9 +11,6 @@ void change_head(t_info *info)
 	ft_lstdelone(info->set_str_list, &free);
 	info->set_str_list = tmp;
 
-	//renew variable regarding redir
-	info->fd_in_idx = 0;
-	info->fd_out_idx = 0;
 }
 
 int run(t_info *info)
@@ -29,17 +26,16 @@ int run(t_info *info)
 			handle_sig_init(info);
 			if ((get_next_line(info, &line)) == -1)
 				return -1;
-			if (!(info->set_str_list = parse_line(line)))
+			if (!(info->set_str_list = gen_set_str_list(line)))
 				return -1;
 			free(line);
 		}
-		info->set_list = parse_set(info);
+		info->set_list = gen_set_list(info);
 		//print_slist(info->set_list);
 		while (info->set_list)
 		{
 			int flag = 0;
 			run_cmd(info);
-			printf("DEBUG=============================\n");
 			next = info->set_list->next;
 			ft_lstdelone(info->set_list, &free_set);
 			info->set_list = next;
@@ -60,12 +56,18 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	init_global();
-	run(&info);
+//	run(&info);
 #if 0
 	char *str     = "echo abc >>text.txt args args2";
 	char *str_cpy = "echo abc >>text.txt args args2";
 	parse_redir(&info, str, str_cpy);
 #endif
+
+	char *set_str = "echo        abc \"   >>   << \"def>> edf";
+
+	gen_set(&info, set_str);
+
+
 	exit_shell(&info);
 	return (0);
 }
