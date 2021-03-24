@@ -10,8 +10,10 @@ t_set *gen_set(t_info *info, char *set_str)
 	if (!(ret = (t_set *)malloc(sizeof(t_set))))
 		return (NULL);
 	set_fd_res = set_fd(ret, set_str);
+	if (set_fd_res == NULL)
+		return (NULL);
 	set_fd_res_cpy = ft_strdup(set_fd_res);
-
+	handle_quote(set_str, &set_fd_res_cpy, ' ');
 	if (!(tmp_set = pk_split(set_fd_res, set_fd_res_cpy, ' ', INF)))
 		return (NULL);
 	ret->set = tmp_set;

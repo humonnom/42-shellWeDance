@@ -35,27 +35,32 @@ static int	join_char_to_args(char **str, char c)
 static char	*set_fd_part(t_set *set, char *str, char *str_cpy)
 {
 	char	*ret;
-	char	*tmp;
-	char	*tmp_char;
-	int		type;
 	int		idx;
 	int		idx_inc;
+	int		tmp_type;
 
 	idx = 0;
 	idx_inc = 1;
 	ret = ft_strdup("");
+	set->type = 0;
 	while (idx_inc > 0 && str_cpy[idx])
 	{
-		type = set_bracket_type(&str_cpy[0], &idx);
-		if (type == TYPE_ERROR)
+		tmp_type = set_bracket_type(&str_cpy[0], &idx);
+		set->type |= tmp_type;
+		if (set->type & TYPE_ERROR)
 			return (show_type_error(&str_cpy[idx]));
-		if (type == TYPE_REIN \
-			|| type == TYPE_REOUT || type == TYPE_REOUT_D)
-			idx_inc = set_fd_info(set, &str_cpy[idx], type);
+		if (set->type & (TYPE_REIN | TYPE_REOUT | TYPE_REOUT_D))
+		{
+		printf("tmp_type: %d========================\n", tmp_type);
+			idx_inc = set_fd_info(set, &str_cpy[idx], tmp_type);
+		printf("idx_inc: %d========================\n", idx_inc);
+		}
 		else
 			idx_inc = join_char_to_args(&ret, str[idx]);
 		idx += idx_inc;
 	}
+	if (idx_inc == 0)
+		return (NULL);
 	printf("set_fd_part::ret: %s\n", ret);
 	return (ret);
 }

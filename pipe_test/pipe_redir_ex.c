@@ -77,10 +77,10 @@ int main(int argc, char *argv[], char *env[]) {
 	t_set	set1;
 	set1.args[0] = "/usr/bin/sort";
 	set1.args[1] = NULL;
-	set1.type = TYPE_PIPE | TYPE_REIN;
+	set1.type = TYPE_BREAK | TYPE_REIN;
 	set1.fd = open("test.txt", O_RDONLY);
 
-#if 1
+#if 0
 	t_set	set2;
 	set2.args[0] = "/usr/bin/grep";
 	set2.args[1] = "a";
@@ -95,6 +95,7 @@ int main(int argc, char *argv[], char *env[]) {
 	run(&set1, env);
 	run(&set2, env);
 #endif
+	run(&set1, env);
 
 	return (0);
 }

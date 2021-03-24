@@ -12,10 +12,10 @@
 
 # define TYPE_PIPE 1
 # define TYPE_BREAK 2
-# define TYPE_REIN 2
-# define TYPE_REOUT 3
-# define TYPE_REOUT_D 4
-# define TYPE_ERROR 1
+# define TYPE_REIN 4
+# define TYPE_REOUT 8
+# define TYPE_REOUT_D 16
+# define TYPE_ERROR 32
 
 # define OPEN 1
 # define CLOSE 0
@@ -407,13 +407,14 @@ int					set_bracket_type(char *str, int *idx);
 ** set_fd.c
 */
 char				*set_fd(t_set *set, char *set_str);
+
 /*
 ** set_fd_info.c
 */
 int					set_fd_info(
 					t_set *set,
 					char *str,
-					int type);
+					int curr_type);
 /*
 ** is_bracket
 */

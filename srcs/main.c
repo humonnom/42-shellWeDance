@@ -56,17 +56,17 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	init_global();
-//	run(&info);
+	run(&info);
 #if 0
 	char *str     = "echo abc >>text.txt args args2";
 	char *str_cpy = "echo abc >>text.txt args args2";
 	parse_redir(&info, str, str_cpy);
-#endif
+
 
 	char *set_str = "echo        abc \"   >>   << \"def>> edf";
 
 	gen_set(&info, set_str);
-
+#endif
 
 	exit_shell(&info);
 	return (0);

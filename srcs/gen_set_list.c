@@ -14,11 +14,14 @@ t_list	*gen_slist(t_info *info, char **str)
 	{
 		if (!(tmp_set = gen_set(info, str[idx])))
 			error_num = 1;
-		if (str[idx + 1] == 0)
-			tmp_set->type = TYPE_BREAK;
-		else
-			tmp_set->type = TYPE_PIPE;
-		ft_lstadd_back(&ret, ft_lstnew(tmp_set));
+		if (error_num != 1)
+		{
+			if (str[idx + 1] == 0)
+				tmp_set->type |= TYPE_BREAK;
+			else
+				tmp_set->type |= TYPE_PIPE;
+			ft_lstadd_back(&ret, ft_lstnew(tmp_set));
+		}
 	}
 	return (ret);
 }
