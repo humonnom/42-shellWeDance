@@ -17,7 +17,7 @@
 # define TYPE_REOUT_D 16
 # define TYPE_ERROR 32
 
-# define FLAG_FD_OPEN 1
+//# define FLAG_FD_OPEN 1
 
 # define OPEN 1
 # define CLOSE 0
@@ -426,6 +426,7 @@ int					is_bracket(char c);
 ** is_valid_fd.c
 */
 int					is_valid_fd(
+					t_set *set,
 					char *str,
 					int *idx,
 					int type);

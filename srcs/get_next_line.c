@@ -64,6 +64,5 @@ int 		get_next_line(t_info *info, char **line)
 			buf[0] = '\0';
 	}
 	*line = backup;
-	printf("line: [%s]\n", *line);
 	return (read_size);
 }

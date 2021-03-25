@@ -39,7 +39,7 @@ static char	*set_set_type(
 			t_set *set,
 			char *str,
 			char *str_cpy,
-			int open_flag)
+			int (*fp)())
 {
 	char	*ret;
 	int		idx;
@@ -57,12 +57,7 @@ static char	*set_set_type(
 		if (set->type & TYPE_ERROR)
 			return (show_type_error(&str_cpy[idx]));
 		if (tmp_type & (TYPE_REIN | TYPE_REOUT | TYPE_REOUT_D))
-		{
-			if (open_flag)
-				inc_flag = open_valid_fd(set, &str_cpy[idx], &idx, tmp_type);
-			else
-				inc_flag = is_valid_fd(&str_cpy[idx], &idx, tmp_type);
-		}
+			inc_flag = fp(set, &str_cpy[idx], &idx, tmp_type);
 		else
 			inc_flag = join_char_to_args(&ret, str[idx], &idx);
 	}
@@ -83,12 +78,10 @@ char	*set_fd(t_set *set, char *set_str)
 	set->type = 0;
 	set->fd_in_idx = 0;
 	set->fd_out_idx = 0;
-	ret = set_set_type(set, set_str, set_str_cpy, 0);
-	printf("set_fd::ret: %s\n", ret);
+	ret = set_set_type(set, set_str, set_str_cpy, &is_valid_fd);
 	if (ret != NULL)
 	{
-		printf("set_fd::DEBUG===============================\n");
-		set_set_type(set, set_str, set_str_cpy, FLAG_FD_OPEN);
+		set_set_type(set, set_str, set_str_cpy, &open_valid_fd);
 	}
 	free(set_str_cpy);
 	return (ret);

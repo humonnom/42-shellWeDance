@@ -7,6 +7,26 @@ void	show_cmd_error(char *cmd)
    show_error("\n");
 }
 
+static void	close_redir_fd(t_set *curr)
+{
+	if (curr->type & TYPE_REOUT_D)
+		close(curr->fd_out[0]);
+	if (curr->type & TYPE_REOUT)
+		close(curr->fd_out[0]);
+	if (curr->type & TYPE_REIN)
+		close(curr->fd_in[0]);
+}
+
+static void	open_redir_fd(t_set *curr)
+{
+	if (curr->type & TYPE_REOUT)
+		dup2(curr->fd_out[0], STDOUT_FILENO);
+	if (curr->type & TYPE_REOUT_D)
+		dup2(curr->fd_out[0], STDOUT_FILENO);
+	if (curr->type & TYPE_REIN)
+		dup2(curr->fd_in[0], STDIN_FILENO);
+}
+
 static int	close_fds(pid_t pid, t_set *curr, t_set *prev, int pipe_open)
 {
 	int	status;
@@ -21,18 +41,7 @@ static int	close_fds(pid_t pid, t_set *curr, t_set *prev, int pipe_open)
 	}
 	if (prev && (prev->type & TYPE_PIPE))
 		close(prev->fds[0]);
-
-
-
-	if (curr->type & TYPE_REOUT_D)
-		close(curr->fd_out[0]);
-	if (curr->type & TYPE_REOUT)
-		close(curr->fd_out[0]);
-	if (curr->type & TYPE_REIN)
-		close(curr->fd_in[0]);
-
-
-
+	close_redir_fd(curr);
 	if (WIFEXITED(status))
 		ret = WEXITSTATUS(status);
 	return (ret);
@@ -56,30 +65,10 @@ static int	run_cmd_part(
 		if ((curr->type & TYPE_PIPE) 
 			&& dup2(curr->fds[1], STDOUT_FILENO) < 0)
 			return (exit_fatal());
-
-		if (curr->type & TYPE_REOUT)
-		{
-			dup2(curr->fd_out[0], STDOUT_FILENO);
-			printf("run_cmd_part//// type:%d\n", curr->type);
-		}
-		if (curr->type & TYPE_REOUT_D)
-		{
-			dup2(curr->fd_out[0], STDOUT_FILENO);
-			printf("run_cmd_part//// type:%d\n", curr->type);
-		}
-		if (curr->type & TYPE_REIN)
-		{
-			dup2(curr->fd_in[0], STDIN_FILENO);
-		}
-
 		if (prev && (prev->type & TYPE_PIPE)
 			&& dup2(prev->fds[0], STDIN_FILENO) < 0)
 			return (exit_fatal());
-
-
-
-
-
+		open_redir_fd(curr);
 		if ((ret = categorize_cmd(curr, info)) != 0)
 			show_cmd_error(curr->cmd);
 		exit(ret);
@@ -100,7 +89,6 @@ int	run_cmd(t_info *info)
 	ret = EXIT_FAILURE;
 	pipe_open = 0;
 	curr = (t_set *)(info->set_list->data);
-	print_set(curr);
 	if (!(info->set_list->prev))
 		prev = NULL;
 	else

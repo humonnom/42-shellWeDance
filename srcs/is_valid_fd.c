@@ -48,7 +48,11 @@ static char	*get_file_name(
 	return (ret);
 }
 
-int			is_valid_fd(char *str, int *idx, int type)
+int			is_valid_fd(
+			t_set *set,
+			char *str,
+			int *idx,
+			int type)
 {
 	int		ret;
 	char	*file_name;

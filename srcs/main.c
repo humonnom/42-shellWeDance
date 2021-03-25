@@ -3,7 +3,7 @@
 //memory free about set
 void change_head(t_info *info)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	int		i;
 
 	ft_lstclear(&(info->set_list), &free_set);
@@ -31,7 +31,6 @@ int run(t_info *info)
 			free(line);
 		}
 		info->set_list = gen_set_list(info);
-		//print_slist(info->set_list);
 		while (info->set_list)
 		{
 			int flag = 0;
@@ -40,6 +39,9 @@ int run(t_info *info)
 			ft_lstdelone(info->set_list, &free_set);
 			info->set_list = next;
 		}
+
+		//handle_rest_redir();
+
 		change_head(info);
 	}
 
@@ -56,7 +58,7 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	init_global();
-//	run(&info);
+	run(&info);
 #if 0
 	char *str     = "echo abc >>text.txt args args2";
 	char *str_cpy = "echo abc >>text.txt args args2";
@@ -77,10 +79,10 @@ int main(int argc, char *argv[], char *env[])
 	printf("result of res: %d\n", res);
 #endif
 
-#if 1
-	char *str = " echo abc >>   test.txt    < test2.txt defg hi";
+#if 0
+	char *str = " echo abc >>   test.txt    >> test2.txt defg hi";
 	t_set *res = gen_set(&info, str);
-	print_set(res);
+	//print_set(res);
 
 #endif
 

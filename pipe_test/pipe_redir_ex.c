@@ -15,7 +15,7 @@ typedef struct		s_set
 	char			*args[30];
 	int				fds[2];
 	int				type;
-	int				fd;
+	int				fd[2];
 	struct s_set	*next;
 	struct s_set	*prev;
 }					t_set;
@@ -43,9 +43,11 @@ int run(t_set *set, char **env)
 			dup2(set->fds[1], STDOUT_FILENO);
 ////////////////////////////////////////////////////////////////////////////////
 		if (set->type & TYPE_REIN)
-			dup2(set->fd, STDIN_FILENO);
+			dup2(set->fd[0], STDIN_FILENO);
+		if (set->type & TYPE_REIN)
+			dup2(set->fd[1], STDIN_FILENO);
 		if (set->type & TYPE_REOUT)
-			dup2(set->fd, STDOUT_FILENO);
+			dup2(set->fd[0], STDOUT_FILENO);
 ////////////////////////////////////////////////////////////////////////////////
 		if (set->prev && (set->prev->type & TYPE_PIPE))
 			dup2(set->prev->fds[0], STDIN_FILENO);
@@ -65,9 +67,11 @@ int run(t_set *set, char **env)
 			close(set->prev->fds[0]);
 #if 1
 		if (set->type & TYPE_REIN)
-			close(set->fd);
+			close(set->fd[0]);
+		if (set->type & TYPE_REIN)
+			close(set->fd[1]);
 		if (set->type & TYPE_REOUT)
-			close(set->fd);
+			close(set->fd[0]);
 #endif
 	}
 	return (ret);
@@ -78,7 +82,8 @@ int main(int argc, char *argv[], char *env[]) {
 	set1.args[0] = "/usr/bin/sort";
 	set1.args[1] = NULL;
 	set1.type = TYPE_BREAK | TYPE_REIN;
-	set1.fd = open("test.txt", O_RDONLY);
+	set1.fd[0] = open("test.txt", O_RDONLY);
+	set1.fd[1] = open("test2.txt", O_RDONLY);
 
 #if 0
 	t_set	set2;

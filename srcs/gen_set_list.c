@@ -2,21 +2,23 @@
 
 t_list	*gen_slist(t_info *info, char **str)
 {
-	int		error_num;
 	int		idx;
 	t_set	*tmp_set;
 	t_list	*ret;
 
 	ret = NULL;
-	error_num = 0;
 	idx = -1;
-	while (error_num == 0 && str[++idx])
+	while (str[++idx])
 	{
-		if (!(tmp_set = gen_set(info, str[idx])))
-			error_num = 1;
-		if (error_num != 1)
+		tmp_set = gen_set(info, str[idx]);
+		if (tmp_set == NULL)
 		{
-			if (str[idx + 1] == 0)
+			ft_lstclear(&ret, &free_set);
+			return (NULL);
+		}
+		else
+		{
+			if (str[idx + 1] == NULL)
 				tmp_set->type |= TYPE_BREAK;
 			else
 				tmp_set->type |= TYPE_PIPE;
@@ -39,7 +41,6 @@ t_list			*gen_set_list(t_info *info)
 	error_num = 0;
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
-	printf("DEBUG===============================================\n");
 	if (handle_quote(line, &line_cpy, '|'))
 		error_num = turn_on_bit(error_num, 0);
 	if (!(line_part = pk_split(line, line_cpy, '|', INF)))
