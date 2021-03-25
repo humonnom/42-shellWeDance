@@ -62,7 +62,9 @@ SRC =	main \
 		is_bracket \
 		set_bracket_type \
 		set_fd \
+		is_valid_fd \
 		set_fd_info \
+		open_valid_fd \
 
 
 LIST = 

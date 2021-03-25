@@ -28,8 +28,8 @@ static int is_valid_filename(char *filename, int curr_type)
 }
 
 static int	seek_filename(
-			char	*str,
-			char	**filename)
+			char *str,
+			char **filename)
 {
 	int idx;
 	int ret;

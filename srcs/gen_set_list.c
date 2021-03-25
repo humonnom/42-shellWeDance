@@ -39,6 +39,7 @@ t_list			*gen_set_list(t_info *info)
 	error_num = 0;
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
+	printf("DEBUG===============================================\n");
 	if (handle_quote(line, &line_cpy, '|'))
 		error_num = turn_on_bit(error_num, 0);
 	if (!(line_part = pk_split(line, line_cpy, '|', INF)))

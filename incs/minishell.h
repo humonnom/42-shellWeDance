@@ -17,6 +17,8 @@
 # define TYPE_REOUT_D 16
 # define TYPE_ERROR 32
 
+# define FLAG_FD_OPEN 1
+
 # define OPEN 1
 # define CLOSE 0
 // head of data is cmd
@@ -416,9 +418,26 @@ int					set_fd_info(
 					char *str,
 					int curr_type);
 /*
-** is_bracket
+** is_bracket.c
 */
 int					is_bracket(char c);
+
+/*
+** is_valid_fd.c
+*/
+int					is_valid_fd(
+					char *str,
+					int *idx,
+					int type);
+
+/*
+** open_valid_fd.c
+*/
+int					open_valid_fd(
+					t_set *set,
+					char *set_str,
+					int *idx,
+					int type);
 #endif
 
 #if 0

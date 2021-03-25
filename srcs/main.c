@@ -56,7 +56,7 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	init_global();
-	run(&info);
+//	run(&info);
 #if 0
 	char *str     = "echo abc >>text.txt args args2";
 	char *str_cpy = "echo abc >>text.txt args args2";
@@ -66,6 +66,22 @@ int main(int argc, char *argv[], char *env[])
 	char *set_str = "echo        abc \"   >>   << \"def>> edf";
 
 	gen_set(&info, set_str);
+#endif
+
+#if 0
+	int idx_inc = 0;
+	char *str = "    test.txt  >> test2.txt";
+	int res = is_valid_fd(str, &idx_inc, TYPE_REIN);
+	printf("result of idx_inc: %d\n", idx_inc);
+	printf("rest string:   %s\n", &str[idx_inc]);
+	printf("result of res: %d\n", res);
+#endif
+
+#if 1
+	char *str = " echo abc >>   test.txt    < test2.txt defg hi";
+	t_set *res = gen_set(&info, str);
+	print_set(res);
+
 #endif
 
 	exit_shell(&info);
