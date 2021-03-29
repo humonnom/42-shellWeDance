@@ -1,6 +1,4 @@
-#include "../incs/minishell.h"
-
-//memory free about set
+#include "../incs/minishell.h" //memory free about set
 void change_head(t_info *info)
 {
 	t_list	*tmp;
@@ -58,7 +56,14 @@ int main(int argc, char *argv[], char *env[])
 	err_num = 0;
 	init_minishell(&info, env);
 	init_global();
-	run(&info);
+//	run(&info);
+
+	#if 1
+
+	test();
+
+
+	#endif
 #if 0
 	char *str     = "echo abc >>text.txt args args2";
 	char *str_cpy = "echo abc >>text.txt args args2";

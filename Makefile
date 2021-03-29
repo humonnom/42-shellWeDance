@@ -4,7 +4,7 @@ CC = gcc
 #CFLAGS = -Wall -Wextra -Werror
 CFLAGS = 
 
-SRC =	main \
+FUNC =	main \
 		init_global \
 	  	init_minishell \
 		pk_split \
@@ -64,50 +64,32 @@ SRC =	main \
 		set_fd \
 		is_valid_fd \
 		open_valid_fd \
-
-
-LIST = 
-#		export_env \
-#	  	pk_lst \
-	#	parse_env \
-
-
-#		get_list_data \
-		get_list_index \
-		add_list_data \
-		mod_list_data \
-
-SRCDIR = ./srcs
-SRCS = $(addsuffix .c, $(addprefix $(SRCDIR)/, $(SRC))) \
-		$(addsuffix .c, $(addprefix $(SRCDIR)/env/, $(ENV))) \
-		$(addsuffix .c, $(addprefix $(SRCDIR)/list/, $(LIST))) \
-
-OBJS = $(SRCS:.c=.o)
+		termcap_test \
 
 OBJDIR = ./objs
 INCDIR = ./incs
-
+SRCDIR = ./srcs
 LIBDIR = ./libft
+LIBFT = -L./libft -lft
 
-LIBOPT = -L./libft -lft
+SRC  = $(addsuffix .c, $(FUNC))
+SRCS = $(addprefix $(SRCDIR)/, $(SRC))
+OBJS = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 
 all: $(NAME)
 
-.c.o:
-	@$(CC) $(CFLAGS) -I$(INCDIR) -o $@ -c $<
-	
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBOPT) $(OBJS)
+	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) 2> /dev/null || true
 	@echo "Start Program"
-
 	
-#$(OBJDIR)/%.o: $(SRCS)
-#	mkdir $(OBJDIR) #2> /dev/null || true
-#	$(CC) $(CFLAGS) -I$(INCDIR) $(LIBOPT) -o $@ -c $<
+#$(OBJS): $(SRCS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir $(OBJDIR) 2> /dev/null || true
+	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< 2> /dev/null || true
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJDIR)
 	@$(MAKE) -C $(LIBDIR) clean
 
 fclean: clean
@@ -116,7 +98,4 @@ fclean: clean
 
 re: fclean all
 
-test: re
-	@./$(NAME) ec""ho"" "this is simple test"; cd ..;
-
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re

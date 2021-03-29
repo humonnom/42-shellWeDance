@@ -439,6 +439,8 @@ int					open_valid_fd(
 					char *set_str,
 					int *idx,
 					int type);
+
+int					test();
 #endif
 
 #if 0
