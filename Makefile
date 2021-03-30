@@ -65,6 +65,8 @@ FUNC =	main \
 		is_valid_fd \
 		open_valid_fd \
 		termcap_test \
+		ft_cursor \
+		ft_putchar_tc \
 
 OBJDIR = ./objs
 INCDIR = ./incs

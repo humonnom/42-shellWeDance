@@ -9,6 +9,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <termcap.h>
+# include <termios.h>
 
 # define TYPE_PIPE 1
 # define TYPE_BREAK 2
@@ -16,6 +18,10 @@
 # define TYPE_REOUT 8
 # define TYPE_REOUT_D 16
 # define TYPE_ERROR 32
+
+# define TC_CM 0
+# define TC_DL 1
+# define TC_CE 2
 
 //# define FLAG_FD_OPEN 1
 
@@ -440,7 +446,15 @@ int					open_valid_fd(
 					int *idx,
 					int type);
 
+int					ft_putchar_tc(int tc);
+
 int					test();
+
+int					ft_cursor_mv_left(void);
+int					ft_cursor_mv_right(void);
+int					ft_cursor_mv_head(char *tc_str[], int row);
+int					ft_cursor_clr_line_all(char *tc_str[], int row);
+int					ft_cursor_clr_line_end(char *tc_str[]);
 #endif
 
 #if 0
