@@ -56,6 +56,7 @@ typedef struct		s_info
     int     		exit;
     int     		ret;
 	int				dollar_ret;
+	int				inst_buf[1024];
 }           		t_info;
 
 //global return value
@@ -450,8 +451,12 @@ int					ft_putchar_tc(int tc);
 
 int					test();
 
-int					ft_cursor_mv_left(void);
-int					ft_cursor_mv_right(void);
+int					ft_cursor_mv_left(
+					int	col,
+					int	left_limit);
+int					ft_cursor_mv_right(
+					int	col,
+					int	right_limit);
 int					ft_cursor_mv_head(char *tc_str[], int row);
 int					ft_cursor_clr_line_all(char *tc_str[], int row);
 int					ft_cursor_clr_line_end(char *tc_str[]);

@@ -8,9 +8,22 @@
 #define UP_ARROW 4283163
 #define DOWN_ARROW 4348699
 
-int	inst_list[BUF_SIZE];
+typedef struct		s_cursor
+{
+	int				row;
+	int				col;
+}					t_cursor;
 
-void get_cursor_pos(int *col, int *row)
+typedef struct		s_tc
+{
+	struct	termios	term;
+	char			*tc_str[3];
+	t_cursor		cursor;
+}					t_tc;
+
+int			inst_list[BUF_SIZE];
+
+static void get_cursor_pos(int *col, int *row)
 {
 	int		cnt;
 	int		idx;
@@ -32,109 +45,72 @@ void get_cursor_pos(int *col, int *row)
 		*col = *col * 10 + buf[idx++] - '0'; 
 }
 
-void move_cursor_left()
+t_tc	gen_tc()
 {
-	write(STDIN_FILENO, "\033[D", 4);
-}
+	t_tc	ret;
 
-void move_cursor_right()
-{
-	write(STDIN_FILENO, "\033[C", 4);
-}
+	tcgetattr(STDIN_FILENO, &(ret.term));
+	ret.term.c_lflag &= ~ICANON;
+	ret.term.c_lflag &= ~ECHO;
+	ret.term.c_cc[VMIN] = 1;
+	ret.term.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &(ret.term));
 
-void	tc_setting(struct termios *term)
-{
-	tcgetattr(STDIN_FILENO, term);
-	term->c_lflag &= ~ICANON;
-	term->c_lflag &= ~ECHO;
-	term->c_cc[VMIN] = 1;
-	term->c_cc[VTIME] = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, term);
+	ret.cursor.row = 0;
+	ret.cursor.col = 0;
+
+	tgetent(NULL, "xterm");
+	ret.tc_str[TC_CM] = tgetstr("cm", NULL); 
+	ret.tc_str[TC_DL] = tgetstr("dl", NULL); 
+	ret.tc_str[TC_CE] = tgetstr("ce", NULL); 
+
+	return (ret);
 }
 
 #if 1
 int test()
 {
-	struct	termios term;
-#if 1
-	tc_setting(&term);
-
-	tgetent(NULL, "xterm");
-	char *tc_str[3];
-	tc_str[TC_CM] = tgetstr("cm", NULL); 
-	tc_str[TC_DL] = tgetstr("dl", NULL); 
-	tc_str[TC_CE] = tgetstr("ce", NULL); 
-#endif
-#if 0
-	char c;
-	while (read(STDIN_FILENO, &c, sizeof(c)) > 0) {
-		printf("keycode: %c\n", c);
-	}
-#endif
-#if 1
-	int col;
-	int row;
-	char *prompt;
+	t_tc	tc;
+	
+	tc = gen_tc();
+	char *prompt = ">> ";
 
 	long c;
-	prompt = ">> ";
 	while (1)
 	{
-		get_cursor_pos(&col, &row);
-		//printf("col: %d, row: %d\n", col, row);
-		ft_cursor_mv_head(tc_str, row);
-		write(1, prompt, ft_strlen(prompt));
 		c = 0;
+		get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
+		ft_cursor_mv_head(tc.tc_str, tc.cursor.row);
+		write(1, prompt, ft_strlen(prompt));
 		char *str_in = ft_strdup("");
-		while (read(0, &c, sizeof(c)) > 0)
+		int prompt_len = ft_strlen(prompt);
+		int buf_len = 0;
+		while ((read(0, &c, sizeof(c)) > 0) && (c != '\n'))
 		{
-			//printf("keycode: %ld\n", c);
-			if (c == '\n')
-				break ;
-			get_cursor_pos(&row, &col);
-			if (col > 3 && c == LEFT_ARROW)
-				ft_cursor_mv_left();
-			else if (c == RIGHT_ARROW)
-				ft_cursor_mv_right();
-			else if (c == UP_ARROW)
-			{
-				ft_cursor_clr_line_all(tc_str, row);
-				write(1, prompt, ft_strlen(prompt));
-			}
-#if 0
-			else if (c == DOWN_ARROW)
-				write(STDIN_FILENO, "\033[B", ft_strlen("\033[B"));
-#endif
-			else if (c == BACKSPACE)
-				ft_cursor_clr_line_end(tc_str);
-			else 
+			get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
+			//printf("col: %d, row: %d\n", tc.cursor.col, tc.cursor.row);
+			if (ft_isprint(c))
 			{
 				ft_putchar_fd(c, 1);
 				char *tmp = cvt_char_to_str(c);
 				str_in = ft_strjoin(str_in, tmp);
+				++buf_len;
 			}
-			get_cursor_pos(&row, &col);
+			else if (c == LEFT_ARROW)
+				ft_cursor_mv_left(tc.cursor.col, prompt_len);
+			else if (c == RIGHT_ARROW)
+				ft_cursor_mv_right(tc.cursor.col, prompt_len + buf_len);
+			else if (c == UP_ARROW)
+			{
+				ft_cursor_clr_line_all(tc.tc_str, tc.cursor.row);
+				break ;
+			}
+			else if (c == BACKSPACE)
+				ft_cursor_clr_line_end(tc.tc_str);
 			c = 0;
 		}
-		printf("str_in: %s\n", str_in);
+		printf("\nstr_in: %s\n", str_in);
 	}
-#endif
-#if 0
-	while (1)
-	{
-		write(STDIN_FILENO, "\033[A", ft_strlen("\033[A"));
-		char buf[100];
-		read(STDOUT_FILENO, buf, 5);
-		buf[4] = '\0';
-		printf("buf: %s\n", buf);
-	}
-#endif
-#if 0
-	long d;
-	while (read(STDIN_FILENO, &d, sizeof(d)) > 0) {
-		printf("keycode: %ld\n", d);
-	}
-#endif
 	return (0);	
 }
 #endif

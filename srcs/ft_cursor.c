@@ -1,5 +1,6 @@
 #include "../incs/minishell.h"
 
+
 #define TC_CURSOR_UP "\033[A"
 #define TC_CURSOR_DOWN "\033[B"
 #define TC_CURSOR_RIGHT "\033[C"
@@ -14,21 +15,29 @@ int ft_cursor_mv_head(char *tc_str[], int row)
 	return (0);
 }
 
-int ft_cursor_mv_left(void)
+int ft_cursor_mv_left(
+	int	col,
+	int	left_limit)
 {
 	char	*str;
+	int		itr;
 
 	str = "\033[D";
-	write(STDIN_FILENO, str, ft_strlen(str));
+	if (col > left_limit + 1)
+		write(STDIN_FILENO, str, ft_strlen(str));
 	return (0);
 }
 
-int ft_cursor_mv_right(void)
+int ft_cursor_mv_right(
+	int	col,
+	int	right_limit)
 {
 	char	*str;
+	int		itr;
 
 	str = "\033[C";
-	write(STDIN_FILENO, str, ft_strlen(str));
+	if (col <= right_limit)
+		write(STDIN_FILENO, str, ft_strlen(str));
 	return (0);
 }
 

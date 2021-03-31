@@ -60,7 +60,7 @@ int main(int argc, char *argv[], char *env[])
 
 	#if 1
 
-	test();
+	test(&info);
 
 
 	#endif
