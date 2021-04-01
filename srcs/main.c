@@ -60,7 +60,10 @@ int main(int argc, char *argv[], char *env[])
 
 	#if 1
 
-	test(&info);
+	t_prompt	prompt;
+	prompt.data = ">> ";
+	prompt.size = ft_strlen(prompt.data);
+	test(&info, prompt);
 
 
 	#endif

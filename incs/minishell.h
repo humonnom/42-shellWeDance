@@ -29,16 +29,38 @@
 # define TC_DL 1
 # define TC_CE 2
 
+# define BUFFER_SIZE 1024
+
 //# define FLAG_FD_OPEN 1
 
 # define OPEN 1
 # define CLOSE 0
 // head of data is cmd
+
+typedef struct		s_prompt
+{
+	char			*data;
+	int				size;
+}					t_prompt;
+
 typedef struct		s_env
 {
 	char			*key;
 	char			*val;
 }					t_env;
+
+typedef struct		s_cursor
+{
+	int				row;
+	int				col;
+}					t_cursor;
+
+typedef struct		s_tc
+{
+	struct	termios	term;
+	char			*tc_str[3];
+	t_cursor		cursor;
+}					t_tc;
 
 typedef struct		s_set
 {
@@ -63,21 +85,8 @@ typedef struct		s_info
     int     		ret;
 	int				dollar_ret;
 	int				inst_buf[1024];
+	t_tc			tc;
 }           		t_info;
-
-typedef struct		s_cursor
-{
-	int				row;
-	int				col;
-}					t_cursor;
-
-typedef struct		s_tc
-{
-	struct	termios	term;
-	char			*tc_str[3];
-	t_cursor		cursor;
-}					t_tc;
-
 //global return value
 int	g_ret;
 int	g_fsh_buf;
@@ -468,17 +477,35 @@ int					open_valid_fd(
 
 int					ft_putchar_tc(int tc);
 
-int					test();
+int					test(t_info *info, t_prompt prompt);
 
+/*
+** ft_cursor.c
+*/
 int					ft_cursor_mv_left(
 					int	col,
 					int	left_limit);
 int					ft_cursor_mv_right(
 					int	col,
 					int	right_limit);
+int					ft_cursor_clr_line_end(
+					char *tc_str[],
+					int col,
+					int left_limit);
+
 int					ft_cursor_mv_head(char *tc_str[], int row);
 int					ft_cursor_clr_line_all(char *tc_str[], int row);
-int					ft_cursor_clr_line_end(char *tc_str[]);
+
+/*
+** ft_cursor2.c
+*/
+void				get_cursor_pos(int *col, int *row);
+
+/*
+** calc.c
+*/
+int					calc_min(int num1, int num2);
+int					calc_max(int num1, int num2);
 #endif
 
 #if 0

@@ -48,9 +48,16 @@ int	ft_cursor_clr_line_all(char *tc_str[], int row)
 	return (0);
 }
 
-int ft_cursor_clr_line_end(char *tc_str[])
+int ft_cursor_clr_line_end(
+	char *tc_str[],
+	int col,
+	int left_limit)
 {
-	ft_putchar_fd('\b', STDOUT_FILENO);
-	tputs(tc_str[TC_CE], 1, ft_putchar_tc);
+
+	if (col > left_limit + 1)
+	{
+		ft_putchar_fd('\b', STDOUT_FILENO);
+		tputs(tc_str[TC_CE], 1, ft_putchar_tc);
+	}
 	return (0);
 }
