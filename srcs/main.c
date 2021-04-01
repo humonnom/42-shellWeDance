@@ -20,7 +20,6 @@ int run(t_info *info)
 	{
 		if (info->set_str_list == NULL)
 		{
-			display_prompt();
 			handle_sig_init(info);
 			if ((get_next_line(info, &line)) == -1)
 				return -1;
@@ -37,9 +36,7 @@ int run(t_info *info)
 			ft_lstdelone(info->set_list, &free_set);
 			info->set_list = next;
 		}
-
 		//handle_rest_redir();
-
 		change_head(info);
 	}
 
@@ -61,15 +58,16 @@ int main(int argc, char *argv[], char *env[])
 	#if 1
 
 	t_prompt	prompt;
-	prompt.data = ">> ";
+	prompt.data = ">> ";//shell💃we🕺dance===> 
 	prompt.size = ft_strlen(prompt.data);
+	info.prompt = prompt;
 	//test(&info, prompt);
 
 	char	*str;
 	char	*tmp;
 	while (1)
 	{
-		if ((str = get_next_line_tc(&info, prompt)) == NULL)
+		if ((str = get_next_line_tc(&info)) == NULL)
 		{
 			printf("EMPTY LINE======================================\n");
 			break ;
@@ -78,6 +76,7 @@ int main(int argc, char *argv[], char *env[])
 		{
 			tmp = ft_strdup(str);
 			ft_lstadd_back(&(info.history), ft_lstnew(tmp));
+			info.history_ptr = info.history;
 		}
 		print_list(info.history);
 	}

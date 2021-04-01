@@ -7,11 +7,11 @@
 #define TC_CURSOR_LEFT "\033[D"
 #define TC_ERASE_LINE "\033[1K"
 
-int ft_cursor_mv_head(char *tc_str[], int row)
+int ft_cursor_mv_head(t_tc tc)
 {
 	char	*str;
 
-	tputs(tgoto(tc_str[TC_CM], 0, row), 1, ft_putchar_tc);
+	tputs(tgoto(tc.tc_str[TC_CM], 0, tc.cursor.row), 1, ft_putchar_tc);
 	return (0);
 }
 
@@ -41,23 +41,21 @@ int ft_cursor_mv_right(
 	return (0);
 }
 
-int	ft_cursor_clr_line_all(char *tc_str[], int row)
+int	ft_cursor_clr_line_all(t_tc tc)
 {
-	tputs(tc_str[TC_DL], 1, ft_putchar_tc);
-	tputs(tgoto(tc_str[TC_CM], 0, row), 1, ft_putchar_tc);
+	tputs(tc.tc_str[TC_DL], 1, ft_putchar_tc);
+	tputs(tgoto(tc.tc_str[TC_CM], 0, tc.cursor.row), 1, ft_putchar_tc);
 	return (0);
 }
 
 int ft_cursor_clr_line_end(
-	char *tc_str[],
-	int col,
+	t_tc tc,
 	int left_limit)
 {
-
-	if (col > left_limit + 1)
+	if (tc.cursor.col > left_limit + 1)
 	{
 		ft_putchar_fd('\b', STDOUT_FILENO);
-		tputs(tc_str[TC_CE], 1, ft_putchar_tc);
+		tputs(tc.tc_str[TC_CE], 1, ft_putchar_tc);
 	}
 	return (0);
 }

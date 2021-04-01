@@ -81,12 +81,14 @@ typedef struct		s_info
 	t_list			*set_list;
 	t_list			*set_str_list;
 	t_list			*history;
+	t_list			*history_ptr;
 	t_set			*set;
     int     		exit;
     int     		ret;
 	int				dollar_ret;
 	int				inst_buf[1024];
 	t_tc			tc;
+	t_prompt		prompt;
 }           		t_info;
 //global return value
 int	g_ret;
@@ -423,11 +425,6 @@ int					redo_sh_bti(t_set *set, t_info *info);
 void				init_global();
 
 /*
-** display_prompt.c
-*/
-void				display_prompt();
-
-/*
 ** handle_sig_init.c
 */
 void				handle_sig_init(t_info *info);
@@ -489,18 +486,18 @@ int					ft_cursor_mv_right(
 					int	col,
 					int	right_limit);
 int					ft_cursor_clr_line_end(
-					char *tc_str[],
-					int col,
+					t_tc tc,
 					int left_limit);
 
-int					ft_cursor_mv_head(char *tc_str[], int row);
-int					ft_cursor_clr_line_all(char *tc_str[], int row);
+int					ft_cursor_mv_head(t_tc tc);
+int					ft_cursor_clr_line_all(t_tc tc);
 
 
 
 
-char				*get_next_line_tc(t_info *infom, t_prompt prompt);
+char				*get_next_line_tc(t_info *info);
 //int					test(t_info *info, t_prompt prompt);
+int					is_key_arrow(long c);
 
 /*
 ** ft_cursor2.c

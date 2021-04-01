@@ -10,7 +10,7 @@ static char	handle_enter(
 	ret = 0;
 	if((backup_len == 0) && buf == '\n' && read_size == 1)
 	{
-		display_prompt();
+		//display_prompt();
 		ret = 1;
 	}
 	return (ret);

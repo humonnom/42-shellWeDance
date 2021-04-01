@@ -4,7 +4,7 @@ static void	sigint_handler(int signo)
 {
 	//remove signal, and change line
 	ft_putstr_fd("\b\b  \n", STDERR);
-	display_prompt();
+//	display_prompt();
 	//change dollar_ret
 	g_ret = 130;
 	g_fsh_buf = 1;

@@ -56,7 +56,6 @@ FUNC =	main \
 		show_error \
 		exit_fatal \
 		exit_shell \
-		display_prompt \
 		handle_sig_init \
 		handle_sig_proc \
 		is_bracket \
@@ -69,6 +68,7 @@ FUNC =	main \
 		ft_cursor2 \
 		ft_putchar_tc \
 		calc \
+		is_key_arrow \
 
 OBJDIR = ./objs
 INCDIR = ./incs
@@ -84,8 +84,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
-	$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
-	echo "Start Program"
+	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
+	@echo "Start Program"
 	
 #$(OBJS): $(SRCS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -93,8 +93,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
 
 clean:
-	rm -rf $(OBJDIR)
-	$(MAKE) -C $(LIBDIR) clean
+	@rm -rf $(OBJDIR)
+	@$(MAKE) -C $(LIBDIR) clean
 
 fclean: clean
 	@rm -rf $(NAME)
