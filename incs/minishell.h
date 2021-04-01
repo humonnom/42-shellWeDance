@@ -19,6 +19,12 @@
 # define TYPE_REOUT_D 16
 # define TYPE_ERROR 32
 
+# define KEY_BACKSPACE 127
+# define KEY_LEFT_ARROW 4479771
+# define KEY_RIGHT_ARROW 4414235
+# define KEY_UP_ARROW 4283163
+# define KEY_DOWN_ARROW 4348699
+
 # define TC_CM 0
 # define TC_DL 1
 # define TC_CE 2
@@ -58,6 +64,19 @@ typedef struct		s_info
 	int				dollar_ret;
 	int				inst_buf[1024];
 }           		t_info;
+
+typedef struct		s_cursor
+{
+	int				row;
+	int				col;
+}					t_cursor;
+
+typedef struct		s_tc
+{
+	struct	termios	term;
+	char			*tc_str[3];
+	t_cursor		cursor;
+}					t_tc;
 
 //global return value
 int	g_ret;
