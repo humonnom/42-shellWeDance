@@ -1,5 +1,26 @@
 #include "../incs/minishell.h"
 
+static t_tc	gen_tc()
+{
+	t_tc	ret;
+
+	tcgetattr(STDIN_FILENO, &(ret.term));
+	ret.term.c_lflag &= ~ICANON;
+	ret.term.c_lflag &= ~ECHO;
+	ret.term.c_cc[VMIN] = 1;
+	ret.term.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, &(ret.term));
+
+	ret.cursor.row = 0;
+	ret.cursor.col = 0;
+
+	tgetent(NULL, "xterm");
+	ret.tc_str[TC_CM] = tgetstr("cm", NULL); 
+	ret.tc_str[TC_DL] = tgetstr("dl", NULL); 
+	ret.tc_str[TC_CE] = tgetstr("ce", NULL); 
+	return (ret);
+}
+
 static void			init_info(
 					t_info *info)
 {
@@ -8,6 +29,7 @@ static void			init_info(
 	info->env_list = NULL;
 	info->exit = 0;
 	info->ret = 0;
+	info->tc = gen_tc();
 }
 
 //env_list has to be sort with printing.

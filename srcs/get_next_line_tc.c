@@ -1,28 +1,5 @@
 #include "../incs/minishell.h"
 
-static t_tc	gen_tc()
-{
-	t_tc	ret;
-
-	tcgetattr(STDIN_FILENO, &(ret.term));
-	ret.term.c_lflag &= ~ICANON;
-	ret.term.c_lflag &= ~ECHO;
-	ret.term.c_cc[VMIN] = 1;
-	ret.term.c_cc[VTIME] = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, &(ret.term));
-
-	ret.cursor.row = 0;
-	ret.cursor.col = 0;
-
-	tgetent(NULL, "xterm");
-	ret.tc_str[TC_CM] = tgetstr("cm", NULL); 
-	ret.tc_str[TC_DL] = tgetstr("dl", NULL); 
-	ret.tc_str[TC_CE] = tgetstr("ce", NULL); 
-
-	return (ret);
-}
-
-
 static char	*get_str_by_inst_arr(long inst_arr[], int inst_arr_size)
 {
 	int		inst_arr_idx;
@@ -76,12 +53,45 @@ static int	handle_up_arrow(t_tc tc, long inst_arr[], int inst_arr_size)
 	return (idx);
 }
 
-char	*get_next_line_tc()
+char	*get_next_line_tc(t_info *info, t_prompt prompt)
 {
+	t_tc	tc;
+	long	inst_arr[BUFFER_SIZE];
+	int		inst_arr_idx;
+	char	*ret;
+	long	c;
 
-	return (0);
+	tc = info->tc;
+
+		c = 0;
+		get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
+		ft_cursor_mv_head(tc.tc_str, tc.cursor.row);
+		write(1, prompt.data, prompt.size);
+		int buf_len = 0;
+		ft_memset(inst_arr, 0, BUFFER_SIZE);
+		// inst_arr_idx is index!! size is inst_arr_idx + 1!!!!!!!!1
+		inst_arr_idx = -1;
+		while ((read(0, &c, sizeof(c)) > 0) && (c != '\n'))
+		{
+			if (c <= KEY_LEFT_ARROW)
+				inst_arr[++inst_arr_idx] = c;
+			get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
+			if (ft_isprint(c))
+				ft_putchar_fd(c, 1);
+			else if (c == KEY_LEFT_ARROW)
+				ft_cursor_mv_left(tc.cursor.col, prompt.size);
+			else if (c == KEY_RIGHT_ARROW)
+				ft_cursor_mv_right(tc.cursor.col, prompt.size + buf_len);
+			else if (c == KEY_UP_ARROW)
+				inst_arr_idx = handle_up_arrow(tc, inst_arr, inst_arr_idx) - 1;
+			else if (c == KEY_BACKSPACE)
+				ft_cursor_clr_line_end(tc.tc_str, tc.cursor.col, prompt.size);
+			c = 0;
+		}
+		ret = get_str_by_inst_arr(inst_arr, inst_arr_idx + 1);
+	return (ret);	
 }
-
+#if 0
 int		test(t_info *info, t_prompt prompt)
 {
 	t_tc	tc;
@@ -90,7 +100,7 @@ int		test(t_info *info, t_prompt prompt)
 	char	*ret;
 	long	c;
 
-	tc = gen_tc();
+	tc = info->tc;
 	while (1)
 	{
 		c = 0;
@@ -122,3 +132,4 @@ int		test(t_info *info, t_prompt prompt)
 	}
 	return (0);	
 }
+#endif

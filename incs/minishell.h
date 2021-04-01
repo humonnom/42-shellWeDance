@@ -477,7 +477,6 @@ int					open_valid_fd(
 
 int					ft_putchar_tc(int tc);
 
-int					test(t_info *info, t_prompt prompt);
 
 /*
 ** ft_cursor.c
@@ -495,6 +494,12 @@ int					ft_cursor_clr_line_end(
 
 int					ft_cursor_mv_head(char *tc_str[], int row);
 int					ft_cursor_clr_line_all(char *tc_str[], int row);
+
+
+
+
+char				*get_next_line_tc(t_info *infom, t_prompt prompt);
+//int					test(t_info *info, t_prompt prompt);
 
 /*
 ** ft_cursor2.c

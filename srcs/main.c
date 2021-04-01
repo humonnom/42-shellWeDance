@@ -63,8 +63,18 @@ int main(int argc, char *argv[], char *env[])
 	t_prompt	prompt;
 	prompt.data = ">> ";
 	prompt.size = ft_strlen(prompt.data);
-	test(&info, prompt);
+	//test(&info, prompt);
 
+	char	*str;
+
+	while (1)
+	{
+		if ((str = get_next_line_tc(&info, prompt)) == NULL)
+		{
+			printf("EMPTY LINE======================================\n");
+			break ;
+		}
+	}
 
 	#endif
 #if 0

@@ -64,7 +64,7 @@ FUNC =	main \
 		set_fd \
 		is_valid_fd \
 		open_valid_fd \
-		termcap_test \
+		get_next_line_tc \
 		ft_cursor \
 		ft_cursor2 \
 		ft_putchar_tc \
