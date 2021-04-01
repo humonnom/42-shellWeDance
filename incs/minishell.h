@@ -80,6 +80,7 @@ typedef struct		s_info
 	t_list			*env_list;
 	t_list			*set_list;
 	t_list			*set_str_list;
+	t_list			*history;
 	t_set			*set;
     int     		exit;
     int     		ret;

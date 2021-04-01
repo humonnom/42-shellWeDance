@@ -29,6 +29,7 @@ static void			init_info(
 	info->env_list = NULL;
 	info->exit = 0;
 	info->ret = 0;
+	info->history = NULL;
 	info->tc = gen_tc();
 }
 

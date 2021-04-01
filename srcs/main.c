@@ -66,7 +66,7 @@ int main(int argc, char *argv[], char *env[])
 	//test(&info, prompt);
 
 	char	*str;
-
+	char	*tmp;
 	while (1)
 	{
 		if ((str = get_next_line_tc(&info, prompt)) == NULL)
@@ -74,6 +74,12 @@ int main(int argc, char *argv[], char *env[])
 			printf("EMPTY LINE======================================\n");
 			break ;
 		}
+		if (exact_strncmp(str,"") != 0)
+		{
+			tmp = ft_strdup(str);
+			ft_lstadd_back(&(info.history), ft_lstnew(tmp));
+		}
+		print_list(info.history);
 	}
 
 	#endif
@@ -103,7 +109,6 @@ int main(int argc, char *argv[], char *env[])
 	//print_set(res);
 
 #endif
-
 	exit_shell(&info);
 	return (0);
 }

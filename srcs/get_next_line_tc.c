@@ -53,83 +53,55 @@ static int	handle_up_arrow(t_tc tc, long inst_arr[], int inst_arr_size)
 	return (idx);
 }
 
+char	get_inst_arr_in_loop()
+{
+	long	c;
+	long	inst_arr[BUFFER_SIZE];
+	int		inst_arr_idx;
+
+	inst_arr_idx = -1;
+	while ((read(STDIN_FILENO, &c, sizeof(c)) > 0) && (c != '\n'))
+	{
+		if (c <= KEY_LEFT_ARROW)
+			inst_arr[++inst_arr_idx] = c;
+		get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
+		if (ft_isprint(c))
+		{
+			ft_putchar_fd(c, 1);
+			++buf_len;
+		}
+		else if (c == KEY_LEFT_ARROW)
+			ft_cursor_mv_left(tc.cursor.col, prompt.size);
+		else if (c == KEY_RIGHT_ARROW)
+			ft_cursor_mv_right(tc.cursor.col, prompt.size + buf_len);
+		else if (c == KEY_UP_ARROW)
+			inst_arr_idx = handle_up_arrow(tc, inst_arr, inst_arr_idx) - 1;
+		else if (c == KEY_BACKSPACE)
+		{
+			ft_cursor_clr_line_end(tc.tc_str, tc.cursor.col, prompt.size);
+			--buf_len;
+		}
+		c = 0;
+	}
+
+}
+
+
 char	*get_next_line_tc(t_info *info, t_prompt prompt)
 {
 	t_tc	tc;
-	long	inst_arr[BUFFER_SIZE];
-	int		inst_arr_idx;
 	char	*ret;
-	long	c;
+	int		buf_len;
 
 	tc = info->tc;
+	c = 0;
+	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
+	ft_cursor_mv_head(tc.tc_str, tc.cursor.row);
+	write(1, prompt.data, prompt.size);
+	buf_len = 0;
+	ft_memset(inst_arr, 0, BUFFER_SIZE);
 
-		c = 0;
-		get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
-		ft_cursor_mv_head(tc.tc_str, tc.cursor.row);
-		write(1, prompt.data, prompt.size);
-		int buf_len = 0;
-		ft_memset(inst_arr, 0, BUFFER_SIZE);
-		// inst_arr_idx is index!! size is inst_arr_idx + 1!!!!!!!!1
-		inst_arr_idx = -1;
-		while ((read(0, &c, sizeof(c)) > 0) && (c != '\n'))
-		{
-			if (c <= KEY_LEFT_ARROW)
-				inst_arr[++inst_arr_idx] = c;
-			get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
-			if (ft_isprint(c))
-				ft_putchar_fd(c, 1);
-			else if (c == KEY_LEFT_ARROW)
-				ft_cursor_mv_left(tc.cursor.col, prompt.size);
-			else if (c == KEY_RIGHT_ARROW)
-				ft_cursor_mv_right(tc.cursor.col, prompt.size + buf_len);
-			else if (c == KEY_UP_ARROW)
-				inst_arr_idx = handle_up_arrow(tc, inst_arr, inst_arr_idx) - 1;
-			else if (c == KEY_BACKSPACE)
-				ft_cursor_clr_line_end(tc.tc_str, tc.cursor.col, prompt.size);
-			c = 0;
-		}
-		ret = get_str_by_inst_arr(inst_arr, inst_arr_idx + 1);
+	// new function
+	ret = get_str_by_inst_arr(inst_arr, inst_arr_idx + 1);
 	return (ret);	
 }
-#if 0
-int		test(t_info *info, t_prompt prompt)
-{
-	t_tc	tc;
-	long	inst_arr[BUFFER_SIZE];
-	int		inst_arr_idx;
-	char	*ret;
-	long	c;
-
-	tc = info->tc;
-	while (1)
-	{
-		c = 0;
-		get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
-		ft_cursor_mv_head(tc.tc_str, tc.cursor.row);
-		write(1, prompt.data, prompt.size);
-		int buf_len = 0;
-		ft_memset(inst_arr, 0, BUFFER_SIZE);
-		// inst_arr_idx is index!! size is inst_arr_idx + 1!!!!!!!!1
-		int	inst_arr_idx = -1;
-		while ((read(0, &c, sizeof(c)) > 0) && (c != '\n'))
-		{
-			if (c <= KEY_LEFT_ARROW)
-				inst_arr[++inst_arr_idx] = c;
-			get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
-			if (ft_isprint(c))
-				ft_putchar_fd(c, 1);
-			else if (c == KEY_LEFT_ARROW)
-				ft_cursor_mv_left(tc.cursor.col, prompt.size);
-			else if (c == KEY_RIGHT_ARROW)
-				ft_cursor_mv_right(tc.cursor.col, prompt.size + buf_len);
-			else if (c == KEY_UP_ARROW)
-				inst_arr_idx = handle_up_arrow(tc, inst_arr, inst_arr_idx) - 1;
-			else if (c == KEY_BACKSPACE)
-				ft_cursor_clr_line_end(tc.tc_str, tc.cursor.col, prompt.size);
-			c = 0;
-		}
-		ret = get_str_by_inst_arr(inst_arr, inst_arr_idx + 1);
-	}
-	return (0);	
-}
-#endif
