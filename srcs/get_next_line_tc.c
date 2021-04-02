@@ -40,9 +40,9 @@ static int	join_history_line(
 	ft_cursor_mv_head(info->tc);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	if (key_arrow == KEY_UP_ARROW && info->history_ptr->next != NULL)
-		info->history_ptr = info->history_ptr->next;	
+		info->history_ptr = info->history_ptr->next;
 	if (key_arrow == KEY_DOWN_ARROW && info->history_ptr->prev != NULL)
-		info->history_ptr = info->history_ptr->prev;	
+		info->history_ptr = info->history_ptr->prev;
 	history_line = (char *)(info->history_ptr->data);
 	write(1, info->prompt.data, info->prompt.size);
 	ft_putstr_fd(history_line, 1);
@@ -110,10 +110,9 @@ char	*get_next_line_tc(t_info *info)
 	tc = info->tc;
 	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
 	ft_cursor_mv_head(tc);
-	write(1, info->prompt.data, info->prompt.size);
+	write(STDOUT_FILENO, info->prompt.data, info->prompt.size);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);
 	ret = get_str_by_inst_arr(inst_arr, inst_arr_size);
-	printf("\n\nret: %s\n\n", ret);
-	return (ret);	
+	return (ret);
 }
