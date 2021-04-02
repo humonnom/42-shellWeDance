@@ -97,6 +97,8 @@ static int	set_inst_arr_in_loop(
 			ft_cursor_clr_line_end(info->tc, info->prompt.size);
 		c = 0;
 	}
+	if (c == '\n')
+		write(STDOUT_FILENO, &c, 1);
 	return (idx + 1);
 }
 
