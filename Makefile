@@ -69,6 +69,7 @@ FUNC =	main \
 		ft_putchar_tc \
 		calc \
 		is_key_arrow \
+		append_history_list \
 
 OBJDIR = ./objs
 INCDIR = ./incs

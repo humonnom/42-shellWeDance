@@ -8,5 +8,7 @@ int	is_key_arrow(long c)
 		return (1);
 	if (c == KEY_UP_ARROW)
 		return (1);
+	if (c == KEY_DOWN_ARROW)
+		return (1);
 	return (0);
 }

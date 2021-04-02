@@ -30,6 +30,9 @@ static void			init_info(
 	info->exit = 0;
 	info->ret = 0;
 	info->history = NULL;
+	ft_lstadd_front(&(info->history), ft_lstnew(ft_strdup("")));
+	ft_lstadd_front(&(info->history), ft_lstnew(ft_strdup("")));
+	info->history_ptr = info->history;
 	info->tc = gen_tc();
 }
 

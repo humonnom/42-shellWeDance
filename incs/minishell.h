@@ -504,6 +504,14 @@ int					is_key_arrow(long c);
 */
 void				get_cursor_pos(int *col, int *row);
 
+
+/*
+** ft_cursor2.c
+*/
+void				append_history_list(
+					t_list **history,
+					char *line);
+
 /*
 ** calc.c
 */

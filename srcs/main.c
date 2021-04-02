@@ -63,22 +63,24 @@ int main(int argc, char *argv[], char *env[])
 	info.prompt = prompt;
 	//test(&info, prompt);
 
-	char	*str;
+	char	*line;
 	char	*tmp;
 	while (1)
 	{
-		if ((str = get_next_line_tc(&info)) == NULL)
+		if ((line = get_next_line_tc(&info)) == NULL)
 		{
 			printf("EMPTY LINE======================================\n");
 			break ;
 		}
-		if (exact_strncmp(str,"") != 0)
+		if (exact_strncmp(line,"") != 0)
 		{
-			tmp = ft_strdup(str);
-			ft_lstadd_back(&(info.history), ft_lstnew(tmp));
+			append_history_list(&(info.history), line);
 			info.history_ptr = info.history;
 		}
+#if 0
 		print_list(info.history);
+		print_list(info.history_ptr);
+#endif
 	}
 
 	#endif
