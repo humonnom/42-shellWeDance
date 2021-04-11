@@ -1,14 +1,14 @@
 #include "../incs/minishell.h"
 
-int	select_sh_bti(t_set *set, t_info *info)
+int	select_sh_bti(t_tokens *tokens, t_info *info)
 {
 	char	*cmd;
 	char	**args;
 	int		ret;
 	
 	ret = 1;
-	cmd = set->cmd;
-	args = set->args;
+	cmd = tokens->cmd;
+	args = tokens->args;
 	if (!exact_strncmp(cmd, "export"))
 		ret = sh_bti_export(args, &(info->env_list));
 	if (!exact_strncmp(cmd, "unset"))
@@ -24,6 +24,6 @@ int	select_sh_bti(t_set *set, t_info *info)
 	if (!exact_strncmp(cmd, "unset"))
 		ret = sh_bti_echo(args, info->env_list);
 	if (!exact_strncmp(cmd, "exit"))
-		ret = sh_bti_exit(info);
+		sh_bti_exit(info);
 	return (ret);
 }

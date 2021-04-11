@@ -7,27 +7,27 @@ void	show_cmd_error(char *cmd)
    show_error("\n");
 }
 
-static void	close_redir_fd(t_set *curr)
+static void	close_redir_fd(t_tokens *curr)
 {
 	if (curr->type & TYPE_REOUT_D)
-		close(curr->fd_out[0]);
+		close(curr->fd_out[curr->fd_out_idx]);
 	if (curr->type & TYPE_REOUT)
-		close(curr->fd_out[0]);
+		close(curr->fd_out[curr->fd_out_idx]);
 	if (curr->type & TYPE_REIN)
 		close(curr->fd_in[0]);
 }
 
-static void	open_redir_fd(t_set *curr)
+static void	open_redir_fd(t_tokens *curr)
 {
 	if (curr->type & TYPE_REOUT)
-		dup2(curr->fd_out[0], STDOUT_FILENO);
+		dup2(curr->fd_out[curr->fd_out_idx], STDOUT_FILENO);
 	if (curr->type & TYPE_REOUT_D)
-		dup2(curr->fd_out[0], STDOUT_FILENO);
+		dup2(curr->fd_out[curr->fd_out_idx], STDOUT_FILENO);
 	if (curr->type & TYPE_REIN)
 		dup2(curr->fd_in[0], STDIN_FILENO);
 }
 
-static int	close_fds(pid_t pid, t_set *curr, t_set *prev, int pipe_open)
+static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
 {
 	int	status;
 	int	ret;
@@ -48,8 +48,8 @@ static int	close_fds(pid_t pid, t_set *curr, t_set *prev, int pipe_open)
 }
 
 static int	run_cmd_part(
-			t_set *curr,
-			t_set *prev,
+			t_tokens *curr,
+			t_tokens *prev,
 			t_info *info,
 			int pipe_open)
 {
@@ -57,7 +57,6 @@ static int	run_cmd_part(
 	int		ret;
 
 	pid = fork();
-	handle_sig_proc(pid);
 	if (pid < 0)
 		return (exit_fatal());
 	if (pid == 0)
@@ -80,19 +79,19 @@ static int	run_cmd_part(
 
 int	run_cmd(t_info *info)
 {
-	int		ret;
-	int		status;
-	int		pipe_open;
-	t_set	*curr;
-    t_set	*prev;
+	int			ret;
+	int			status;
+	int			pipe_open;
+	t_tokens	*curr;
+    t_tokens	*prev;
 
 	ret = EXIT_FAILURE;
 	pipe_open = 0;
-	curr = (t_set *)(info->set_list->data);
-	if (!(info->set_list->prev))
+	curr = (t_tokens *)(info->tokens_list->data);
+	if (!(info->tokens_list->prev))
 		prev = NULL;
 	else
-		prev = (t_set *)(info->set_list->prev->data);
+		prev = (t_tokens *)(info->tokens_list->prev->data);
 	if ((curr->type & TYPE_PIPE) \
 		|| (prev && (prev->type & TYPE_PIPE)))
 	{

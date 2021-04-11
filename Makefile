@@ -5,20 +5,18 @@ CC = gcc
 CFLAGS = 
 
 FUNC =	main \
-		init_global \
 	  	init_minishell \
 		pk_split \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
-		get_next_line \
-		gen_set_str_list \
-		gen_set_list \
+		gen_line_list \
+		gen_tokens_list \
 		del_quote \
 		get_eval \
-		gen_set \
-		print_set \
-		free_set \
+		gen_tokens \
+		print_tokens \
+		free_tokens \
 		set_list_to_darr \
 		print_darr \
 		free_darr \
@@ -49,15 +47,13 @@ FUNC =	main \
 		add_elist \
 		free_elist \
 		print_elist \
-		print_slist \
+		print_line_list \
 		set_darr_to_list \
 		print_list \
 		run_cmd \
 		show_error \
 		exit_fatal \
 		exit_shell \
-		handle_sig_init \
-		handle_sig_proc \
 		is_bracket \
 		set_bracket_type \
 		set_fd \
@@ -70,6 +66,7 @@ FUNC =	main \
 		calc \
 		is_key_arrow \
 		append_history_list \
+		handle_sig_in_gnl
 
 OBJDIR = ./objs
 INCDIR = ./incs
@@ -84,14 +81,14 @@ OBJS = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(MAKE) -C $(LIBDIR) all
-	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
-	@echo "Start Program"
+	$(MAKE) -C $(LIBDIR) all
+	$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
+	echo "Start Program"
 	
 #$(OBJS): $(SRCS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir $(OBJDIR) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
+	mkdir $(OBJDIR) 2> /dev/null || true
+	$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
 
 clean:
 	@rm -rf $(OBJDIR)

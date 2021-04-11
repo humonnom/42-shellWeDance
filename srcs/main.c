@@ -1,42 +1,47 @@
-#include "../incs/minishell.h" //memory free about set
+#include "../incs/minishell.h" //memory free about tokens
+
+int		g_signal;
+
 void change_head(t_info *info)
 {
 	t_list	*tmp;
 	int		i;
 
-	ft_lstclear(&(info->set_list), &free_set);
-	tmp = (info->set_str_list)->next;
-	ft_lstdelone(info->set_str_list, &free);
-	info->set_str_list = tmp;
-
+	ft_lstclear(&(info->tokens_list), &free_tokens);
+	tmp = (info->line_list)->next;
+	ft_lstdelone(info->line_list, &free);
+	info->line_list = tmp;
 }
 
 int run(t_info *info)
 {
-	char	*line;
+	char	*lines;
 	t_list	*next;
 
 	while (info->exit == 0)
 	{
-		if (info->set_str_list == NULL)
+		if (info->line_list == NULL)
 		{
-			handle_sig_init(info);
-			if ((get_next_line(info, &line)) == -1)
+			//handle_sig_init(info);
+			if ((lines = get_next_line_tc(info)) == NULL)
 				return -1;
-			if (!(info->set_str_list = gen_set_str_list(line)))
+			if (exact_strncmp(lines, "") != 0)
+			{
+				append_history_list(&(info->history), lines);
+				info->history_ptr = info->history;
+			}
+			if (!(info->line_list = gen_line_list(lines)))
 				return -1;
-			free(line);
 		}
-		info->set_list = gen_set_list(info);
-		while (info->set_list)
+		info->tokens_list = gen_tokens_list(info);
+		while (info->tokens_list)
 		{
 			int flag = 0;
 			run_cmd(info);
-			next = info->set_list->next;
-			ft_lstdelone(info->set_list, &free_set);
-			info->set_list = next;
+			next = info->tokens_list->next;
+			ft_lstdelone(info->tokens_list, &free_tokens);
+			info->tokens_list = next;
 		}
-		//handle_rest_redir();
 		change_head(info);
 	}
 
@@ -52,11 +57,9 @@ int main(int argc, char *argv[], char *env[])
 
 	err_num = 0;
 	init_minishell(&info, env);
-	init_global();
-//	run(&info);
+	run(&info);
 
-	#if 1
-
+#if 0
 	t_prompt	prompt;
 	prompt.data = ">> ";//shell💃we🕺dance===> 
 	prompt.size = ft_strlen(prompt.data);
@@ -77,13 +80,8 @@ int main(int argc, char *argv[], char *env[])
 			append_history_list(&(info.history), line);
 			info.history_ptr = info.history;
 		}
-#if 0
-		print_list(info.history);
-		print_list(info.history_ptr);
-#endif
 	}
-
-	#endif
+#endif
 #if 0
 	char *str     = "echo abc >>text.txt args args2";
 	char *str_cpy = "echo abc >>text.txt args args2";
@@ -92,7 +90,7 @@ int main(int argc, char *argv[], char *env[])
 
 	char *set_str = "echo        abc \"   >>   << \"def>> edf";
 
-	gen_set(&info, set_str);
+	gen_tokens(&info, set_str);
 #endif
 
 #if 0
@@ -106,8 +104,8 @@ int main(int argc, char *argv[], char *env[])
 
 #if 0
 	char *str = " echo abc >>   test.txt    >> test2.txt defg hi";
-	t_set *res = gen_set(&info, str);
-	//print_set(res);
+	t_tokens *res = gen_tokens(&info, str);
+	//print_tokens(res);
 
 #endif
 	exit_shell(&info);

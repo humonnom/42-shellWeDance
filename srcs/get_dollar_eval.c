@@ -41,11 +41,13 @@ char	*get_dollar_eval(char *part, t_list *env_list, int *idx)
 	}
 	//$$
 	//$? 
+#if 0
 	if ((ft_strncmp("$?", part, get_max_strlen("$?", part))) == 0)
 	{
 		*idx = *idx + word_len;
 		return (ft_itoa(g_ret));	
 	}
+#endif
 	//$HOME
 	tmp_key = ft_substr(part, 1, word_len - 1);
 	ret = ft_strdup(get_eval(env_list, tmp_key));

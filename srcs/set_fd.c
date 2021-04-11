@@ -35,8 +35,8 @@ static int	join_char_to_args(char **str, char c, int *idx)
 	return (1);
 }
 
-static char	*set_set_type(
-			t_set *set,
+static char	*set_tockens_type(
+			t_tokens *tokens,
 			char *str,
 			char *str_cpy,
 			int (*fp)())
@@ -53,11 +53,11 @@ static char	*set_set_type(
 	{
 		inc_flag = 1;
 		tmp_type = set_bracket_type(&str_cpy[0], &idx);
-		set->type |= tmp_type;
-		if (set->type & TYPE_ERROR)
+		tokens->type |= tmp_type;
+		if (tokens->type & TYPE_ERROR)
 			return (show_type_error(&str_cpy[idx]));
 		if (tmp_type & (TYPE_REIN | TYPE_REOUT | TYPE_REOUT_D))
-			inc_flag = fp(set, &str_cpy[idx], &idx, tmp_type);
+			inc_flag = fp(tokens, &str_cpy[idx], &idx, tmp_type);
 		else
 			inc_flag = join_char_to_args(&ret, str[idx], &idx);
 	}
@@ -66,7 +66,7 @@ static char	*set_set_type(
 	return (ret);
 }
 
-char	*set_fd(t_set *set, char *set_str)
+char	*set_fd(t_tokens *tokens, char *set_str)
 {
 	char	*ret;
 	char	*set_str_cpy;
@@ -75,13 +75,13 @@ char	*set_fd(t_set *set, char *set_str)
 	handle_quote(set_str, &set_str_cpy, ' ');
 	handle_quote(set_str_cpy, &set_str_cpy, '<');
 	handle_quote(set_str_cpy, &set_str_cpy, '>');
-	set->type = 0;
-	set->fd_in_idx = 0;
-	set->fd_out_idx = 0;
-	ret = set_set_type(set, set_str, set_str_cpy, &is_valid_fd);
+	tokens->type = 0;
+	tokens->fd_in_idx = -1;
+	tokens->fd_out_idx = -1;
+	ret = set_tockens_type(tokens, set_str, set_str_cpy, &is_valid_fd);
 	if (ret != NULL)
 	{
-		set_set_type(set, set_str, set_str_cpy, &open_valid_fd);
+		set_tockens_type(tokens, set_str, set_str_cpy, &open_valid_fd);
 	}
 	free(set_str_cpy);
 	return (ret);

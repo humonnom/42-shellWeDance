@@ -1,5 +1,7 @@
 #include "../incs/minishell.h"
 
+extern int	g_signal;
+
 static char	*get_str_by_inst_arr(long inst_arr[], int inst_arr_size)
 {
 	int		idx;
@@ -18,8 +20,6 @@ static char	*get_str_by_inst_arr(long inst_arr[], int inst_arr_size)
 			tmp_ret_idx = calc_max(tmp_ret_idx - 1, 0);
 			tmp_ret[tmp_ret_idx] = '\0';
 		}
-		else if (is_key_arrow(inst_arr[idx]))
-			continue ;
 		else
 			tmp_ret[tmp_ret_idx++] = (char)inst_arr[idx];
 	}
@@ -37,7 +37,6 @@ static int	join_history_line(
 	char	*history_line;
 
 	ft_cursor_clr_line_all(info->tc);
-	ft_cursor_mv_head(info->tc);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	if (key_arrow == KEY_UP_ARROW && info->history_ptr->next != NULL)
 		info->history_ptr = info->history_ptr->next;
@@ -45,7 +44,7 @@ static int	join_history_line(
 		info->history_ptr = info->history_ptr->prev;
 	history_line = (char *)(info->history_ptr->data);
 	write(1, info->prompt.data, info->prompt.size);
-	ft_putstr_fd(history_line, 1);
+	ft_putstr_fd(history_line, STDOUT_FILENO);
 	ret = -1;
 	while (++ret < ft_strlen(history_line))
 		inst_arr[ret] = (long)history_line[ret];
@@ -90,13 +89,16 @@ static int	set_inst_arr_in_loop(
 		if (c <= 4500000)
 			arr[++idx] = c;
 		if (ft_isprint(c) && ++buf_len)
-			ft_putchar_fd(c, 1);
+			ft_putchar_fd(c, STDOUT_FILENO);
 		else if (is_key_arrow(c))
 			idx = handle_key_arrow(info, arr, c, info->prompt.size + buf_len);
 		else if (c == KEY_BACKSPACE && --buf_len)
 			ft_cursor_clr_line_end(info->tc, info->prompt.size);
+		//handle_sig_in_gnl(*info, arr);
 		c = 0;
 	}
+	if (c == '\n')
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (idx + 1);
 }
 

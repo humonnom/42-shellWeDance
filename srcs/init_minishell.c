@@ -1,5 +1,7 @@
 #include "../incs/minishell.h"
 
+extern int	g_signal;
+
 static t_tc	gen_tc()
 {
 	t_tc	ret;
@@ -24,8 +26,10 @@ static t_tc	gen_tc()
 static void			init_info(
 					t_info *info)
 {
-	info->set_list = NULL;
-	info->set_str_list = NULL;
+	info->prompt.data = ">> ";//shell💃we🕺dance===> 
+	info->prompt.size = ft_strlen(info->prompt.data);
+	info->tokens_list = NULL;
+	info->line_list = NULL;
 	info->env_list = NULL;
 	info->exit = 0;
 	info->ret = 0;
@@ -44,13 +48,13 @@ int					init_minishell
 	int ret;
 
 	ret = 0;
-	
+
+	g_signal = OFF;	
 	init_info(info);
 	if (ret == 0)
 		if (!(info->env_list = gen_elist(env)))
 			ret = 1;
 	if (ret == 0)
 		ret = inc_shlvl(&(info->env_list));
-	//print_elist(info->env_list);
 	return (ret);
 }

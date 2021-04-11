@@ -49,7 +49,7 @@ static char	*get_file_name(
 }
 
 int			is_valid_fd(
-			t_set *set,
+			t_tokens *tokens,
 			char *str,
 			int *idx,
 			int type)

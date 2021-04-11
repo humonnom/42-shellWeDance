@@ -6,7 +6,7 @@ int	set_darr_to_list(
 {
 	int		ret;
 	int		len;
-	char	*tmp_set;
+	char	*tmp_tokens;
 
 	ret = 0;	
 	len = 0;
@@ -14,9 +14,9 @@ int	set_darr_to_list(
 		len++;
 	while (ret == 0 && --len >= 0)
 	{
-		if ((tmp_set = ft_strdup(str[len])) == NULL)
+		if ((tmp_tokens = ft_strdup(str[len])) == NULL)
 			ret = 1;
-		ft_lstadd_front(list_head, ft_lstnew(tmp_set));
+		ft_lstadd_front(list_head, ft_lstnew(tmp_tokens));
 	}
 	return (ret);
 
