@@ -1,6 +1,6 @@
 #include "../incs/minishell.h"
 
-t_tokens *gen_tokens(t_info *info, char *set_str)
+t_tokens *gen_tokens(t_info *info, char *line)
 {
 	char		*set_fd_res;
 	char		*set_fd_res_cpy;
@@ -9,11 +9,11 @@ t_tokens *gen_tokens(t_info *info, char *set_str)
 
 	if (!(ret = (t_tokens *)malloc(sizeof(t_tokens))))
 		return (NULL);
-	set_fd_res = set_fd(ret, set_str);
+	set_fd_res = set_fd(ret, line);
 	if (set_fd_res == NULL)
 		return (NULL);
 	set_fd_res_cpy = ft_strdup(set_fd_res);
-	handle_quote(set_str, &set_fd_res_cpy, ' ');
+	handle_quote(line, &set_fd_res_cpy, ' ');
 	if (!(tmp_tokens = pk_split(set_fd_res, set_fd_res_cpy, ' ', INF)))
 		return (NULL);
 	ret->tokens = tmp_tokens;

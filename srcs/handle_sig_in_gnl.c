@@ -18,11 +18,13 @@ void	handle_sig_in_gnl(t_info info, long *inst_arr)
 	signal(SIGINT, &handle_sigint_in_gnl); 
 	//signal(SIGQUIT, SIG_IGN);
 
+#if 0
 	if (g_signal == SIG_SIGINT)
 	{
 		ft_memset(inst_arr, 0, BUFFER_SIZE);
 		write(STDOUT_FILENO, "\n", 1);
 	}
+#endif
 
 	g_signal = OFF;
 }

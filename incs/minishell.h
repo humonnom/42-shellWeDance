@@ -233,7 +233,7 @@ t_list				*gen_line_list(char *lines);
 /*
 ** gen_tokens.c
 */
-t_tokens				*gen_tokens(t_info *info, char *set_str);
+t_tokens				*gen_tokens(t_info *info, char *line);
 
 /*
 ** gen_env.c

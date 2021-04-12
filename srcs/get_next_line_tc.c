@@ -85,6 +85,7 @@ static int	set_inst_arr_in_loop(
 	c = 0;
 	while ((read(STDIN_FILENO, &c, sizeof(c)) > 0) && (c != '\n'))
 	{
+		handle_sig_in_gnl(*info, arr);
 		get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 		if (c <= 4500000)
 			arr[++idx] = c;
@@ -94,7 +95,6 @@ static int	set_inst_arr_in_loop(
 			idx = handle_key_arrow(info, arr, c, info->prompt.size + buf_len);
 		else if (c == KEY_BACKSPACE && --buf_len)
 			ft_cursor_clr_line_end(info->tc, info->prompt.size);
-		//handle_sig_in_gnl(*info, arr);
 		c = 0;
 	}
 	if (c == '\n')
