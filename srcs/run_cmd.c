@@ -24,7 +24,7 @@ static void	open_redir_fd(t_tokens *curr)
 	if (curr->type & TYPE_REOUT_D)
 		dup2(curr->fd_out[curr->fd_out_idx], STDOUT_FILENO);
 	if (curr->type & TYPE_REIN)
-		dup2(curr->fd_in[0], STDIN_FILENO);
+		dup2(curr->fd_in[curr->fd_in_idx], STDIN_FILENO);
 }
 
 static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
@@ -41,7 +41,7 @@ static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
 	}
 	if (prev && (prev->type & TYPE_PIPE))
 		close(prev->fds[0]);
-	close_redir_fd(curr);
+	close_tokens_fds(curr);
 	if (WIFEXITED(status))
 		ret = WEXITSTATUS(status);
 	return (ret);

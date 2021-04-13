@@ -235,7 +235,7 @@ t_list				*gen_line_list(char *lines);
 /*
 ** gen_tokens.c
 */
-t_tokens				*gen_tokens(t_info *info, char *set_str);
+t_tokens			*gen_tokens(t_info *info, char *line);
 
 /*
 ** gen_env.c
@@ -421,7 +421,7 @@ int					set_bracket_type(char *str, int *idx);
 /*
 ** set_fd.c
 */
-char				*set_fd(t_tokens *tokens, char *set_str);
+char				*set_fd(t_tokens *tokens, char *line);
 
 /*
 ** set_fd_info.c
@@ -503,6 +503,8 @@ void				set_signal();
 int					handle_sig();
 
 void				handle_sig_in_proc(int pid);
+
+void				close_tokens_fds(t_tokens *curr);
 
 #endif
 #if 0

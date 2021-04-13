@@ -10,7 +10,8 @@ static char	*show_type_error(char *str)
 	c[1] = '\0';
 	show_error(c);
 	if (str[1] && is_bracket(str[1]))
-	{ c[0] = str[1];
+	{
+		c[0] = str[1];
 		c[1] = '\0';
 		show_error(c);
 	}
@@ -35,7 +36,7 @@ static int	join_char_to_args(char **str, char c, int *idx)
 	return (1);
 }
 
-static char	*set_tockens_type(
+static char	*set_tokens_type(
 			t_tokens *tokens,
 			char *str,
 			char *str_cpy,
@@ -66,23 +67,23 @@ static char	*set_tockens_type(
 	return (ret);
 }
 
-char	*set_fd(t_tokens *tokens, char *set_str)
+char	*set_fd(t_tokens *tokens, char *line)
 {
 	char	*ret;
-	char	*set_str_cpy;
+	char	*line_cpy;
 
-    set_str_cpy = ft_strdup(set_str);
-	handle_quote(set_str, &set_str_cpy, ' ');
-	handle_quote(set_str_cpy, &set_str_cpy, '<');
-	handle_quote(set_str_cpy, &set_str_cpy, '>');
+    line_cpy = ft_strdup(line);
+	handle_quote(line, &line_cpy, ' ');
+	handle_quote(line_cpy, &line_cpy, '<');
+	handle_quote(line_cpy, &line_cpy, '>');
 	tokens->type = 0;
 	tokens->fd_in_idx = -1;
 	tokens->fd_out_idx = -1;
-	ret = set_tockens_type(tokens, set_str, set_str_cpy, &is_valid_fd);
+	ret = set_tokens_type(tokens, line, line_cpy, &is_valid_fd);
 	if (ret != NULL)
 	{
-		set_tockens_type(tokens, set_str, set_str_cpy, &open_valid_fd);
+		free(set_tokens_type(tokens, line, line_cpy, &open_valid_fd));
 	}
-	free(set_str_cpy);
+	free(line_cpy);
 	return (ret);
 }

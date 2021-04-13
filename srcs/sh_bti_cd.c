@@ -1,5 +1,4 @@
 #include "../incs/minishell.h"
-# define PATH_MAX 1024
 
 static char	*handle_shortcut(char *arg, t_list *env_list)
 {
@@ -33,13 +32,13 @@ static int	renew_pwd(t_list *env_list)
 {
 	int		ret;
 	t_list	*tmp_list;
-	char	cwd[PATH_MAX];
+	char	cwd[BUFFER_SIZE];
 
 	ret = 0;
 	tmp_list = get_elist(env_list, "OLDPWD");
 	ret = mod_eval((t_env *)tmp_list->data, get_eval(env_list, "PWD"));
 	tmp_list = get_elist(env_list, "PWD");
-	ret = mod_eval((t_env *)tmp_list->data, getcwd(cwd, PATH_MAX));
+	ret = mod_eval((t_env *)tmp_list->data, getcwd(cwd, BUFFER_SIZE));
 	return (ret);
 }
 	
@@ -49,7 +48,6 @@ int			sh_bti_cd(char **args, t_list *env_list)
 	int		ret;
 
 	ret = 0;
-	print_darr(args);
 	if (args[0] && args[1])
 	{
 		printf("cd: string not in pwd: %s\n", args[0]);

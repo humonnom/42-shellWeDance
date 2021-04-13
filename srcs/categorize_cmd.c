@@ -16,7 +16,7 @@ int categorize_cmd(t_tokens *tokens, t_info *info)
 	ret = select_sh_bti(tokens, info);
 	if (ret) 
 		ret = run_bti(tokens, info->env_list);
-	else
+	if (ret)
 		printf("zsh: command not found: %s\n", tokens->cmd);
 	return (ret);
 }

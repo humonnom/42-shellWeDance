@@ -67,7 +67,8 @@ FUNC =	main \
 		is_key_arrow \
 		append_history_list \
 		handle_sig_in_proc \
-		handle_sig
+		handle_sig \
+		close_tokens_fds
 
 OBJDIR = ./objs
 INCDIR = ./incs
@@ -83,13 +84,13 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
-	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) 2> /dev/null || true
+	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
 	@echo "Start Program"
 	
 #$(OBJS): $(SRCS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir $(OBJDIR) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< 2> /dev/null || true
+	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
 
 clean:
 	@rm -rf $(OBJDIR)
