@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		get_first(const char *s1, const char *set)
+static int		get_first(const char *s1, const char *tokens)
 {
 	size_t	len;
 	size_t	idx;
@@ -21,14 +21,14 @@ static int		get_first(const char *s1, const char *set)
 	idx = 0;
 	while (idx < len)
 	{
-		if (ft_strchr(set, s1[idx]) == 0)
+		if (ft_strchr(tokens, s1[idx]) == 0)
 			break ;
 		idx++;
 	}
 	return (idx);
 }
 
-static int		get_last(const char *s1, const char *set)
+static int		get_last(const char *s1, const char *tokens)
 {
 	size_t	len;
 	size_t	idx;
@@ -37,14 +37,14 @@ static int		get_last(const char *s1, const char *set)
 	idx = 0;
 	while (idx < len)
 	{
-		if (ft_strchr(set, s1[len - idx - 1]) == 0)
+		if (ft_strchr(tokens, s1[len - idx - 1]) == 0)
 			break ;
 		idx++;
 	}
 	return (len - idx);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char const *tokens)
 {
 	int		first;
 	int		last;
@@ -52,10 +52,10 @@ char			*ft_strtrim(char const *s1, char const *set)
 
 	if (s1 == NULL)
 		return (NULL);
-	if (set == NULL)
+	if (tokens == NULL)
 		return (ft_strdup(s1));
-	first = get_first((char *)s1, set);
-	last = get_last((char *)s1, set);
+	first = get_first((char *)s1, tokens);
+	last = get_last((char *)s1, tokens);
 	if (first >= last)
 		return (ft_strdup(""));
 	if (!(ret = (char *)malloc(sizeof(char) * (last - first + 1))))

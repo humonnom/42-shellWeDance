@@ -1,88 +1,62 @@
 #include "../incs/minishell.h"
 
-void print_slist(t_slist *set_list) {
-	t_slist *obj = set_list;
-	while (obj) {
-		printf("%s\n", (char *)obj->data->data);
-		obj = obj->next;	
-	}
-}
+int		g_signal;
 
-t_slist *change_head(t_slist *set_list)
+void change_head(t_info *info)
 {
-	t_slist *ret;
+	t_list	*tmp;
+	int		i;
 
-	ret = set_list->next;
-	//modify pk_lstdelone to delete t_alist
-	pk_lstdelone(set_list, &free);
-	printf("after head change: %s\n", (char *)ret->data);
-	return (ret);
+	ft_lstclear(&(info->tokens_list), &free_tokens);
+	tmp = (info->line_list)->next;
+	ft_lstdelone(info->line_list, &free);
+	info->line_list = tmp;
 }
 
 int run(t_info *info)
 {
-	char *line;
+	char	*lines;
+	t_list	*next;
 
 	while (info->exit == 0)
 	{
-		//init_sig();
-		if (info->set_list == NULL)
+		if (info->line_list == NULL)
 		{
-			if ((get_next_line(&line)) == -1)
-				return -1;
-			// get set list
-			if (parse_line(line, &(info->set_list)))
+			handle_sig();
+			if ((lines = get_next_line_tc(info)) == NULL)
+				continue ;
+			if (exact_strncmp(lines, "") != 0)
+			{
+				append_history_list(&(info->history), lines);
+				info->history_ptr = info->history;
+			}
+			else
+				continue ;
+			if (!(info->line_list = gen_line_list(lines)))
 				return -1;
 		}
-		// get cmd_arg list
-		printf("parse_set input: %s\n", (char *)info->set_list->data->data);
-		
-		parse_set(&(info->set_list->data));
-		print_list(info->set_list->data);
-
-//		break;
-		//select_func(info->set_list->data);
-		info->set_list = info->set_list->next;//change_head(info->set_list);
+		info->tokens_list = gen_tokens_list(info);
+		while (info->tokens_list)
+		{
+			int flag = 0;
+			run_cmd(info);
+			next = info->tokens_list->next;
+			ft_lstdelone(info->tokens_list, &free_tokens);
+			info->tokens_list = next;
+		}
+		change_head(info);
 	}
 	return (0);
 }
 
-#if 0
-select_func(cmd, args) {
-	func_built_in
-	echo
-	cd
-	pwd
-	..
-
-	func_bin_
-	ls
-	grep
-	...
-}
-#endif
-
 int main(int argc, char *argv[], char *env[])
 {
-	(void)argc;
-	(void)argv;
-	int	err_num;
-	t_info info;
+	int		err_num;
+	t_info	info;
 
 	err_num = 0;
 	init_minishell(&info, env);
-
-	char *set_ex = "test=abcd====\"\"===";
-	printf("result: %d\n", export_env(&info.env_list, set_ex));
-	print_list(info.env_list);
-
-#if 0
-	if ((err_num = run(&info)))
-		return (-1);
-	printf("err_num: %d\n", err_num);
-#endif
-
-//	free() return (info->ret)
-	free_list(&(info.env_list));
+	run(&info);
+	exit_shell(&info);
 	return (0);
 }

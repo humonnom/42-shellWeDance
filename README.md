@@ -1,2 +1,0 @@
-# mongshell
-yekim juepark
