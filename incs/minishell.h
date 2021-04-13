@@ -32,6 +32,11 @@
 # define BUFFER_SIZE 1024
 
 # define SIG_SIGINT 1
+<<<<<<< HEAD
+=======
+# define SIG_SIGQUIT 2
+# define SIG_EOF 3
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 
 //# define FLAG_FD_OPEN 1
 
@@ -233,7 +238,11 @@ t_list				*gen_line_list(char *lines);
 /*
 ** gen_tokens.c
 */
+<<<<<<< HEAD
 t_tokens				*gen_tokens(t_info *info, char *line);
+=======
+t_tokens				*gen_tokens(t_info *info, char *set_str);
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 
 /*
 ** gen_env.c
@@ -495,10 +504,21 @@ void				append_history_list(
 */
 int					calc_min(int num1, int num2);
 int					calc_max(int num1, int num2);
+<<<<<<< HEAD
 #endif
 
 void				handle_sig_in_gnl(t_info info, long *inst_arr);
 
+=======
+
+void				set_signal();
+
+int					handle_sig();
+
+void				handle_sig_in_proc(int pid);
+
+#endif
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 #if 0
 
 

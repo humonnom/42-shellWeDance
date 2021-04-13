@@ -72,6 +72,41 @@ static int	handle_key_arrow(
 	return (ret);
 }
 
+<<<<<<< HEAD
+=======
+static int	handle_sig_in_gnl(long *arr, long *c, int *idx, int *buf_len)
+{
+	if (g_signal == SIG_SIGINT)
+	{
+		ft_memset(arr, 0, BUFFER_SIZE);
+		*buf_len = 0;
+		*idx = -1;
+		g_signal = OFF;
+		return (1);
+	}
+	else if (*c == 4 && *buf_len == 0)
+		exit(0);
+	else if (*c == 4 && *buf_len != 0)
+		*c = 4500001;
+	return (0);
+}
+#if 0
+static int	print_arr(long *arr)
+{
+	int i;
+
+	i = -1;
+	printf("=========\n");
+	while (arr[++i])
+	{
+		ft_putnbr_fd(arr[i], 1);
+		write(1, " ", 1);
+	}
+	printf("\n=========\n");
+}
+#endif
+
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 static int	set_inst_arr_in_loop(
 			t_info *info,
 			long *arr)
@@ -83,9 +118,15 @@ static int	set_inst_arr_in_loop(
 	buf_len = 0;
 	idx = -1;
 	c = 0;
+<<<<<<< HEAD
 	while ((read(STDIN_FILENO, &c, sizeof(c)) > 0) && (c != '\n'))
 	{
 		handle_sig_in_gnl(*info, arr);
+=======
+	while ((read(STDIN_FILENO, &c, sizeof(c))) >= 0 && (c != '\n'))
+	{
+		handle_sig_in_gnl(arr, &c, &idx, &buf_len);
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 		get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 		if (c <= 4500000)
 			arr[++idx] = c;
@@ -93,12 +134,21 @@ static int	set_inst_arr_in_loop(
 			ft_putchar_fd(c, STDOUT_FILENO);
 		else if (is_key_arrow(c))
 			idx = handle_key_arrow(info, arr, c, info->prompt.size + buf_len);
+<<<<<<< HEAD
 		else if (c == KEY_BACKSPACE && --buf_len)
+=======
+		else if (c == KEY_BACKSPACE && --buf_len >= 0)
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 			ft_cursor_clr_line_end(info->tc, info->prompt.size);
 		c = 0;
 	}
 	if (c == '\n')
 		ft_putstr_fd("\n", STDOUT_FILENO);
+<<<<<<< HEAD
+=======
+	if (g_signal)
+		handle_sig_in_gnl(arr, &c, &idx, &buf_len);
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 	return (idx + 1);
 }
 
@@ -109,12 +159,21 @@ char	*get_next_line_tc(t_info *info)
 	long	inst_arr[BUFFER_SIZE];
 	int		inst_arr_size;
 
+<<<<<<< HEAD
+=======
+	ret = NULL; 
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 	tc = info->tc;
 	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
 	ft_cursor_mv_head(tc);
 	write(STDOUT_FILENO, info->prompt.data, info->prompt.size);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);
+<<<<<<< HEAD
 	ret = get_str_by_inst_arr(inst_arr, inst_arr_size);
+=======
+	if (inst_arr[0] != 0)
+		ret = get_str_by_inst_arr(inst_arr, inst_arr_size);
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 	return (ret);
 }

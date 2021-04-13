@@ -9,7 +9,12 @@ static char	*show_type_error(char *str)
 	c[0] = str[0];
 	c[1] = '\0';
 	show_error(c);
+<<<<<<< HEAD
 	if (str[1] && is_bracket(str[1])) { c[0] = str[1];
+=======
+	if (str[1] && is_bracket(str[1]))
+	{ c[0] = str[1];
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 		c[1] = '\0';
 		show_error(c);
 	}
@@ -34,7 +39,11 @@ static int	join_char_to_args(char **str, char c, int *idx)
 	return (1);
 }
 
+<<<<<<< HEAD
 static char	*set_tokens_type(
+=======
+static char	*set_tockens_type(
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 			t_tokens *tokens,
 			char *str,
 			char *str_cpy,
@@ -77,6 +86,7 @@ char	*set_fd(t_tokens *tokens, char *set_str)
 	tokens->type = 0;
 	tokens->fd_in_idx = -1;
 	tokens->fd_out_idx = -1;
+<<<<<<< HEAD
 	ret = set_tokens_type(tokens, set_str, set_str_cpy, &is_valid_fd);
 	if (ret != NULL)
 	{
@@ -85,3 +95,13 @@ char	*set_fd(t_tokens *tokens, char *set_str)
 	free(set_str_cpy);
 	return (ret);
 }
+=======
+	ret = set_tockens_type(tokens, set_str, set_str_cpy, &is_valid_fd);
+	if (ret != NULL)
+	{
+		set_tockens_type(tokens, set_str, set_str_cpy, &open_valid_fd);
+	}
+	free(set_str_cpy);
+	return (ret);
+}
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33

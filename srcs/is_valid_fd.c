@@ -68,4 +68,8 @@ int			is_valid_fd(
 	free(file_name);
 	*idx += inc_idx;
 	return (ret);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33

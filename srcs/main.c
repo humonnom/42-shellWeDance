@@ -22,14 +22,25 @@ int run(t_info *info)
 	{
 		if (info->line_list == NULL)
 		{
+<<<<<<< HEAD
 			//handle_sig_init(info);
 			if ((lines = get_next_line_tc(info)) == NULL)
 				return -1;
+=======
+			handle_sig();
+			if ((lines = get_next_line_tc(info)) == NULL)
+				continue ;
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 			if (exact_strncmp(lines, "") != 0)
 			{
 				append_history_list(&(info->history), lines);
 				info->history_ptr = info->history;
 			}
+<<<<<<< HEAD
+=======
+			else
+				continue ;
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 			if (!(info->line_list = gen_line_list(lines)))
 				return -1;
 		}
@@ -45,19 +56,21 @@ int run(t_info *info)
 		change_head(info);
 	}
 
+<<<<<<< HEAD
 	return (0);
 }
 
+=======
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 int main(int argc, char *argv[], char *env[])
 {
-	(void)argc;
-	(void)argv;
-	int	err_num;
-	t_info info;
+	int		err_num;
+	t_info	info;
 
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);
+<<<<<<< HEAD
 
 #if 0
 	t_prompt	prompt;
@@ -145,3 +158,8 @@ int main(int argc, char *argv[], char *env[])
 		return (-1);
 	printf("err_num: %d\n", err_num);
 #endif
+=======
+	exit_shell(&info);
+	return (0);
+}
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33

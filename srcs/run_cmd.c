@@ -24,7 +24,11 @@ static void	open_redir_fd(t_tokens *curr)
 	if (curr->type & TYPE_REOUT_D)
 		dup2(curr->fd_out[curr->fd_out_idx], STDOUT_FILENO);
 	if (curr->type & TYPE_REIN)
+<<<<<<< HEAD
 		dup2(curr->fd_in[curr->fd_in_idx], STDIN_FILENO);
+=======
+		dup2(curr->fd_in[0], STDIN_FILENO);
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 }
 
 static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
@@ -57,6 +61,10 @@ static int	run_cmd_part(
 	int		ret;
 
 	pid = fork();
+<<<<<<< HEAD
+=======
+	handle_sig_in_proc(pid);
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 	if (pid < 0)
 		return (exit_fatal());
 	if (pid == 0)

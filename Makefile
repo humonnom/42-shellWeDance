@@ -66,7 +66,12 @@ FUNC =	main \
 		calc \
 		is_key_arrow \
 		append_history_list \
+<<<<<<< HEAD
 		handle_sig_in_gnl
+=======
+		handle_sig_in_proc \
+		handle_sig
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 
 OBJDIR = ./objs
 INCDIR = ./incs
@@ -81,6 +86,7 @@ OBJS = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
+<<<<<<< HEAD
 	$(MAKE) -C $(LIBDIR) all
 	$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
 	echo "Start Program"
@@ -89,6 +95,16 @@ $(NAME): $(OBJS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	mkdir $(OBJDIR) 2> /dev/null || true
 	$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
+=======
+	@$(MAKE) -C $(LIBDIR) all
+	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) 2> /dev/null || true
+	@echo "Start Program"
+	
+#$(OBJS): $(SRCS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir $(OBJDIR) 2> /dev/null || true
+	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< 2> /dev/null || true
+>>>>>>> df52ce4be677ec57d998a3f41ac1db1c54c05c33
 
 clean:
 	@rm -rf $(OBJDIR)
