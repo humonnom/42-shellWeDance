@@ -5,6 +5,8 @@ void	close_tokens_fds(t_tokens *curr)
 	int	range;
 	int	idx;
 
+	if (curr->fd_closed)
+		return ;
 	if (curr->type & (TYPE_REOUT_D | TYPE_REOUT))
 		range = curr->fd_out_idx;
 	if (curr->type & TYPE_REIN)
@@ -17,5 +19,6 @@ void	close_tokens_fds(t_tokens *curr)
 		if (curr->type & TYPE_REIN)
 			close(curr->fd_in[idx]);
 	}
+	curr->fd_closed = 1;
 }
 

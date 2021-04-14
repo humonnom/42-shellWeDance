@@ -57,7 +57,6 @@ FUNC =	main \
 		is_bracket \
 		set_bracket_type \
 		set_fd \
-		is_valid_fd \
 		open_valid_fd \
 		get_next_line_tc \
 		ft_cursor \

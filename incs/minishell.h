@@ -79,6 +79,7 @@ typedef struct		s_tokens
 	int				fd_in[1024];
 	int				fd_out_idx;
 	int				fd_out[1024];
+	int				fd_closed;
 }					t_tokens;
 
 typedef struct		s_info

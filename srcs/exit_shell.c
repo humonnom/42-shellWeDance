@@ -16,7 +16,6 @@ int		exit_shell(t_info *info)
 		info->env_list = NULL;
 	}
 	close_tokens_fds(info->tokens);
-//	while(1)
-//		;
+	exit(0);
 	return (0);
 }
