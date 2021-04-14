@@ -19,7 +19,6 @@ t_tokens *gen_tokens(t_info *info, char *line)
 	ret->tokens = tmp_tokens;
 	ret->cmd = ft_strdup(tmp_tokens[0]);
 	ret->args = &tmp_tokens[1];
-	ret->fd_closed = 0;
 	free(set_fd_res);
 	free(set_fd_res_cpy);
     return (ret);

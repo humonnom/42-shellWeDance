@@ -81,6 +81,8 @@ char	*set_fd(t_tokens *tokens, char *line)
 	tokens->type = 0;
 	tokens->fd_in_idx = -1;
 	tokens->fd_out_idx = -1;
+	ft_memset(tokens->fd_in, -1, BUFFER_SIZE);
+	ft_memset(tokens->fd_out, -1, BUFFER_SIZE);
 	ret = set_tokens_type(tokens, line, line_cpy);
 	free(line_cpy);
 	return (ret);
