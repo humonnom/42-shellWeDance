@@ -23,7 +23,7 @@ static int		get_str_len(
 	return (i);
 }
 
-static char**	sort_env(
+static char		**sort_env(
 				char **env,
 				int env_len)
 {
