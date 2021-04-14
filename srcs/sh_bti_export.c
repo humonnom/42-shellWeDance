@@ -52,7 +52,7 @@ static int	handle_err_case(int err_case, t_env *env)
 	}
 	if (err_case == ERR_EXPORT_EQUAL)
 	{
-		printf("zsh: %s not found\n", &(env->val[1]));
+		printf("%s not found\n", &(env->val[1]));
 		return (1);
 	}
 	if (err_case == ERR_EXPORT_EMPTY_KEY)
@@ -78,17 +78,14 @@ static int	run_export(t_list *env_list, char *arg)
 
 	if (!(tmp_env = gen_env(arg)))
 		return (1);
-	printf("tmp_env->key: %s, tmp_env->val: %s\n", tmp_env->key, tmp_env->val);
 	if (del_quote(&(tmp_env->key)))
 		return (1);
 	err_case = sh_bti_export_err_case(tmp_env);
 	tmp_val = tmp_env->val;
 	tmp_env->val = handle_arg(tmp_env->val, env_list);
 	free(tmp_val);
-	printf("after handle_arg, val: %s\n", tmp_env->val);
 	if (copy_str_key_to_val(tmp_env)) // if key has equal sign, mv after = to value
 		return (1);
-	printf("tmp_env->key: %s, tmp_env->val: %s\n", tmp_env->key, tmp_env->val);
 	if (err_case)
 		return (handle_err_case(err_case, tmp_env));
 	tmp_elist = get_elist(env_list, tmp_env->key);

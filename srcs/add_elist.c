@@ -7,7 +7,6 @@ int			add_elist(
 	t_list	*tmp;
 	t_env	*tmp_env;
 
-	printf("KEY: %s, VALUE: %s\n", key, val);
 	if(list_head == 0)
 		return (1);
 	if (!(tmp_env = (t_env *)malloc(sizeof(t_env))))

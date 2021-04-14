@@ -9,7 +9,7 @@ int			run_bti(t_tokens *tokens, t_list *env_list)
 	char	**env_arr;
 
 	if (!(func_path = get_eval(env_list, "PATH")))
-		printf("ERROR: func_path is NULL\n");
+		return (1);
 	cand_arr = pk_split(func_path, func_path, ':', INF);
 	idx = -1;
 	bti_path = NULL;

@@ -2,6 +2,7 @@
 # define _MINISHELL_H
 
 # include "../libft/libft.h"
+# include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <dirent.h>
@@ -9,6 +10,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <sys/errno.h>
 # include <termcap.h>
 # include <termios.h>
 

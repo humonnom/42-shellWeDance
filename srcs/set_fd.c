@@ -4,7 +4,7 @@ static char	*show_type_error(char *str)
 {
 	char	c[2];
 
-	show_error("zsh: parse error near");
+	show_error("parse error near");
 	show_error(" `");
 	c[0] = str[0];
 	c[1] = '\0';
@@ -39,8 +39,7 @@ static int	join_char_to_args(char **str, char c, int *idx)
 static char	*set_tokens_type(
 			t_tokens *tokens,
 			char *str,
-			char *str_cpy,
-			int (*fp)())
+			char *str_cpy)
 {
 	char	*ret;
 	int		idx;
@@ -58,12 +57,15 @@ static char	*set_tokens_type(
 		if (tokens->type & TYPE_ERROR)
 			return (show_type_error(&str_cpy[idx]));
 		if (tmp_type & (TYPE_REIN | TYPE_REOUT | TYPE_REOUT_D))
-			inc_flag = fp(tokens, &str_cpy[idx], &idx, tmp_type);
+			inc_flag = open_valid_fd(tokens, &str_cpy[idx], &idx, tmp_type);
 		else
 			inc_flag = join_char_to_args(&ret, str[idx], &idx);
 	}
 	if (inc_flag == 0)
+	{
+		free(ret);
 		return (NULL);
+	}
 	return (ret);
 }
 
@@ -79,11 +81,7 @@ char	*set_fd(t_tokens *tokens, char *line)
 	tokens->type = 0;
 	tokens->fd_in_idx = -1;
 	tokens->fd_out_idx = -1;
-	ret = set_tokens_type(tokens, line, line_cpy, &is_valid_fd);
-	if (ret != NULL)
-	{
-		free(set_tokens_type(tokens, line, line_cpy, &open_valid_fd));
-	}
+	ret = set_tokens_type(tokens, line, line_cpy);
 	free(line_cpy);
 	return (ret);
 }

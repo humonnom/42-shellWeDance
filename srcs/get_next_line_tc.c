@@ -88,21 +88,6 @@ static int	handle_sig_in_gnl(long *arr, long *c, int *idx, int *buf_len)
 		*c = 4500001;
 	return (0);
 }
-#if 0
-static int	print_arr(long *arr)
-{
-	int i;
-
-	i = -1;
-	printf("=========\n");
-	while (arr[++i])
-	{
-		ft_putnbr_fd(arr[i], 1);
-		write(1, " ", 1);
-	}
-	printf("\n=========\n");
-}
-#endif
 
 static int	set_inst_arr_in_loop(
 			t_info *info,
