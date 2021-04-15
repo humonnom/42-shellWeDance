@@ -1,6 +1,5 @@
 #include "../incs/minishell.h"
 
-
 #define TC_CURSOR_UP "\033[A"
 #define TC_CURSOR_DOWN "\033[B"
 #define TC_CURSOR_RIGHT "\033[C"
