@@ -26,8 +26,6 @@ static t_tc	gen_tc()
 static void			init_info(
 					t_info *info)
 {
-	info->prompt.data = ">> ";//shell💃we🕺dance===> 
-	info->prompt.size = ft_strlen(info->prompt.data);
 	info->tokens_list = NULL;
 	info->line_list = NULL;
 	info->env_list = NULL;

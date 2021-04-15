@@ -22,7 +22,7 @@ int run(t_info *info)
 	{
 		if (info->line_list == NULL)
 		{
-			handle_sig();
+			//handle_sig();
 			if ((lines = get_next_line_tc(info)) == NULL)
 				continue ;
 			if (exact_strncmp(lines, "") != 0)

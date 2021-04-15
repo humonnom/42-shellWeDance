@@ -43,7 +43,7 @@ static int	join_history_line(
 	if (key_arrow == KEY_DOWN_ARROW && info->history_ptr->prev != NULL)
 		info->history_ptr = info->history_ptr->prev;
 	history_line = (char *)(info->history_ptr->data);
-	write(1, info->prompt.data, info->prompt.size);
+	write(1, PROMPT_DATA, PROMPT_SIZE);
 	ft_putstr_fd(history_line, STDOUT_FILENO);
 	ret = -1;
 	while (++ret < ft_strlen(history_line))
@@ -64,7 +64,7 @@ static int	handle_key_arrow(
 		return (0);
 	ret = 0;
 	if (c == KEY_LEFT_ARROW)
-		ft_cursor_mv_left(info->tc.cursor.col, info->prompt.size);
+		ft_cursor_mv_left(info->tc.cursor.col, PROMPT_SIZE);
 	else if (c == KEY_RIGHT_ARROW)
 		ft_cursor_mv_right(info->tc.cursor.col, cursor_right_limit);
 	else if (c == KEY_UP_ARROW || c == KEY_DOWN_ARROW)
@@ -109,9 +109,9 @@ static int	set_inst_arr_in_loop(
 		if (ft_isprint(c) && ++buf_len)
 			ft_putchar_fd(c, STDOUT_FILENO);
 		else if (is_key_arrow(c))
-			idx = handle_key_arrow(info, arr, c, info->prompt.size + buf_len);
+			idx = handle_key_arrow(info, arr, c, PROMPT_SIZE + buf_len);
 		else if (c == KEY_BACKSPACE && --buf_len >= 0)
-			ft_cursor_clr_line_end(info->tc, info->prompt.size);
+			ft_cursor_clr_line_end(info->tc, PROMPT_SIZE);
 		c = 0;
 	}
 	if (c == '\n')
@@ -132,7 +132,7 @@ char	*get_next_line_tc(t_info *info)
 	tc = info->tc;
 	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
 	ft_cursor_mv_head(tc);
-	write(STDOUT_FILENO, info->prompt.data, info->prompt.size);
+	write(STDOUT_FILENO, PROMPT_DATA, PROMPT_SIZE);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);
 	if (inst_arr[0] != 0)

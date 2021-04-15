@@ -43,11 +43,8 @@
 # define CLOSE 0
 // head of data is cmd
 
-typedef struct		s_prompt
-{
-	char			*data;
-	int				size;
-}					t_prompt;
+# define PROMPT_DATA ">> "
+# define PROMPT_SIZE 3
 
 typedef struct		s_env
 {
@@ -94,7 +91,6 @@ typedef struct		s_info
 	int				dollar_ret;
 	int				inst_buf[1024];
 	t_tc			tc;
-	t_prompt		prompt;
 }           		t_info;
 //global return value
 
@@ -104,7 +100,6 @@ typedef struct		s_info
 #define OFF 0x00000
 #define INF 987654321
 #define BUF_SIZE 1024
-
 
 /*
 ** handle_quote.c
