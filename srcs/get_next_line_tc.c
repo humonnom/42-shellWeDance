@@ -2,23 +2,6 @@
 
 extern int	g_signal;
 
-static int	handle_sig_in_gnl(t_info *info, long *arr, long *c, int *idx, int *buf_len)
-{
-	if (g_signal == SIG_SIGINT)
-	{
-		ft_memset(arr, 0, BUFFER_SIZE);
-		*buf_len = 0;
-		*idx = -1;
-		g_signal = OFF;
-		return (1);
-	}
-	else if (*c == 4 && *buf_len == 0)
-		exit_shell(info);
-	else if (*c == 4 && *buf_len != 0)
-		*c = 4500001;
-	return (0);
-}
-
 static char	*get_str_by_inst_arr(long inst_arr[], int inst_arr_size)
 {
 	int		idx;
@@ -104,7 +87,9 @@ static int	set_inst_arr_in_loop(
 	c = 0;
 	while ((read(STDIN_FILENO, &c, sizeof(c))) > 0 && (c != '\n'))
 	{
-		//handle_sig_in_gnl(info, arr, &c, &idx, &buf_len);
+		if (c == KEY_EOF)
+			handle_eof_in_gnl(info, &c, buf_len);
+		handle_sig_in_gnl(info, arr, &idx, &buf_len);
 		get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 		if (c <= 4500000)
 			arr[++idx] = c;
@@ -124,10 +109,8 @@ static int	set_inst_arr_in_loop(
 	}
 	if (c == '\n')
 		ft_putstr_fd("\n", STDOUT_FILENO);
-#if 0
 	if (g_signal)
-		handle_sig_in_gnl(info, arr, &c, &idx, &buf_len);
-#endif
+		handle_sig_in_gnl(info, arr, &idx, &buf_len);
 	return (idx + 1);
 }
 
@@ -140,8 +123,10 @@ char	*get_next_line_tc(t_info *info)
 
 	ret = NULL; 
 	tc = info->tc;
+#if 0
 	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
 	ft_cursor_mv_head(tc);
+#endif
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);

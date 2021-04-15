@@ -26,6 +26,7 @@
 # define KEY_RIGHT_ARROW 4414235
 # define KEY_UP_ARROW 4283163
 # define KEY_DOWN_ARROW 4348699
+# define KEY_EOF 4
 
 # define TC_CM 0
 # define TC_DL 1
@@ -497,11 +498,15 @@ void				append_history_list(
 int					calc_min(int num1, int num2);
 int					calc_max(int num1, int num2);
 
-void				set_signal();
-
-int					handle_sig();
+int					set_signo();
 
 void				handle_sig_in_proc(int pid);
+void				handle_eof_in_gnl(t_info *info, long *c, int buf_len);
+void				handle_sig_in_gnl(
+					t_info *info,
+					long *arr,
+					int *idx,
+					int *buf_len);
 
 void				close_tokens_fds(t_tokens *curr);
 

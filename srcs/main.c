@@ -24,7 +24,7 @@ int run(t_info *info)
 	{
 		if (info->line_list == NULL)
 		{
-			//handle_sig();
+			set_signo();
 			// user inpt: ls -al; pwd; cd ..;
 			if ((lines = get_next_line_tc(info)) == NULL)
 				continue ;

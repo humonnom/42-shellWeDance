@@ -66,6 +66,7 @@ FUNC =	main \
 		is_key_arrow \
 		append_history_list \
 		handle_sig_in_proc \
+		set_signo \
 		handle_sig \
 		close_tokens_fds
 

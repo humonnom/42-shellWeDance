@@ -1,24 +1,41 @@
 #include "../incs/minishell.h"
 
-extern int	g_signal;
+#if 0
+extern int g_signal;
 
-static void set_sigint(int signo)
+static void handle_sigint_in_gnl(int signo)
 {
 	g_signal = SIG_SIGINT;
-	ft_putstr_fd("\n", STDOUT_FILENO);
-	ft_putstr_fd(">> ", STDOUT_FILENO);
 }
 
-static void set_sigquit(int signo)
+static void handle_sigquit_in_gnl(int signo)
 {
-	if (signo == SIGQUIT)
-		g_signal = SIG_SIGQUIT;
+	g_signal = SIG_SIGQUIT;
 }
 
-int			handle_sig()
+void	handle_sig_in_gnl()
 {
-	g_signal = OFF;
-	signal(SIGINT, &set_sigint); 
-	signal(SIGQUIT, &set_sigquit); 
-	return (0);
+	signal(SIGINT, &handle_sigint_in_gnl); 
+	signal(SIGQUIT, &handle_sigquit_in_gnl); 
+}
+#endif
+extern int g_signal;
+
+void	handle_sig_in_gnl(t_info *info, long *arr, int *idx, int *buf_len)
+{
+	if (g_signal == SIG_SIGINT)
+	{
+		ft_memset(arr, 0, BUFFER_SIZE);
+		*buf_len = 0;
+		*idx = -1;
+		g_signal = OFF;
+	}
+}
+
+void	handle_eof_in_gnl(t_info *info, long *c, int buf_len)
+{
+	if (*c == 4 && buf_len == 0)
+		exit_shell(info);
+	else if (*c == 4 && buf_len != 0)
+		*c = 4500001;
 }
