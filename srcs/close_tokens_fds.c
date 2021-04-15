@@ -16,14 +16,14 @@ void	close_tokens_fds(t_tokens *curr)
 				&& curr->fd_out[idx] != -1)
 		{
 			close(curr->fd_out[idx]);
-			curr->fd_out[idx] = -1;
+//			curr->fd_out[idx] = -1;
 
 		}
 		if ((curr->type & TYPE_REIN) \
 				&& curr->fd_in[idx] != -1)
 		{
 			close(curr->fd_in[idx]);
-			curr->fd_in[idx] = -1;
+//			curr->fd_in[idx] = -1;
 		}
 	}
 }
