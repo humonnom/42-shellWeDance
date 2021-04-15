@@ -46,6 +46,8 @@
 # define PROMPT_DATA ">> "
 # define PROMPT_SIZE 3
 
+# define ERR_MALLOC 1
+
 typedef struct		s_env
 {
 	char			*key;

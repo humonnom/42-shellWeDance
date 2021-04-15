@@ -54,15 +54,17 @@ char			**pk_split(
 	if (s == NULL)
 		return (0);
 	size = get_size(s_cpy, c);
-	if (!(ret = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
+	ret = (char **)malloc(sizeof(char *) * (size + 1));
+	if (!ret)
+		return (0);
 	ret[size] = 0;
 	k = 0;
 	begin = 0;
 	while (k < size && limit--)
 	{
 		begin = get_next_idx(s_cpy, begin, &len_word, c);
-		if (!(ret[k] = (char *)malloc(sizeof(char) * (len_word + 1))))
+		ret[k] = (char *)malloc(sizeof(char) * (len_word + 1));
+		if (!ret[k])
 			return (free_darr(ret, k));
 		ft_strlcpy(ret[k], &s[begin], len_word + 1);
 		begin = begin + len_word;

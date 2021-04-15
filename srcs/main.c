@@ -5,12 +5,14 @@ int		g_signal;
 void change_head(t_info *info)
 {
 	t_list	*tmp;
-	int		i;
 
-	ft_lstclear(&(info->tokens_list), &free_tokens);
-	tmp = (info->line_list)->next;
-	ft_lstdelone(info->line_list, &free);
-	info->line_list = tmp;
+	if (info->line_list != NULL)
+	{
+		tmp = (info->line_list)->next;
+		ft_lstdelone(info->line_list, &free);
+		//ft_lstclear(&(info->tokens_list), &free_tokens);
+		info->line_list = tmp;
+	}
 }
 
 int run(t_info *info)
@@ -23,8 +25,10 @@ int run(t_info *info)
 		if (info->line_list == NULL)
 		{
 			//handle_sig();
+			// user inpt: ls -al; pwd; cd ..;
 			if ((lines = get_next_line_tc(info)) == NULL)
 				continue ;
+			// lines: ls -al; pwd; cd ..;
 			if (exact_strncmp(lines, "") != 0)
 			{
 				append_history_list(&(info->history), lines);
@@ -32,9 +36,11 @@ int run(t_info *info)
 			}
 			else
 				continue ;
-			if (!(info->line_list = gen_line_list(lines)))
-				return -1;
+			// line_list: ls -al -> pwd -> cd ..
+			info->line_list = gen_line_list(lines);
 		}
+		printf("%s\n", (char *)info->line_list->data);
+#if 0
 		info->tokens_list = gen_tokens_list(info);
 		while (info->tokens_list)
 		{
@@ -44,6 +50,7 @@ int run(t_info *info)
 			ft_lstdelone(info->tokens_list, &free_tokens);
 			info->tokens_list = next;
 		}
+#endif
 		change_head(info);
 	}
 	return (0);
