@@ -68,7 +68,7 @@ static int	set_inst_arr_in_loop(
 			handle_eof_in_gnl(info, &c, buf_len);
 		handle_sig_in_gnl(info, arr, &idx, &buf_len);
 		get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
-		if (c <= 4500000)
+		if (c != '\t' && c <= 4500000)
 			arr[++idx] = c;
 		tmp = handle_read_data(info, &c, arr, &buf_len);
 		if (tmp)

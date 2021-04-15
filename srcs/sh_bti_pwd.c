@@ -9,6 +9,7 @@ int	sh_bti_pwd(char **args)
 		printf("%s\n", "pwd: too many arguments");
 		return (1);
 	}
-	printf("%s\n", getcwd(s, BUFFER_SIZE));
+	getcwd(s, BUFFER_SIZE);
+	printf("%s\n", s);
 	return 0;
 }
