@@ -72,7 +72,7 @@ static int	handle_key_arrow(
 	return (ret);
 }
 
-static int	handle_sig_in_gnl(long *arr, long *c, int *idx, int *buf_len)
+static int	handle_sig_in_gnl(t_info *info, long *arr, long *c, int *idx, int *buf_len)
 {
 	if (g_signal == SIG_SIGINT)
 	{
@@ -83,7 +83,7 @@ static int	handle_sig_in_gnl(long *arr, long *c, int *idx, int *buf_len)
 		return (1);
 	}
 	else if (*c == 4 && *buf_len == 0)
-		exit(0);
+		exit_shell(info);
 	else if (*c == 4 && *buf_len != 0)
 		*c = 4500001;
 	return (0);
@@ -102,7 +102,7 @@ static int	set_inst_arr_in_loop(
 	c = 0;
 	while ((read(STDIN_FILENO, &c, sizeof(c))) >= 0 && (c != '\n'))
 	{
-		handle_sig_in_gnl(arr, &c, &idx, &buf_len);
+		handle_sig_in_gnl(info, arr, &c, &idx, &buf_len);
 		get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 		if (c <= 4500000)
 			arr[++idx] = c;
@@ -117,7 +117,7 @@ static int	set_inst_arr_in_loop(
 	if (c == '\n')
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	if (g_signal)
-		handle_sig_in_gnl(arr, &c, &idx, &buf_len);
+		handle_sig_in_gnl(info, arr, &c, &idx, &buf_len);
 	return (idx + 1);
 }
 
