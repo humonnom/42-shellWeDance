@@ -459,12 +459,6 @@ int					ft_putchar_tc(int tc);
 /*
 ** ft_cursor.c
 */
-int					ft_cursor_mv_left(
-					int	col,
-					int	left_limit);
-int					ft_cursor_mv_right(
-					int	col,
-					int	right_limit);
 int					ft_cursor_clr_line_end(
 					t_tc tc,
 					int left_limit);
@@ -507,6 +501,12 @@ void				handle_sig_in_gnl(
 					long *arr,
 					int *idx,
 					int *buf_len);
+int
+	handle_key_arrow(
+	t_info *info,
+	long arr[],
+	long c,
+	int right_limit);
 
 void				close_tokens_fds(t_tokens *curr);
 

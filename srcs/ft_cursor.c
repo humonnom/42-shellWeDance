@@ -14,31 +14,6 @@ int ft_cursor_mv_head(t_tc tc)
 	return (0);
 }
 
-int ft_cursor_mv_left(
-	int	col,
-	int	left_limit)
-{
-	char	*str;
-	int		itr;
-
-	str = "\033[D";
-	if (col > left_limit + 1)
-		write(STDIN_FILENO, str, ft_strlen(str));
-	return (0);
-}
-
-int ft_cursor_mv_right(
-	int	col,
-	int	right_limit)
-{
-	char	*str;
-	int		itr;
-
-	str = "\033[C";
-	if (col <= right_limit)
-		write(STDIN_FILENO, str, ft_strlen(str));
-	return (0);
-}
 
 int	ft_cursor_clr_line_all(t_tc tc)
 {
@@ -57,4 +32,26 @@ int ft_cursor_clr_line_end(
 		tputs(tc.tc_str[TC_CE], 1, ft_putchar_tc);
 	}
 	return (0);
+}
+
+void get_cursor_pos(int *col, int *row)
+{
+	int		cnt;
+	int		idx;
+	char	buf[255];
+	int		read_size;
+
+	write(STDIN_FILENO, "\033[6n", ft_strlen("\033[6n"));
+	read_size = read(STDIN_FILENO, buf, 255); 
+	buf[read_size] = '\0';
+	idx = -1;
+	while (!ft_isdigit(buf[idx]))
+		++idx;
+	*row = 0;
+	while (ft_isdigit(buf[idx]))
+		*row = *row * 10 + buf[idx++] - '0'; 
+	++idx;
+	*col = 0;
+	while (ft_isdigit(buf[idx]))
+		*col = *col * 10 + buf[idx++] - '0'; 
 }

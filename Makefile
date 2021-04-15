@@ -60,7 +60,6 @@ FUNC =	main \
 		open_valid_fd \
 		get_next_line_tc \
 		ft_cursor \
-		ft_cursor2 \
 		ft_putchar_tc \
 		calc \
 		is_key_arrow \
@@ -68,6 +67,7 @@ FUNC =	main \
 		handle_sig_in_proc \
 		set_signo \
 		handle_sig \
+		handle_key_arrow \
 		close_tokens_fds
 
 OBJDIR = ./objs
