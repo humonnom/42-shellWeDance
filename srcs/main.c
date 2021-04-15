@@ -39,18 +39,24 @@ int run(t_info *info)
 			// line_list: ls -al -> pwd -> cd ..
 			info->line_list = gen_line_list(lines);
 		}
-		printf("%s\n", (char *)info->line_list->data);
-#if 0
+		//printf("line_list->data: %s\n", (char *)info->line_list->data);
 		info->tokens_list = gen_tokens_list(info);
 		while (info->tokens_list)
 		{
 			int flag = 0;
 			run_cmd(info);
+#if 0
+			t_tokens *tokens = (t_tokens *)info->tokens_list->data;
+			printf("	cmd: %s\n", (char *)tokens->cmd);
+			int idx;
+			idx = -1;
+			while (tokens->args[++idx])
+				printf("	arg: %s\n", (char *)tokens->args[idx]);
+#endif
 			next = info->tokens_list->next;
 			ft_lstdelone(info->tokens_list, &free_tokens);
 			info->tokens_list = next;
 		}
-#endif
 		change_head(info);
 	}
 	return (0);
