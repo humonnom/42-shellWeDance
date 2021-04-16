@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:13 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:21:14 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 13:58:43 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	handle_err_case(int err_case, t_env *env)
 	if (err_case == CASE_EXPORT_NUMBER_KEY)
 	{
 		printf("export: not an identifier: %s\n", env->key);
-		return (1);	
+		return (1);
 	}
 	if (err_case == ERR_EXPORT_EQUAL)
 	{
@@ -70,7 +70,7 @@ static int	handle_err_case(int err_case, t_env *env)
 	if (err_case == ERR_EXPORT_EMPTY_KEY)
 	{
 		printf("export: not an identifier: %s\n", env->val);
-		return (1);	
+		return (1);
 	}
 	if (err_case == CASE_EXPORT_EMPTY_VAL)
 	{
@@ -96,19 +96,19 @@ static int	run_export(t_list *env_list, char *arg)
 	tmp_val = tmp_env->val;
 	tmp_env->val = handle_arg(tmp_env->val, env_list);
 	free(tmp_val);
-	if (copy_str_key_to_val(tmp_env)) // if key has equal sign, mv after = to value
+	if (copy_str_key_to_val(tmp_env))
 		return (1);
 	if (err_case)
 		return (handle_err_case(err_case, tmp_env));
 	tmp_elist = get_elist(env_list, tmp_env->key);
 	if (tmp_elist)
-		mod_eval((t_env *)(tmp_elist->data), tmp_env->val); 
+		mod_eval((t_env *)(tmp_elist->data), tmp_env->val);
 	else
 		add_elist(&env_list, tmp_env->key, tmp_env->val);
 	return (ret);
 }
 
-int	sh_bti_export(char **args, t_list **env_list)
+int			sh_bti_export(char **args, t_list **env_list)
 {
 	int	idx;
 

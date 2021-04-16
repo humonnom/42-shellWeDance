@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:24 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:21:25 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 13:56:00 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	del_elist_if(
 	}
 }
 
-int	sh_bti_unset(
+int			sh_bti_unset(
 	char **args,
 	t_list **env_list)
 {

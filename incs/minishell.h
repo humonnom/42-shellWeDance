@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:32:52 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 13:49:19 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct		s_cursor
 
 typedef struct		s_tc
 {
-	struct	termios	term;
+	struct termios	term;
 	char			*tc_str[3];
 	t_cursor		cursor;
 }					t_tc;
@@ -98,19 +98,19 @@ typedef struct		s_info
 	t_list			*history;
 	t_list			*history_ptr;
 	t_tokens		*tokens;
-    int     		exit;
-    int     		ret;
+	int				exit;
+	int				ret;
 	int				dollar_ret;
 	int				inst_buf[1024];
 	t_tc			tc;
-}           		t_info;
+}					t_info;
 
-#define BIT_SQUOTE 1
-#define BIT_DQUOTE 2
-#define ON 0x00001
-#define OFF 0x00000
-#define INF 987654321
-#define BUF_SIZE 1024
+# define BIT_SQUOTE 1
+# define BIT_DQUOTE 2
+# define ON 0x00001
+# define OFF 0x00000
+# define INF 987654321
+# define BUF_SIZE 1024
 
 /*
 ** handle_quote.c
@@ -143,7 +143,7 @@ int					check_bit(
 					int n);
 
 /*
-** init_minishell.c 
+** init_minishell.c
 */
 int					init_minishell(
 					t_info *info,
@@ -233,7 +233,7 @@ void				free_elist(t_list *list_head);
 /*
 ** free_elist.c
 */
-void				free_tokens(void *_tokens);
+void				free_tokens(void *tokens_tmp);
 
 /*
 ** gen_line_list.c
@@ -253,7 +253,7 @@ t_env				*gen_env(char *tokens);
 /*
 ** free_env.c
 */
-void				free_env(void *_env);
+void				free_env(void *env_tmp);
 
 /*
 ** categorize_cmd.c
@@ -299,7 +299,7 @@ int					run_bti(
 /*
 ** sh_bti_export.c
 */
-int					sh_bti_export(	
+int					sh_bti_export(
 					char **args,
 					t_list **env_list);
 
@@ -402,7 +402,6 @@ int					run_cmd(
 */
 int					show_error(char const *str);
 
-
 /*
 ** exit_shell.c
 */
@@ -459,7 +458,6 @@ int					open_valid_fd(
 
 int					ft_putchar_tc(int tc);
 
-
 /*
 ** ft_cursor.c
 */
@@ -479,7 +477,6 @@ int					is_key_arrow(long c);
 ** ft_cursor2.c
 */
 void				get_cursor_pos(int *col, int *row);
-
 
 /*
 ** ft_cursor2.c
@@ -509,8 +506,8 @@ void				handle_sig_in_gnl(
 					long *arr,
 					int *idx,
 					int *buf_len);
-int
-					handle_key_arrow(
+
+int					handle_key_arrow(
 					t_info *info,
 					long arr[],
 					long c,
