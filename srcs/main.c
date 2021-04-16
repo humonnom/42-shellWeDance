@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:24:57 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/17 01:21:55 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int run(t_info *info)
 {
 	char	*lines;
 	t_list	*next;
+	int		flag;
 
 	while (info->exit == 0)
 	{
-		printf("[run]g_signal:%d\n", g_signal);
 		if (info->line_list == NULL)
 		{
 			set_signo();
@@ -58,7 +58,7 @@ int run(t_info *info)
 		info->tokens_list = gen_tokens_list(info);
 		while (info->tokens_list)
 		{
-			int flag = 0;
+			flag = 0;
 			run_cmd(info);
 			next = info->tokens_list->next;
 			ft_lstdelone(info->tokens_list, &free_tokens);

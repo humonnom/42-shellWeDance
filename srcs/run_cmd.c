@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:28:54 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/17 01:20:52 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
 {
 	int	status;
 	int	ret;
+	int	child_ret;
 	
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_signal = WEXITSTATUS(status);
 	if (pipe_open)
 	{
 		close(curr->fds[1]);
@@ -85,8 +88,7 @@ static int	run_cmd_part(
 		open_redir_fd(curr);
 		if ((ret = categorize_cmd(curr, info)) != 0)
 			show_cmd_error(curr->cmd);
-		printf("[run cmd part]g_signal:%d\n", g_signal);
-		exit(ret);
+		exit(g_signal);
 	}
 	else
 		ret = close_fds(pid, curr, prev, pipe_open);
@@ -118,6 +120,5 @@ int	run_cmd(t_info *info)
 	ret = run_cmd_part(curr, prev, info, pipe_open);
 	if (ret != EXIT_FAILURE && (curr->type & TYPE_BREAK))
 		ret = redo_sh_bti(curr, info);
-	printf("[run cmd]g_signal:%d\n", g_signal);
 	return (ret);
 }
