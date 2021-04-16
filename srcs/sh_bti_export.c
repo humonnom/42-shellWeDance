@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:13 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:17:41 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/17 02:17:21 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ static int	handle_err_case(int err_case, t_env *env)
 	if (err_case == ERR_EXPORT_EQUAL)
 	{
 		printf("%s not found\n", &(env->val[1]));
+		g_signal = 1;
 		return (1);
 	}
 	if (err_case == ERR_EXPORT_EMPTY_KEY)
 	{
 		printf("export: not an identifier: %s\n", env->val);
+		g_signal = 1;
 		return (1);
 	}
 	if (err_case == CASE_EXPORT_EMPTY_VAL)
@@ -113,7 +115,8 @@ static int	run_export(t_list *env_list, char *arg)
 
 int			sh_bti_export(char **args, t_list **env_list)
 {
-	int	idx;
+	t_list	*tmp_elist;
+	int		idx;
 
 	if (!args)
 		return (1);
@@ -126,6 +129,9 @@ int			sh_bti_export(char **args, t_list **env_list)
 		run_export(*env_list, args[idx]);
 	}
 	if (idx == 0)
+	{
+		//tmp_elist = sort_elist(*env_list);
 		print_elist(*env_list);
+	}
 	return (0);
 }

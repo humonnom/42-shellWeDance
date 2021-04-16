@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:16:15 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/17 01:51:57 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,12 @@ int					mod_elist(
 					t_list **list_head,
 					char *key,
 					char *val);
+
+/*
+** mod_elist.c
+*/
+t_list
+	*sort_elist(t_list *env_list);
 
 /*
 ** print_list.c

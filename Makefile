@@ -45,6 +45,7 @@ FUNC =	main \
 		get_elist \
 		add_elist \
 		free_elist \
+		sort_elist \
 		print_elist \
 		print_line_list \
 		set_darr_to_list \
