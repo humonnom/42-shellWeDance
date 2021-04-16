@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   close_tokens_fds.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/16 13:14:40 by juepark           #+#    #+#             */
+/*   Updated: 2021/04/16 13:14:57 by juepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incs/minishell.h"
 
 void	close_tokens_fds(t_tokens *curr)
@@ -14,17 +26,10 @@ void	close_tokens_fds(t_tokens *curr)
 	{
 		if ((curr->type & (TYPE_REOUT_D | TYPE_REOUT)) \
 				&& curr->fd_out[idx] != -1)
-		{
 			close(curr->fd_out[idx]);
-//			curr->fd_out[idx] = -1;
-
-		}
 		if ((curr->type & TYPE_REIN) \
 				&& curr->fd_in[idx] != -1)
-		{
 			close(curr->fd_in[idx]);
-//			curr->fd_in[idx] = -1;
-		}
 	}
 }
 

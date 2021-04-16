@@ -1,28 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_sig_in_proc.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/16 13:17:56 by juepark           #+#    #+#             */
+/*   Updated: 2021/04/16 13:18:11 by juepark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incs/minishell.h"
 extern int	g_signal;
 
 static void	sigint_handler_proc(int signo)
 {
-	//no need to remove signal
-	//stop process(minishell is still running)
-	//change dollar_ret;
 	g_signal = SIG_SIGINT;
-	//g_signal = 130;
-	//display prompt
 	ft_putstr_fd("^C", STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 static void	sigquit_handler_proc(int signo)
 {
-	//no need to remove signal
-	//put messege
 	ft_putstr_fd("Quit: 3", STDOUT_FILENO);
-	//stop process(minishell is still running)
-	//change dollar_ret
 	g_signal = SIG_SIGQUIT;
-	//g_signal = 131;
-	//display prompt
 	ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
