@@ -24,7 +24,6 @@ FUNC =	main \
 		select_sh_bti \
 		redo_sh_bti \
 		run_bti \
-		get_bti_path \
 		mod_eval \
 		gen_env \
 		free_env \
@@ -68,7 +67,8 @@ FUNC =	main \
 		set_signo \
 		handle_sig \
 		handle_key_arrow \
-		close_tokens_fds
+		close_tokens_fds \
+		is_exist_dir
 
 OBJDIR = ./objs
 INCDIR = ./incs
@@ -84,14 +84,14 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
-	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) 2> /dev/null || true
+	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
 	@echo "Start Program"
 	
 #$(OBJS): $(SRCS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf "Generating minishell... %-33.33s\r" $@
 	@mkdir $(OBJDIR) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< 2> /dev/null || true
+	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
 
 clean:
 	@rm -rf $(OBJDIR)

@@ -295,10 +295,6 @@ int					select_sh_bti(
 int					run_bti(
 					t_tokens *tokens,
 					t_list *env_list);
-/*
-** get_bti_path.c
-*/
-char				*get_bti_path(char *cand, char *cmd);
 
 /*
 ** sh_bti_export.c
@@ -521,5 +517,8 @@ int
 					int right_limit);
 
 void				close_tokens_fds(t_tokens *curr);
+
+int
+	is_exist_dir(char *dir_path);
 
 #endif
