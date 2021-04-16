@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:22:09 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 13:32:52 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@
 # define SIG_SIGQUIT 2
 # define SIG_EOF 3
 
-//# define FLAG_FD_OPEN 1
-
 # define OPEN 1
 # define CLOSE 0
-// head of data is cmd
 
 # define PROMPT_DATA ">> "
 # define PROMPT_SIZE 3
@@ -107,7 +104,6 @@ typedef struct		s_info
 	int				inst_buf[1024];
 	t_tc			tc;
 }           		t_info;
-//global return value
 
 #define BIT_SQUOTE 1
 #define BIT_DQUOTE 2
@@ -119,32 +115,32 @@ typedef struct		s_info
 /*
 ** handle_quote.c
 */
-int				handle_quote(
-				char *str,
-				char **str_cpy,
-				char c);
+int					handle_quote(
+					char *str,
+					char **str_cpy,
+					char c);
 
 /*
 ** pk_split.c
 */
-char			**pk_split(
-				const char *s,
-				const char *s_cpy,
-				char c,
-				int limit);
+char				**pk_split(
+					const char *s,
+					const char *s_cpy,
+					char c,
+					int limit);
 
 /*
 ** handle_bit.c
 */
-int				turn_on_bit(
-				int val,
-				int n);
-int				turn_off_bit(
-				int val,
-				int n);
-int				check_bit(
-				int val,
-				int n);
+int					turn_on_bit(
+					int val,
+					int n);
+int					turn_off_bit(
+					int val,
+					int n);
+int					check_bit(
+					int val,
+					int n);
 
 /*
 ** init_minishell.c 
@@ -476,13 +472,11 @@ int					ft_cursor_clr_line_end(
 					int left_limit);
 
 int					ft_cursor_mv_head(t_tc *tc);
+
 int					ft_cursor_clr_line_all(t_tc *tc);
 
-
-
-
 char				*get_next_line_tc(t_info *info);
-//int					test(t_info *info, t_prompt prompt);
+
 int					is_key_arrow(long c);
 
 /*
@@ -502,41 +496,30 @@ void				append_history_list(
 ** calc.c
 */
 int					calc_min(int num1, int num2);
+
 int					calc_max(int num1, int num2);
 
 int					set_signo();
 
 void				handle_sig_in_proc(int pid);
-void				handle_eof_in_gnl(t_info *info, long *c, int buf_len);
+
+void				handle_eof_in_gnl(
+					t_info *info,
+					long *c,
+					int buf_len);
+
 void				handle_sig_in_gnl(
 					t_info *info,
 					long *arr,
 					int *idx,
 					int *buf_len);
 int
-	handle_key_arrow(
-	t_info *info,
-	long arr[],
-	long c,
-	int right_limit);
+					handle_key_arrow(
+					t_info *info,
+					long arr[],
+					long c,
+					int right_limit);
 
 void				close_tokens_fds(t_tokens *curr);
 
-#endif
-#if 0
-
-
-/*
-** pk_lst.c
-*/
-void				pk_lstadd_front(
-					t_slist **set_head,
-					t_slist	*new_list);
-
-t_slist				*pk_lstnew(
-					void *data);
-
-void				pk_lstdelone(
-					t_slist *target,
-					void (*del)(void *));
 #endif
