@@ -2,8 +2,7 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   run_bti.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */ /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:23 by juepark           #+#    #+#             */
 /*   Updated: 2021/04/16 13:20:24 by juepark          ###   ########.fr       */
@@ -62,22 +61,32 @@ char	*get_bti_path_from_env_path(char *cand, char *cmd)
 }
 
 int
-	run_bti_with_path(t_tokens *tokens, char **env_arr)
+	run_bti_with_path(
+	t_tokens *tokens,
+	t_list *env_list,
+	char **env_arr)
 {
 	char	*bti_path;
+	char	*bti_dir_path;
 	char	*pure_cmd;
 
-	bti_path = get_bti_path_from_cmd(tokens->cmd);
-	if (is_exist_dir(bti_path))
+	bti_path = handle_arg(tokens->cmd, env_list);
+	bti_dir_path = get_bti_path_from_cmd(bti_path);
+	if (is_exist_dir(bti_dir_path))
 	{
 		pure_cmd = get_cmd_without_path(tokens->cmd);
 		tokens->tokens[0] = pure_cmd;
-		if(execve(tokens->cmd, tokens->tokens, env_arr))
+		if(execve(bti_path, tokens->tokens, env_arr))
+		{
 			free(bti_path);
+			free(bti_dir_path);
+		}
 		free(pure_cmd);
 		tokens->tokens[0] = tokens->cmd;
 		return (1);
 	}
+	free(bti_path);
+	free(bti_dir_path);
 	return (0);
 }
 
@@ -90,7 +99,7 @@ int			run_bti(t_tokens *tokens, t_list *env_list)
 	char	**env_arr;
 
 	env_arr = set_list_to_darr(env_list);
-	if (run_bti_with_path(tokens, env_arr))
+	if (run_bti_with_path(tokens, env_list, env_arr))
 		return (1);
 	if (!(func_path = get_eval(env_list, "PATH")))
 		return (1);

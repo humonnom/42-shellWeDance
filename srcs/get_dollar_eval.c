@@ -18,6 +18,8 @@ static int	is_finish_cond(char c)
 		return (1); if (c == '\'') return (1);
 	if (c == ' ')
 		return (1);
+	if (c == '/')
+		return (1);
 	return (0);
 }
 
