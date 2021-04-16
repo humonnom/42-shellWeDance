@@ -93,7 +93,6 @@ char	*get_next_line_tc(t_info *info)
 	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
 	ft_cursor_mv_head(tc);
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
-	//ft_putstr_fd(">> ", STDOUT_FILENO);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);
 	if (inst_arr[0] != 0)

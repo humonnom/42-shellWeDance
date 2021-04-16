@@ -16,7 +16,10 @@ void	handle_sig_in_gnl(t_info *info, long *arr, int *idx, int *buf_len)
 void	handle_eof_in_gnl(t_info *info, long *c, int buf_len)
 {
 	if (*c == 4 && buf_len == 0)
+	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit_shell(info);
+	}
 	else if (*c == 4 && buf_len != 0)
 		*c = 4500001;
 }
