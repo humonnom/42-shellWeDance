@@ -22,7 +22,7 @@ void change_head(t_info *info)
 	{
 		tmp = (info->line_list)->next;
 		ft_lstdelone(info->line_list, &free);
-		//ft_lstclear(&(info->tokens_list), &free_tokens);
+		ft_lstclear(&(info->tokens_list), &free_tokens);
 		info->line_list = tmp;
 	}
 }
