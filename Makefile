@@ -84,14 +84,14 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBDIR) all
-	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) #2> /dev/null || true
+	@$(CC) $(CFLAGS) -lcurses -o $(NAME) $(LIBFT) $(OBJS) 2> /dev/null || true
 	@echo "Start Program"
 	
 #$(OBJS): $(SRCS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf "Generating minishell... %-33.33s\r" $@
 	@mkdir $(OBJDIR) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
+	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< 2> /dev/null || true
 
 clean:
 	@rm -rf $(OBJDIR)
