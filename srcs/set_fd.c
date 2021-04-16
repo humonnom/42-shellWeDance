@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:42 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:20:44 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:19:13 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int g_signal;
 
 static char	*show_type_error(char *str)
 {
@@ -28,6 +30,7 @@ static char	*show_type_error(char *str)
 		show_error(c);
 	}
 	show_error("'\n");
+	g_signal = 258;
 	return (NULL);
 }
 

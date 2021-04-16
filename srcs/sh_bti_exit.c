@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:21:10 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:17:17 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	sh_bti_exit(t_info *info)
 {
-	exit(exit_shell(info));
+	exit_shell(info);
 }

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:13 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:58:43 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:17:41 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #define ERR_EXPORT_EMPTY_KEY 4
 #define CASE_EXPORT_EMPTY_VAL 2
 #define CASE_EXPORT_NUMBER_KEY 3
+
+extern int g_signal;
 
 int	g_equal_in_key;
 
@@ -60,6 +62,7 @@ static int	handle_err_case(int err_case, t_env *env)
 	if (err_case == CASE_EXPORT_NUMBER_KEY)
 	{
 		printf("export: not an identifier: %s\n", env->key);
+		g_signal = 1;
 		return (1);
 	}
 	if (err_case == ERR_EXPORT_EQUAL)

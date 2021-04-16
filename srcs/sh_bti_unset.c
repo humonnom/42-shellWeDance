@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:24 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:56:00 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:18:08 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int g_signal;
 
 static int	cmp_key(t_list *env_list, char *key2)
 {
@@ -62,5 +64,6 @@ int			sh_bti_unset(
 	idx = -1;
 	while (args[++idx])
 		del_elist_if(env_list, args[idx]);
+	g_signal = 0;
 	return (0);
 }

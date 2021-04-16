@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:52 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:53 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 20:51:24 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_sig_in_gnl(t_info *info, long *arr, int *idx, int *buf_len)
 		ft_memset(arr, 0, BUFFER_SIZE);
 		*buf_len = 0;
 		*idx = -1;
-		g_signal = OFF;
+		g_signal = 1;
 	}
 }
 

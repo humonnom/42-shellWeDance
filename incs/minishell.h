@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:49:19 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:16:15 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@
 
 # define BUFFER_SIZE 1024
 
-# define SIG_SIGINT 1
-# define SIG_SIGQUIT 2
-# define SIG_EOF 3
+# define RET_INIT 0
+# define RET_FAIL 1
+# define RET_SIGINT 130
+# define RET_SIGQUIT 131
+# define SIG_SIGINT -1
+# define SIG_SIGQUIT -2
 
 # define OPEN 1
 # define CLOSE 0

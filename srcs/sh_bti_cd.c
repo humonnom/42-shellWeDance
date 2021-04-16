@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:51:20 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:17:59 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int g_signal;
 
 static char	*handle_shortcut(char *arg, t_list *env_list)
 {
@@ -60,11 +62,6 @@ int			sh_bti_cd(char **args, t_list *env_list)
 	int		ret;
 
 	ret = 0;
-	if (args[0] && args[1])
-	{
-		printf("cd: string not in pwd: %s\n", args[0]);
-		return (1);
-	}
 	if (!(path = get_path(args[0], env_list)))
 		return (1);
 	if (chdir(path) == -1)
@@ -75,5 +72,6 @@ int			sh_bti_cd(char **args, t_list *env_list)
 	free(path);
 	if (!ret)
 		ret = renew_pwd(env_list);
+	g_signal = ret;
 	return (ret);
 }

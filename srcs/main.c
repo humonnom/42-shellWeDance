@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:18:48 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:24:57 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ int run(t_info *info)
 
 	while (info->exit == 0)
 	{
+		printf("[run]g_signal:%d\n", g_signal);
 		if (info->line_list == NULL)
 		{
 			set_signo();
-			// user inpt: ls -al; pwd; cd ..;
 			if ((lines = get_next_line_tc(info)) == NULL)
 				continue ;
-			// lines: ls -al; pwd; cd ..;
 			if (exact_strncmp(lines, "") != 0)
 			{
 				append_history_list(&(info->history), lines);
@@ -54,23 +53,13 @@ int run(t_info *info)
 			}
 			else
 				continue ;
-			// line_list: ls -al -> pwd -> cd ..
 			info->line_list = gen_line_list(lines);
 		}
-		//printf("line_list->data: %s\n", (char *)info->line_list->data);
 		info->tokens_list = gen_tokens_list(info);
 		while (info->tokens_list)
 		{
 			int flag = 0;
 			run_cmd(info);
-#if 0
-			t_tokens *tokens = (t_tokens *)info->tokens_list->data;
-			printf("	cmd: %s\n", (char *)tokens->cmd);
-			int idx;
-			idx = -1;
-			while (tokens->args[++idx])
-				printf("	arg: %s\n", (char *)tokens->args[idx]);
-#endif
 			next = info->tokens_list->next;
 			ft_lstdelone(info->tokens_list, &free_tokens);
 			info->tokens_list = next;

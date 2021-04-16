@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:00 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:59:34 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:18:50 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int g_signal;
 
 static int	is_n_flag(char *str)
 {
@@ -50,5 +52,6 @@ int			sh_bti_echo(char **args, t_list *env_list)
 	}
 	if (!n_flag)
 		write(1, "\n", 1);
+	g_signal = 0;
 	return (0);
 }

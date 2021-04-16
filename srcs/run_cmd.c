@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:20:28 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 21:28:54 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int	g_signal;
 
 void	show_cmd_error(char *cmd)
 {
@@ -83,6 +85,7 @@ static int	run_cmd_part(
 		open_redir_fd(curr);
 		if ((ret = categorize_cmd(curr, info)) != 0)
 			show_cmd_error(curr->cmd);
+		printf("[run cmd part]g_signal:%d\n", g_signal);
 		exit(ret);
 	}
 	else
@@ -115,5 +118,6 @@ int	run_cmd(t_info *info)
 	ret = run_cmd_part(curr, prev, info, pipe_open);
 	if (ret != EXIT_FAILURE && (curr->type & TYPE_BREAK))
 		ret = redo_sh_bti(curr, info);
+	printf("[run cmd]g_signal:%d\n", g_signal);
 	return (ret);
 }

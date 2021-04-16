@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:52 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:20:54 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/16 20:52:37 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ static void set_sigint(int signo)
 
 static void set_sigquit(int signo)
 {
-	if (signo == SIGQUIT)
-		g_signal = SIG_SIGQUIT;
+	(void)signo;
 }
 
 int			set_signo()
 {
-	g_signal = OFF;
 	signal(SIGINT, &set_sigint); 
 	signal(SIGQUIT, &set_sigquit); 
 	return (0);
