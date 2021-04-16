@@ -88,8 +88,8 @@ char	*get_next_line_tc(t_info *info)
 	int		inst_arr_size;
 
 	ret = NULL; 
-//	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
-//	ft_cursor_mv_head(&(info->tc));
+	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
+	ft_cursor_mv_head(&(info->tc));
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);

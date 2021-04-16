@@ -10,7 +10,7 @@ int ft_cursor_mv_head(t_tc *tc)
 {
 	char	*str;
 
-	tputs(tgoto(tc->tc_str[TC_CM], 0, tc->cursor.row), 1, ft_putchar_tc);
+	tputs(tgoto(tc->tc_str[TC_CM], 0, tc->cursor.row - 1), 1, ft_putchar_tc);
 	return (0);
 }
 
@@ -18,7 +18,7 @@ int ft_cursor_mv_head(t_tc *tc)
 int	ft_cursor_clr_line_all(t_tc *tc)
 {
 	tputs(tc->tc_str[TC_DL], 1, ft_putchar_tc);
-	get_cursor_pos(&(tc->cursor.col), &(tc->cursor.row));
+	//get_cursor_pos(&(tc->cursor.col), &(tc->cursor.row));
 	//tputs(tgoto(tc->tc_str[TC_CM], 0, tc->cursor.row), 1, ft_putchar_tc);
 	ft_cursor_mv_head(tc);
 	return (0);
