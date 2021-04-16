@@ -50,6 +50,12 @@ static int
 	return (ret);
 }
 
+static void	turn_off_echo(t_info *info)
+{
+	info->tc.term.c_lflag &= ~ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &(info->tc.term));
+}
+
 static int	set_inst_arr_in_loop(
 			t_info *info,
 			long *arr)
@@ -88,6 +94,7 @@ char	*get_next_line_tc(t_info *info)
 	int		inst_arr_size;
 
 	ret = NULL; 
+	turn_off_echo(info);
 	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 	ft_cursor_mv_head(&(info->tc));
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);

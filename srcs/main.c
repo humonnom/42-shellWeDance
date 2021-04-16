@@ -15,6 +15,12 @@ void change_head(t_info *info)
 	}
 }
 
+static void	turn_off_echo(t_info *info)
+{
+	info->tc.term.c_lflag &= (~ECHO);
+	tcsetattr(STDIN_FILENO, TCSANOW, &(info->tc.term));
+}
+
 int run(t_info *info)
 {
 	char	*lines;
