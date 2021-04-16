@@ -44,7 +44,7 @@ static int
 	else if (*c == KEY_BACKSPACE)
 	{
 		*buf_len = calc_max(*buf_len - 1, 0);
-		ft_cursor_clr_line_end(info->tc, PROMPT_SIZE);
+		ft_cursor_clr_line_end(&(info->tc), PROMPT_SIZE);
 	}
 	*c = 0;
 	return (ret);
@@ -83,15 +83,13 @@ static int	set_inst_arr_in_loop(
 
 char	*get_next_line_tc(t_info *info)
 {
-	t_tc	tc;
 	char	*ret;
 	long	inst_arr[BUFFER_SIZE];
 	int		inst_arr_size;
 
 	ret = NULL; 
-	tc = info->tc;
-	get_cursor_pos(&tc.cursor.col, &tc.cursor.row);
-	ft_cursor_mv_head(tc);
+//	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
+//	ft_cursor_mv_head(&(info->tc));
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);

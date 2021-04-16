@@ -8,7 +8,7 @@ static int	join_history_line(
 	int		ret;
 	char	*history_line;
 
-	ft_cursor_clr_line_all(info->tc);
+	ft_cursor_clr_line_all(&(info->tc));
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	if (key_arrow == KEY_UP_ARROW && info->history_ptr->next != NULL)
 		info->history_ptr = info->history_ptr->next;
@@ -65,12 +65,10 @@ int	handle_key_arrow(
 	if (info->history_ptr == NULL)
 		return (0);
 	ret = 0;
-#if 1
 	if (c == KEY_LEFT_ARROW)
 		ft_cursor_mv_left(info->tc.cursor.col, PROMPT_SIZE, arr);
 	else if (c == KEY_RIGHT_ARROW)
 		ft_cursor_mv_right(info->tc.cursor.col, right_limit, arr);
-#endif
 	if (c == KEY_UP_ARROW || c == KEY_DOWN_ARROW)
 		ret = join_history_line(info, arr, c) - 1;
 	return (ret);

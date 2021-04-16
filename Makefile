@@ -89,7 +89,7 @@ $(NAME): $(OBJS)
 	
 #$(OBJS): $(SRCS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	#@printf "Generating minishell... %-33.33s\r" $@
+	@printf "Generating minishell... %-33.33s\r" $@
 	@mkdir $(OBJDIR) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -I$(INCDIR) -lcurses -o $@ -c $< #2> /dev/null || true
 

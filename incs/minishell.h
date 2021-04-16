@@ -460,11 +460,11 @@ int					ft_putchar_tc(int tc);
 ** ft_cursor.c
 */
 int					ft_cursor_clr_line_end(
-					t_tc tc,
+					t_tc *tc,
 					int left_limit);
 
-int					ft_cursor_mv_head(t_tc tc);
-int					ft_cursor_clr_line_all(t_tc tc);
+int					ft_cursor_mv_head(t_tc *tc);
+int					ft_cursor_clr_line_all(t_tc *tc);
 
 
 
