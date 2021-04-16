@@ -71,21 +71,19 @@ int
 	char	*pure_cmd;
 
 	bti_path = handle_arg(tokens->cmd, env_list);
+	free(tokens->cmd);
+	tokens->cmd = bti_path;
 	bti_dir_path = get_bti_path_from_cmd(bti_path);
 	if (is_exist_dir(bti_dir_path))
 	{
 		pure_cmd = get_cmd_without_path(tokens->cmd);
 		tokens->tokens[0] = pure_cmd;
 		if(execve(bti_path, tokens->tokens, env_arr))
-		{
-			free(bti_path);
 			free(bti_dir_path);
-		}
 		free(pure_cmd);
 		tokens->tokens[0] = tokens->cmd;
 		return (1);
 	}
-	free(bti_path);
 	free(bti_dir_path);
 	return (0);
 }
