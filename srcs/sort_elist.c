@@ -42,6 +42,7 @@ t_list
 
 	char		*cur_str;
 	char		*next_str;
+	char		*tmp;
 
 	begin = env_list;
 	swaped = 1;
@@ -51,12 +52,10 @@ t_list
 		cur = begin;
 		while (cur->next)
 		{
-			next = cur->next;
 			swaped = swap_str(cur, cur->next);
 			cur = cur->next;
 		}
 		begin = begin->next;
 	}
-	print_elist(env_list);
 	return (env_list);
 }

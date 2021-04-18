@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:13 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 00:01:29 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/19 01:53:33 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int			sh_bti_export(char **args, t_list **env_list)
 	if (idx == 0)
 	{
 		tmp_elist = sort_elist(*env_list);
+		print_elist(tmp_elist);
 	}
 	return (0);
 }
