@@ -64,6 +64,7 @@ FUNC =	main \
 		calc \
 		is_key_arrow \
 		append_history_list \
+		is_in_history_list \
 		handle_sig_in_proc \
 		set_signo \
 		handle_sig \

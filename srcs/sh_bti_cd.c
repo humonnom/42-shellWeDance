@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 22:28:02 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 22:49:50 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static char	*get_path(char *arg, t_list *env_list)
 	char	*tmp_path;
 
 	tmp_path = handle_arg(arg, env_list);
+//	if (!exact_strncmp(arg, "OLDPWD"))
+//		is_in_history_list(env_);
 	ret = handle_shortcut(tmp_path, env_list);
 	return (ret);
 }

@@ -13,30 +13,50 @@ static char
 	return (ret);
 }
 
+static int
+	swap_str(t_list *cur, t_list *next)
+{
+	char		*cur_str;
+	char		*next_str;
+	t_env		*tmp_env;
+
+	cur_str = cvt_env_to_str(cur->data);
+	next_str = cvt_env_to_str(next->data);
+	if (exact_strncmp(cur_str, next_str) > 0)
+	{
+		tmp_env = cur->data;
+		cur->data = next->data;
+		next->data = tmp_env; 
+		return (1);
+	}
+	return (0);
+}
+
 t_list
 	*sort_elist(t_list *env_list)
 {
-	char		*str1;
-	char		*str2;
 	t_list		*begin;
 	t_list		*cur;
+	t_list		*next;
+	int			swaped;
+
+	char		*cur_str;
+	char		*next_str;
 
 	begin = env_list;
-//	while (begin->next)
-//	{
-//		cur = begin;
-//		while (cur->next)
-//		{
-//			str1 = cvt_env_to_str((t_env *)cur->data);
-//			str2 = cvt_env_to_str((t_env *)cur->next->data);
-////			if (exact_strncmp(str1, str2))
-////			{
-////				cur->data = str2;
-////				cur->next->data = str1;
-////			}
-//			cur = cur->next;
-//		}
-//		begin = begin->next;
-//	}
+	swaped = 1;
+	while (begin->next && swaped)
+	{
+		swaped = 0;
+		cur = begin;
+		while (cur->next)
+		{
+			next = cur->next;
+			swaped = swap_str(cur, cur->next);
+			cur = cur->next;
+		}
+		begin = begin->next;
+	}
+	print_elist(env_list);
 	return (env_list);
 }

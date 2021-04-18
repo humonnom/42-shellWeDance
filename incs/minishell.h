@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 16:03:00 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 22:46:05 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,16 +487,24 @@ char				*get_next_line_tc(t_info *info);
 int					is_key_arrow(long c);
 
 /*
-** ft_cursor2.c
+** get_cursor_pos.c
 */
 void				get_cursor_pos(int *col, int *row);
 
 /*
-** ft_cursor2.c
+** append_history_list.c
 */
 void				append_history_list(
 					t_list **history,
 					char *line);
+
+/*
+** is_in_history_list.c
+*/
+int
+					is_in_history_list(
+					t_list *history_ptr,
+					char *target);
 
 /*
 ** calc.c
