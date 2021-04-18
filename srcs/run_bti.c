@@ -98,9 +98,9 @@ int			run_bti(t_tokens *tokens, t_list *env_list)
 
 	env_arr = set_list_to_darr(env_list);
 	if (run_bti_with_path(tokens, env_list, env_arr))
-		return (1);
+		return (BTI_ERR);
 	if (!(func_path = get_eval(env_list, "PATH")))
-		return (1);
+		return (BTI_ERR);
 	cand_arr = pk_split(func_path, func_path, ':', INF);
 	idx = -1;
 	bti_path = NULL;
@@ -111,7 +111,7 @@ int			run_bti(t_tokens *tokens, t_list *env_list)
 	}
 	free_darr(cand_arr, INF);
 	if (!bti_path || execve(bti_path, tokens->tokens, env_arr) < 0)
-		return (1);
+		return (BTI_ERR);
 	free(bti_path);
 	free_darr(env_arr, INF);
 	return (0);

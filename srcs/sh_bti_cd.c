@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:17:59 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 15:06:26 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int			sh_bti_cd(char **args, t_list *env_list)
 		return (1);
 	if (chdir(path) == -1)
 	{
-		printf("cd: no such file or directory: %s\n", path);
+		if (get_eval(env_list, "HOME") == 0)
+			printf("cd: HOME not set\n");
+		else
+			printf("cd: no such file or directory: %s\n", path);
 		ret = 1;
 	}
 	free(path);

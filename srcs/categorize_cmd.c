@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:14:33 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:25:31 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 15:44:32 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int categorize_cmd(t_tokens *tokens, t_info *info)
 	int		run_check;
 	int		idx;
 
-	ret = 1;
+	ret = 2;
 	run_check = 0;
 	if (del_quote(&(tokens->cmd)))
 	{
@@ -35,12 +35,12 @@ int categorize_cmd(t_tokens *tokens, t_info *info)
 		return (1);
 	}
 	ret = select_sh_bti(tokens, info);
-	if (ret) 
+	if (ret == NOT_FOUND)
 	{
 		turn_on_echo(info);
 		ret = run_bti(tokens, info->env_list);
 	}
-	if (ret)
+	if (ret == BTI_ERR)
 	{
 		printf("command not found: %s\n", tokens->cmd);
 		g_signal = 127;
