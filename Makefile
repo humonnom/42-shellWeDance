@@ -10,7 +10,6 @@ FUNC =	main \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
-		init_oldpwd \
 		gen_line_list \
 		gen_tokens_list \
 		del_quote \

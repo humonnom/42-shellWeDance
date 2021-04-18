@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:26 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/17 21:35:41 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 16:03:15 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,5 @@ int					init_minishell
 			ret = 1;
 	if (ret == 0)
 		ret = inc_shlvl(&(info->env_list));
-	if (ret == 0)
-		ret = init_oldpwd(&(info->env_list));
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 15:06:26 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 22:28:02 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,21 @@ static int	renew_pwd(t_list *env_list)
 {
 	int		ret;
 	t_list	*tmp_list;
+	char	*tmp_pwd;
 	char	cwd[BUFFER_SIZE];
 
 	ret = 0;
 	tmp_list = get_elist(env_list, "OLDPWD");
-	ret = mod_eval((t_env *)tmp_list->data, get_eval(env_list, "PWD"));
+	tmp_pwd = get_eval(env_list, "PWD");
+	if (tmp_pwd == NULL)
+		ret = mod_eval((t_env *)tmp_list->data, "");
+	else
+		ret = mod_eval((t_env *)tmp_list->data, tmp_pwd);
 	tmp_list = get_elist(env_list, "PWD");
-	ret = mod_eval((t_env *)tmp_list->data, getcwd(cwd, BUFFER_SIZE));
+	if (!tmp_list)
+		ret = add_elist(&env_list, "PWD", getcwd(cwd, BUFFER_SIZE));
+	else
+		ret = mod_eval((t_env *)tmp_list->data, getcwd(cwd, BUFFER_SIZE));
 	return (ret);
 }
 
@@ -66,8 +74,10 @@ int			sh_bti_cd(char **args, t_list *env_list)
 		return (1);
 	if (chdir(path) == -1)
 	{
-		if (get_eval(env_list, "HOME") == 0)
+		if (!get_eval(env_list, "HOME"))
 			printf("cd: HOME not set\n");
+		if (!get_eval(env_list, "OLDPWD") && !exact_strncmp(path, "-"))
+			printf("cd: OLDPWD not set\n");
 		else
 			printf("cd: no such file or directory: %s\n", path);
 		ret = 1;

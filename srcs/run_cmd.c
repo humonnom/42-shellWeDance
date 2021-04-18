@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/17 01:20:52 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 22:00:52 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ static int	run_cmd_part(
 			&& dup2(prev->fds[0], STDIN_FILENO) < 0)
 			return (exit_fatal());
 		open_redir_fd(curr);
-		if ((ret = categorize_cmd(curr, info)) != 0)
-			show_cmd_error(curr->cmd);
+//		if ((ret = categorize_cmd(curr, info)) != 0)
+//			show_cmd_error(curr->cmd);
+		ret = categorize_cmd(curr, info);
 		exit(g_signal);
 	}
 	else

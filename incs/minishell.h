@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 15:43:59 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/18 16:03:00 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,6 @@ int					init_minishell(
 ** inc_shlvl.c
 */
 int					inc_shlvl(t_list **env_head);
-
-/*
-** init_oldpwd.c
-*/
-int					init_oldpwd(t_list **env_head);
-
 
 /*
 ** gen_elist
