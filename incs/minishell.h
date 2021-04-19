@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 12:42:54 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/19 16:36:54 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,7 +428,11 @@ int					exit_fatal(void);
 /*
 ** redo_sh_bti.c
 */
-int					redo_sh_bti(t_tokens *tokens, t_info *info);
+int
+					redo_sh_bti(
+					t_info *info,
+					t_tokens *token,
+					t_tokens *prev);
 
 /*
 ** set_bracet_type.c

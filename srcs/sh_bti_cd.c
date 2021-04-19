@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 22:49:50 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/19 16:48:08 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	renew_pwd(t_list *env_list)
 	ret = 0;
 	tmp_list = get_elist(env_list, "OLDPWD");
 	tmp_pwd = get_eval(env_list, "PWD");
-	if (tmp_pwd == NULL)
+	if (!tmp_pwd || !tmp_list)
 		ret = mod_eval((t_env *)tmp_list->data, "");
 	else
 		ret = mod_eval((t_env *)tmp_list->data, tmp_pwd);

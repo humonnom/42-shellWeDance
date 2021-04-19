@@ -37,16 +37,15 @@ static int
 t_list
 	*sort_elist(t_list *cur)
 {
-	t_list		*begin;
-	int			swaped;
+	t_list		*beg;
 
-	begin = cur; 
+	beg = cur; 
 	while (cur->next != NULL)
 	{
 		if (swap_str(cur, cur->next))
-			cur = begin;
+			cur = beg;
 		else
 			cur = cur->next;
 	}
-	return (begin);
+	return (beg);
 }
