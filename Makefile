@@ -45,7 +45,6 @@ FUNC =	main \
 		get_elist \
 		add_elist \
 		free_elist \
-		sort_elist \
 		print_elist \
 		print_line_list \
 		set_darr_to_list \
@@ -70,7 +69,8 @@ FUNC =	main \
 		handle_sig \
 		handle_key_arrow \
 		close_tokens_fds \
-		is_exist_dir
+		is_exist_dir \
+		sort_elist \
 
 OBJDIR = ./objs
 INCDIR = ./incs

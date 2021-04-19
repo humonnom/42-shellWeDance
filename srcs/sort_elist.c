@@ -16,46 +16,37 @@ static char
 static int
 	swap_str(t_list *cur, t_list *next)
 {
+	t_env		*tmp_env;
 	char		*cur_str;
 	char		*next_str;
-	t_env		*tmp_env;
 
 	cur_str = cvt_env_to_str(cur->data);
 	next_str = cvt_env_to_str(next->data);
 	if (exact_strncmp(cur_str, next_str) > 0)
 	{
 		tmp_env = cur->data;
-		cur->data = next->data;
-		next->data = tmp_env; 
+		cur->data = (void *)next->data;
+		next->data = (void *)tmp_env; 
 		return (1);
 	}
+	free(cur_str);
+	free(next_str);
 	return (0);
 }
 
 t_list
-	*sort_elist(t_list *env_list)
+	*sort_elist(t_list *cur)
 {
 	t_list		*begin;
-	t_list		*cur;
-	t_list		*next;
 	int			swaped;
 
-	char		*cur_str;
-	char		*next_str;
-	char		*tmp;
-
-	begin = env_list;
-	swaped = 1;
-	while (begin->next && swaped)
+	begin = cur; 
+	while (cur->next != NULL)
 	{
-		swaped = 0;
-		cur = begin;
-		while (cur->next)
-		{
-			swaped = swap_str(cur, cur->next);
+		if (swap_str(cur, cur->next))
+			cur = begin;
+		else
 			cur = cur->next;
-		}
-		begin = begin->next;
 	}
-	return (env_list);
+	return (begin);
 }
