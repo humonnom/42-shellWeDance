@@ -7,6 +7,7 @@ CFLAGS =
 FUNC =	main \
 	  	init_minishell \
 		pk_split \
+		handle_back_slash \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \

@@ -50,7 +50,6 @@ int run(t_info *info)
 			}
 #endif
 #if 1
-			printf("lines: %s\n", lines);
 			if (exact_strncmp(lines, "") != 0)
 			{
 				append_history_list(&(info->history), lines);
@@ -59,6 +58,8 @@ int run(t_info *info)
 			else
 				continue ;
 			info->line_list = gen_line_list(lines);
+			if (info->line_list == NULL)
+				continue ;
 #endif
 		}
 		info->tokens_list = gen_tokens_list(info);

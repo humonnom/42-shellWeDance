@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 16:36:54 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 00:50:58 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,5 +545,10 @@ int
 
 int
 	get_next_line(char **line, int fd);
+
+char
+	*handle_back_slash(
+	char *str,
+	char c);
 
 #endif

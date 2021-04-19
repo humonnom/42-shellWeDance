@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:16:57 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/20 00:49:50 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ static t_list
 	return (NULL);
 }
 
-t_list	*gen_line_list(char *line)
+t_list	*gen_line_list(char *line_tmp)
 {
+	char	*line;
 	char	*line_cpy;
 	char	**line_arr;
 	t_list	*ret;
 
 	ret = NULL;
+	if (!(line = handle_back_slash(line_tmp, '\\')))
+		return (NULL);
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
-
-////////////////////////////////////////////////////////////
-
 	handle_quote(line, &line_cpy, ';');
 	line_arr = pk_split(line, line_cpy, ';', INF);
 	free (line_cpy);
@@ -48,5 +48,6 @@ t_list	*gen_line_list(char *line)
 	if(set_darr_to_list(&ret, line_arr))
 		return (NULL);
 	free_darr(line_arr, INF);
+	free(line);
 	return (ret);
 }

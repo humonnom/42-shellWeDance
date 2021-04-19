@@ -1,24 +1,21 @@
-1c1,2
-< 00\\\pp ; echo 00\\\\\pp
+1c1,18
+< [43;1H>> exit
 ---
 > 00\'pp
 > 00\\'pp
-4c5
-< 00\\\\pp
----
+> ;;
+> ;;;
 > 00\\pp
-8c9
-< \n  \n this is the; "first line"
----
+> “./hello”.
+> ./hello
+> ello
 > n  \n this is the; "first line"
-12,14c13,18
-< \\
-< \ ; echo   \\ ; echo   \' ; echo   \ \\ \   \\   \'   \
-< /$123yamkim
----
+> and right here;;; 'We have the second'
+> and a few here; with some slash and quotes   . \
+> \\
 > \
 > "
 > \
 > '
 > " \ " \ ' "
-> /123yamkim
+> /123jackjoo
