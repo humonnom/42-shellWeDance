@@ -24,10 +24,8 @@ static t_tc	gen_tc()
 	ret.term.c_cc[VMIN] = 1;
 	ret.term.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, &(ret.term));
-
 	ret.cursor.row = 0;
 	ret.cursor.col = 0;
-
 	tgetent(NULL, "xterm");
 	ret.tc_str[TC_CM] = tgetstr("cm", NULL); 
 	ret.tc_str[TC_DL] = tgetstr("dl", NULL); 
@@ -50,7 +48,6 @@ static void			init_info(
 	info->tc = gen_tc();
 }
 
-//env_list has to be sort with printing.
 int					init_minishell
 					(t_info *info,
 					char **env)

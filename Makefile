@@ -63,14 +63,14 @@ FUNC =	main \
 		calc \
 		is_key_arrow \
 		append_history_list \
-		is_in_history_list \
 		handle_sig_in_proc \
 		set_signo \
 		handle_sig \
 		handle_key_arrow \
 		close_tokens_fds \
 		is_exist_dir \
-		sort_elist \
+		get_next_line \
+		sort_elist
 
 OBJDIR = ./objs
 INCDIR = ./incs

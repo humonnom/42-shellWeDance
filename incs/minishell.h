@@ -543,4 +543,7 @@ void				close_tokens_fds(t_tokens *curr);
 int
 	is_exist_dir(char *dir_path);
 
+int
+	get_next_line(char **line, int fd);
+
 #endif

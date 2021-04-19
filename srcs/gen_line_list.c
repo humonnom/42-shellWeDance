@@ -37,6 +37,9 @@ t_list	*gen_line_list(char *line)
 	ret = NULL;
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
+
+////////////////////////////////////////////////////////////
+
 	handle_quote(line, &line_cpy, ';');
 	line_arr = pk_split(line, line_cpy, ';', INF);
 	free (line_cpy);

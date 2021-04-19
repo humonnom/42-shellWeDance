@@ -1,0 +1,24 @@
+1c1,2
+< 00\\\pp ; echo 00\\\\\pp
+---
+> 00\'pp
+> 00\\'pp
+4c5
+< 00\\\\pp
+---
+> 00\\pp
+8c9
+< \n  \n this is the; "first line"
+---
+> n  \n this is the; "first line"
+12,14c13,18
+< \\
+< \ ; echo   \\ ; echo   \' ; echo   \ \\ \   \\   \'   \
+< /$123yamkim
+---
+> \
+> "
+> \
+> '
+> " \ " \ ' "
+> /123yamkim
