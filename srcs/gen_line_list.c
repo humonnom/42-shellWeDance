@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 00:49:50 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 18:46:45 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_list	*gen_line_list(char *line_tmp)
 	ret = NULL;
 	if (!(line = handle_back_slash(line_tmp, '\\')))
 		return (NULL);
+	printf("line: %s\n", line);
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
 	handle_quote(line, &line_cpy, ';');

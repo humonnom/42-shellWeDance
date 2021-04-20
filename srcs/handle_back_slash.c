@@ -30,7 +30,7 @@ static int
 			return (1);
 		if (ft_strncmp("cd", str, 2))
 			return (1);
-		if (ft_strncmp("touch", str, 6))
+		if (ft_strncmp("touch", str, 5))
 			return (1);
 		if (ft_strncmp("mkdir", str, 5))
 			return (1);
@@ -85,6 +85,7 @@ char
 	char c)
 {
 	char	*ret;
+	char	quote;
 	int		len;
 	int		idx;
 	int		ret_idx;
@@ -107,3 +108,22 @@ char
 	}
 	return (ret);
 }
+//
+//echo \"ABC -> "ABC -> handle arg
+//
+//echo \;abc -> ;abc -> gen_line_list
+//echo \;;abc -> ; abc command not found
+//
+//echo \\;abc -> \ abc command not found
+//echo \\\;abc -> \;abc
+//
+//echo \"\" 
+//
+//echo \"abc\" >> \"test.txt\"
+//
+//"abc" >> '"'test.txt'"'
+//
+//"test.txt"
+
+
+
