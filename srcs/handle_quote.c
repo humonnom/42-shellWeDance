@@ -57,6 +57,10 @@ int			handle_quote(
 		else if (check_bit(ret, BIT_DQUOTE) && *str == '\"')
 			ret = turn_off_bit(ret, BIT_DQUOTE);
 		// when SQUOTE or DQUOTE is on
+#if 0
+		if (*str == '\\' && *(str + 1) != '\0')
+			++str;
+#endif
 		if (((*str_cpy)[++str_cpy_idx] == c && ret))
 			(*str_cpy)[str_cpy_idx] = '_';
 		++str;

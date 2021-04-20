@@ -28,16 +28,17 @@ static t_list
 	return (NULL);
 }
 
-t_list	*gen_line_list(char *line_tmp)
+t_list	*gen_line_list(char *line)
 {
-	char	*line;
 	char	*line_cpy;
 	char	**line_arr;
 	t_list	*ret;
 
 	ret = NULL;
+#if 0
 	if (!(line = handle_back_slash(line_tmp, '\\')))
 		return (NULL);
+#endif
 	printf("line: %s\n", line);
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
@@ -49,6 +50,6 @@ t_list	*gen_line_list(char *line_tmp)
 	if(set_darr_to_list(&ret, line_arr))
 		return (NULL);
 	free_darr(line_arr, INF);
-	free(line);
+//	free(line);
 	return (ret);
 }

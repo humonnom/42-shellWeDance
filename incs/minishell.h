@@ -53,17 +53,16 @@
 # define SIG_SIGINT -1
 # define SIG_SIGQUIT -2
 
-# define SH_BTI_ERR 2
-# define BTI_ERR 4
-# define NOT_FOUND 404
+# define ERR_MALLOC 1
+# define ERR_SH_BTI 2
+# define ERR_BTI 4
+# define ERR_NOT_FOUND 404
 
 # define OPEN 1
 # define CLOSE 0
 
 # define PROMPT_DATA ">> "
 # define PROMPT_SIZE 3
-
-# define ERR_MALLOC 1
 
 typedef struct		s_env
 {

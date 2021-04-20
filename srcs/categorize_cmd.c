@@ -26,21 +26,14 @@ int categorize_cmd(t_tokens *tokens, t_info *info)
 	int		run_check;
 	int		idx;
 
-	ret = 2;
 	run_check = 0;
-	if (del_quote(&(tokens->cmd)))
-	{
-		printf("ERROR: trim_cmd malloc error\n");
-		g_signal = 1;
-		return (1);
-	}
 	ret = select_sh_bti(tokens, info);
-	if (ret == NOT_FOUND)
+	if (ret == ERR_NOT_FOUND)
 	{
 		turn_on_echo(info);
 		ret = run_bti(tokens, info->env_list);
 	}
-	if (ret == BTI_ERR)
+	if (ret == ERR_NOT_FOUND)
 	{
 		printf("%s :command not found\n", tokens->cmd);
 		g_signal = 127;

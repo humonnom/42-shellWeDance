@@ -12,6 +12,10 @@
 
 #include "../incs/minishell.h"
 
+// TODO: dquote between squote -> dquote
+//       squote between dquote -> squote
+//       char next back slash  -> char
+
 static int	is_quote(char c)
 {
 	if (c == '\"' || c == '\'')

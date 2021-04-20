@@ -18,7 +18,7 @@ int	select_sh_bti(t_tokens *tokens, t_info *info)
 	char	**args;
 	int		ret;
 	
-	ret = NOT_FOUND;
+	ret = ERR_NOT_FOUND;
 	cmd = tokens->cmd;
 	args = tokens->args;
 	if (!exact_strncmp(cmd, "export"))
@@ -38,6 +38,6 @@ int	select_sh_bti(t_tokens *tokens, t_info *info)
 	if (!exact_strncmp(cmd, "exit"))
 		sh_bti_exit(args, info);
 	if (ret == 1)
-		return (SH_BTI_ERR);	
+		return (ERR_SH_BTI);	
 	return (ret);
 }

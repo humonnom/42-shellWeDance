@@ -12,6 +12,38 @@
 
 #include "../incs/minishell.h"
 
+extern int
+	g_signal;
+
+char
+	**set_del_quote_args(char **args)
+{
+	int	idx;
+
+	idx = -1;
+	while (args[++idx])
+		del_quote(&args[idx]);
+	return (args);
+}
+
+void
+	trim_tokens(t_tokens *ret, char **tmp_tokens)
+{
+	ret->tokens = tmp_tokens;
+	ret->cmd = ft_strdup(tmp_tokens[0]);
+	if (del_quote(&(ret->cmd)))
+	{
+		printf("ERROR: trim_cmd malloc error\n");
+		g_signal = 1;
+		ret = NULL;
+		return ;
+	}
+	if (exact_strncmp(ret->cmd, "export"))
+		ret->args = set_del_quote_args(&tmp_tokens[1]);
+	else
+		ret->args = &tmp_tokens[1];
+}
+
 t_tokens *gen_tokens(t_info *info, char *line)
 {
 	char		*set_fd_res;
@@ -28,9 +60,7 @@ t_tokens *gen_tokens(t_info *info, char *line)
 	handle_quote(line, &set_fd_res_cpy, ' ');
 	if (!(tmp_tokens = pk_split(set_fd_res, set_fd_res_cpy, ' ', INF)))
 		return (NULL);
-	ret->tokens = tmp_tokens;
-	ret->cmd = ft_strdup(tmp_tokens[0]);
-	ret->args = &tmp_tokens[1];
+	trim_tokens(ret, tmp_tokens);
 	free(set_fd_res);
 	free(set_fd_res_cpy);
     return (ret);
