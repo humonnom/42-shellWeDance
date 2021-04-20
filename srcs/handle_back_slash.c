@@ -23,6 +23,20 @@ static int
 	return (len);
 }
 
+static int
+	has_filename_as_args(char *str)
+{
+		if (ft_strncmp("rm", str, 2))
+			return (1);
+		if (ft_strncmp("rm -rf", str, 6))
+			return (1);
+		if (ft_strncmp("touch", str, 6))
+			return (1);
+		if (ft_strncmp("mkdir", str, 5))
+			return (1);
+		return (0);
+}
+
 static void
 	remove_back_slash_in_filename(
 	char *str,
@@ -49,26 +63,14 @@ static void
 	}
 }
 
-static char
-	select_quote(char target)
-{
-	char	single_quote;
-	char	double_quote;
-
-	single_quote = '\'';
-	double_quote = '\"';
-	if (target == single_quote)
-		return(double_quote);
-	return (single_quote);
-}
-
-
 static void
 	cvt_back_slash_to_quote(char *str, char *ret, int *idx, int *ret_idx)
 {
 	char	quote;
 
-	quote = select_quote(str[*(idx + 1)]);
+	quote = '\'';
+	if (str[*(idx + 1)] == quote)
+		quote = '\"';
 	ret[*(ret_idx)] = quote;
 	++(*ret_idx);
 	++(*idx);
@@ -96,7 +98,7 @@ char
 	ret_idx = -1;
 	while (str[++idx] && ++ret_idx < len)
 	{
-		if (is_bracket(str[idx]))
+		if (is_bracket(str[idx]) || has_filename_as_args(&str[idx]))
 			remove_back_slash_in_filename(str, ret, &idx, &ret_idx);		
 		if (str[idx] == c)
 			cvt_back_slash_to_quote(str, ret, &idx, &ret_idx);
