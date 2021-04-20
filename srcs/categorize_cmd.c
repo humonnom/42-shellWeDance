@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:14:33 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 16:28:16 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:08:50 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int categorize_cmd(t_tokens *tokens, t_info *info)
 	}
 	if (ret == BTI_ERR)
 	{
-		printf("command not found: %s\n", tokens->cmd);
+		printf("%s :command not found\n", tokens->cmd);
 		g_signal = 127;
 	}
 	return (ret);

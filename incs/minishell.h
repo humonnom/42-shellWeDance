@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 00:50:58 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:24:05 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ typedef struct		s_info
 	t_tokens		*tokens;
 	int				exit;
 	int				ret;
-	int				dollar_ret;
 	int				inst_buf[1024];
 	t_tc			tc;
 }					t_info;
@@ -341,7 +340,7 @@ int					sh_bti_echo(char **args, t_list *env_list);
 /*
 ** sh_bti_exit.c
 */
-void				sh_bti_exit(t_info *info);
+void				sh_bti_exit(char **args, t_info *info);
 
 /*
 ** get_max_strlen.c

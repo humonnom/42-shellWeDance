@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:12 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 16:40:33 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:36:14 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	redo_sh_bti(t_info *info, t_tokens *tokens, t_tokens *prev)
 		ret = sh_bti_cd(args, info->env_list);
 	else if (!exact_strncmp(cmd, "exit") &&
 			(prev_type != TYPE_PIPE))
-		sh_bti_exit(info);
+		exit_shell(info);
 	else
 		ret = 0;
 	return (ret);

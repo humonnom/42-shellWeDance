@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:31 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 15:41:29 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:16:58 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	select_sh_bti(t_tokens *tokens, t_info *info)
 	if (!exact_strncmp(cmd, "unset"))
 		ret = sh_bti_echo(args, info->env_list);
 	if (!exact_strncmp(cmd, "exit"))
-		sh_bti_exit(info);
+		sh_bti_exit(args, info);
 	if (ret == 1)
 		return (SH_BTI_ERR);	
 	return (ret);

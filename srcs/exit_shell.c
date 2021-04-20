@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:15:34 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:15:40 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:34:17 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int		g_signal;
 
 int		exit_shell(t_info *info)
 {
@@ -28,6 +30,6 @@ int		exit_shell(t_info *info)
 		info->env_list = NULL;
 	}
 	close_tokens_fds(info->tokens);
-	exit(0);
+	exit(g_signal);
 	return (0);
 }
