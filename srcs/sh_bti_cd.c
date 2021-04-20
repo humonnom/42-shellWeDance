@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 16:48:08 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:02:28 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ static char	*get_path(char *arg, t_list *env_list)
 	char	*tmp_path;
 
 	tmp_path = handle_arg(arg, env_list);
-//	if (!exact_strncmp(arg, "OLDPWD"))
-//		is_in_history_list(env_);
 	ret = handle_shortcut(tmp_path, env_list);
 	return (ret);
 }
 
-static int	renew_pwd(t_list *env_list)
+static int	renew_pwd(t_list *env_list, char *path)
 {
 	int		ret;
 	t_list	*tmp_list;
@@ -54,8 +52,8 @@ static int	renew_pwd(t_list *env_list)
 	ret = 0;
 	tmp_list = get_elist(env_list, "OLDPWD");
 	tmp_pwd = get_eval(env_list, "PWD");
-	if (!tmp_pwd || !tmp_list)
-		ret = mod_eval((t_env *)tmp_list->data, "");
+	if (!tmp_list)
+		ret = add_elist(&env_list, "OLDPWD", tmp_pwd);
 	else
 		ret = mod_eval((t_env *)tmp_list->data, tmp_pwd);
 	tmp_list = get_elist(env_list, "PWD");
@@ -84,9 +82,9 @@ int			sh_bti_cd(char **args, t_list *env_list)
 			printf("cd: no such file or directory: %s\n", path);
 		ret = 1;
 	}
-	free(path);
 	if (!ret)
-		ret = renew_pwd(env_list);
+		ret = renew_pwd(env_list, path);
+	free(path);
 	g_signal = ret;
 	return (ret);
 }

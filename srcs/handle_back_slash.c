@@ -1,5 +1,44 @@
 #include "../incs/minishell.h"
 
+static char
+	select_quote(char target)
+{
+	char	single_quote;
+	char	double_quote;
+
+	single_quote = '\'';
+	double_quote = '\"';
+	if (target == single_quote)
+		return(double_quote);
+	return (single_quote);
+}
+
+static void
+	handle_back_slash_in_filename(
+	char *str,
+	char *ret,
+	int	*idx,
+	int *ret_idx)
+{
+	while (is_bracket(str[*idx]))
+	{
+		ret[*ret_idx] = str[*idx];
+		++(*idx);
+		++(*ret_idx);
+	}
+	while (str[*idx] && str[*idx] == ' ')
+		++(*idx);
+	while (str[*idx] && str[*idx] != ' '
+			&& !is_bracket(str[*idx]))
+	{
+		if (str[*idx] == '\\')
+			++(*idx);
+		ret[(*ret_idx)] = str[(*idx)];
+		++(*idx);
+		++(*ret_idx);
+	}
+}
+
 static int
 	get_back_slash_len(char *str, char c)
 {
@@ -22,19 +61,21 @@ static int
 	}
 	return (len);
 }
-
-static char
-	select_quote(char target)
+#if 0
+static int
+	has_filename_as_args(char *str)
 {
-	char	single_quote;
-	char	double_quote;
-
-	single_quote = '\'';
-	double_quote = '\"';
-	if (target == single_quote)
-		return(double_quote);
-	return (single_quote);
+		if (ft_strncmp("rm", str, 2))
+			return (1);
+		if (ft_strncmp("rm -rf", str, 6))
+			return (1);
+		if (ft_strncmp("touch", str, 6))
+			return (1);
+		if (ft_strncmp("mkdir", str, 5))
+			return (1);
+		return (0);
 }
+#endif
 
 static void
 	cvt_back_slash_to_quote(char *str, char *ret, char c)
@@ -42,12 +83,16 @@ static void
 	int		len;
 	int		idx;
 	int		ret_idx;
+	int		file_name_flag;
 	char	quote;
 	
 	idx = -1;
 	ret_idx = -1;
+	file_name_flag = 0;
 	while (str[++idx] && ++ret_idx < len)
 	{
+		if (is_bracket(str[idx]))
+			handle_back_slash_in_filename(str, ret, &idx, &ret_idx);		
 		if (str[idx] == c)
 		{
 			quote = select_quote(str[idx + 1]);

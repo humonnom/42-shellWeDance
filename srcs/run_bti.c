@@ -88,18 +88,6 @@ int
 	return (0);
 }
 
-static void
-	handle_bti_args(
-	char **str,
-	t_list *env_list)
-{
-	int	idx;
-
-	idx = -1;
-	while (str[++idx])
-		str[idx] = handle_arg(str[idx], env_list); 
-}
-
 int			run_bti(t_tokens *tokens, t_list *env_list)
 {
 	char	*func_path;
@@ -122,7 +110,6 @@ int			run_bti(t_tokens *tokens, t_list *env_list)
 			break ;
 	}
 	free_darr(cand_arr, INF);
-	handle_bti_args(tokens->args, env_list);
 	if (!bti_path || execve(bti_path, tokens->tokens, env_arr) < 0)
 		return (BTI_ERR);
 	free(bti_path);
