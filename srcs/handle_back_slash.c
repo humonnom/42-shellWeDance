@@ -28,7 +28,7 @@ static int
 {
 		if (ft_strncmp("rm", str, 2))
 			return (1);
-		if (ft_strncmp("rm -rf", str, 6))
+		if (ft_strncmp("cd", str, 2))
 			return (1);
 		if (ft_strncmp("touch", str, 6))
 			return (1);
