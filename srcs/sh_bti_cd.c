@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 15:02:28 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:55:39 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			sh_bti_cd(char **args, t_list *env_list)
 		if (!get_eval(env_list, "OLDPWD") && !exact_strncmp(path, "-"))
 			printf("cd: OLDPWD not set\n");
 		else
-			printf("cd: no such file or directory: %s\n", path);
+			printf("cd: %s: No such file or directory\n", path);
 		ret = 1;
 	}
 	if (!ret)

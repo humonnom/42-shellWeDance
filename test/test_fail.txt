@@ -2,5 +2,3 @@ echo \n ' \n this is the; "first line"' ; echo "and right here;;; 'We have the s
 
 cd - 
 (chanded pwd should print)
-
-
