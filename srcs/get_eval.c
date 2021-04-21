@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:24 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:25 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:35:22 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char			*get_eval(
 
 	if (!(tmp_list = get_elist(list_head, tar)))
 		return (NULL);
-	if (!(tmp_env = (t_env *)(tmp_list->data)))	
+	if (!(tmp_env = (t_env *)(tmp_list->data)))
 		return (NULL);
 	return (tmp_env->val);
 }

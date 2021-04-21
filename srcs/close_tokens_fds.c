@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:14:40 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:14:57 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:37:24 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ void	close_tokens_fds(t_tokens *curr)
 			close(curr->fd_in[idx]);
 	}
 }
-

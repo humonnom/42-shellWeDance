@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 16:34:46 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:16:16 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 extern int	g_signal;
 
-static void	close_redir_fd(t_tokens *curr)
+static void
+	close_redir_fd(t_tokens *curr)
 {
 	if (curr->type & TYPE_REOUT_D)
 		close(curr->fd_out[curr->fd_out_idx]);
@@ -24,7 +25,8 @@ static void	close_redir_fd(t_tokens *curr)
 		close(curr->fd_in[0]);
 }
 
-static void	open_redir_fd(t_tokens *curr)
+static void
+	open_redir_fd(t_tokens *curr)
 {
 	if (curr->type & TYPE_REOUT)
 		dup2(curr->fd_out[curr->fd_out_idx], STDOUT_FILENO);
@@ -34,12 +36,13 @@ static void	open_redir_fd(t_tokens *curr)
 		dup2(curr->fd_in[curr->fd_in_idx], STDIN_FILENO);
 }
 
-static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
+static int
+	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
 {
 	int	status;
 	int	ret;
 	int	child_ret;
-	
+
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_signal = WEXITSTATUS(status);
@@ -57,11 +60,12 @@ static int	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
 	return (ret);
 }
 
-static int	run_cmd_part(
-			t_tokens *curr,
-			t_tokens *prev,
-			t_info *info,
-			int pipe_open)
+static int
+	run_cmd_part(
+	t_tokens *curr,
+	t_tokens *prev,
+	t_info *info,
+	int pipe_open)
 {
 	pid_t	pid;
 	int		ret;
@@ -72,7 +76,7 @@ static int	run_cmd_part(
 		return (exit_fatal());
 	if (pid == 0)
 	{
-		if ((curr->type & TYPE_PIPE) 
+		if ((curr->type & TYPE_PIPE)
 			&& dup2(curr->fds[1], STDOUT_FILENO) < 0)
 			return (exit_fatal());
 		if (prev && (prev->type & TYPE_PIPE)
@@ -87,13 +91,14 @@ static int	run_cmd_part(
 	return (ret);
 }
 
-int	run_cmd(t_info *info)
+int
+	run_cmd(t_info *info)
 {
 	int			ret;
 	int			status;
 	int			pipe_open;
 	t_tokens	*curr;
-    t_tokens	*prev;
+	t_tokens	*prev;
 
 	ret = EXIT_FAILURE;
 	pipe_open = 0;
@@ -107,7 +112,7 @@ int	run_cmd(t_info *info)
 	{
 		pipe_open = 1;
 		if (pipe(curr->fds))
-			return (exit_fatal());	
+			return (exit_fatal());
 	}
 	ret = run_cmd_part(curr, prev, info, pipe_open);
 	if (ret != EXIT_FAILURE && (curr->type & TYPE_BREAK))

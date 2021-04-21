@@ -6,16 +6,16 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:42 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:18:43 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:34:01 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-int		is_squote(char c)
+int
+	is_squote(char c)
 {
 	if (c == '\'')
 		return (1);
 	return (0);
 }
-

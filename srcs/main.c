@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:09:07 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 13:34:34 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		g_signal;
 
-void change_head(t_info *info)
+void
+	change_head(t_info *info)
 {
 	t_list	*tmp;
 
@@ -27,7 +28,8 @@ void change_head(t_info *info)
 	}
 }
 
-int run(t_info *info)
+int
+	run(t_info *info)
 {
 	char	*lines;
 	t_list	*next;
@@ -65,7 +67,8 @@ int run(t_info *info)
 	return (0);
 }
 
-int main(int argc, char *argv[], char *env[])
+int
+	main(int argc, char *argv[], char *env[])
 {
 	int		err_num;
 	t_info	info;

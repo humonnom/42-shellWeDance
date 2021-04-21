@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:38 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:39 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:37:07 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ int	check_bit(int val, int n)
 		return (ON);
 	return (OFF);
 }
-

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:26 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/18 16:03:15 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:30:11 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 extern int	g_signal;
 
-static t_tc	gen_tc()
+t_tc
+	gen_tc()
 {
 	t_tc	ret;
 
@@ -27,14 +28,15 @@ static t_tc	gen_tc()
 	ret.cursor.row = 0;
 	ret.cursor.col = 0;
 	tgetent(NULL, "xterm");
-	ret.tc_str[TC_CM] = tgetstr("cm", NULL); 
-	ret.tc_str[TC_DL] = tgetstr("dl", NULL); 
-	ret.tc_str[TC_CE] = tgetstr("ce", NULL); 
+	ret.tc_str[TC_CM] = tgetstr("cm", NULL);
+	ret.tc_str[TC_DL] = tgetstr("dl", NULL);
+	ret.tc_str[TC_CE] = tgetstr("ce", NULL);
 	return (ret);
 }
 
-static void			init_info(
-					t_info *info)
+static void
+	init_info(
+	t_info *info)
 {
 	info->tokens_list = NULL;
 	info->line_list = NULL;
@@ -48,15 +50,15 @@ static void			init_info(
 	info->tc = gen_tc();
 }
 
-int					init_minishell
-					(t_info *info,
-					char **env)
+int
+	init_minishell
+	(t_info *info,
+	char **env)
 {
 	int ret;
 
 	ret = 0;
-
-	g_signal = OFF;	
+	g_signal = OFF;
 	init_info(info);
 	if (ret == 0)
 		if (!(info->env_list = gen_elist(env)))

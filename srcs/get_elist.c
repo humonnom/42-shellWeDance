@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:17 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:19 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:35:11 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list			*get_elist(
 		cmp_len = get_max_strlen(tmp_env->key, tar);
 		if (!(ft_strncmp(tmp_env->key, tar, cmp_len)))
 			return (cur);
-		cur = cur->next; 
+		cur = cur->next;
 	}
 	return (NULL);
 }
