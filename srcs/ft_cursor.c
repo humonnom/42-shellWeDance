@@ -6,18 +6,29 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:28:13 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 15:21:14 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
 int
+	ft_cursor_mv_col(t_tc *tc)
+{
+	char	*str;
+
+	tputs(tgoto(tc->tc_str[TC_CM], tc->cursor.col - 1, \
+				tc->cursor.row - 1), 1, ft_putchar_tc);
+	return (0);
+}
+
+int
 	ft_cursor_mv_head(t_tc *tc)
 {
 	char	*str;
 
-	tputs(tgoto(tc->tc_str[TC_CM], 0, tc->cursor.row - 1), 1, ft_putchar_tc);
+	tputs(tgoto(tc->tc_str[TC_CM], 0, \
+				tc->cursor.row - 1), 1, ft_putchar_tc);
 	return (0);
 }
 

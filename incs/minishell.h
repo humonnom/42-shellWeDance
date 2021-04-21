@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:27:24 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 15:21:26 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,6 +488,8 @@ int					ft_cursor_clr_line_end(
 					int left_limit);
 
 int					ft_cursor_mv_head(t_tc *tc);
+
+int					ft_cursor_mv_col(t_tc *tc);
 
 int					ft_cursor_clr_line_all(t_tc *tc);
 
