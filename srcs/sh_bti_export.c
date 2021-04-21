@@ -6,13 +6,14 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/21 20:52:38 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 21:49:26 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
 #define ERR_EXPORT_EQUAL 1
+#define CASE_EXPORT_START_WITH_EQUAL 5
 #define ERR_EXPORT_EMPTY_KEY 4
 #define CASE_EXPORT_EMPTY_VAL 2
 #define CASE_EXPORT_NUMBER_KEY 3
@@ -85,6 +86,8 @@ static int
 	is_invalid_key(char *env_key)
 {
 	if (env_key[0] == '\0')
+		return (ERR_EXPORT_EMPTY_KEY);
+	if (env_key[0] == '=')
 		return (ERR_EXPORT_EMPTY_KEY);
 	if (ft_isdigit((env_key)[0]))
 		return (CASE_EXPORT_NUMBER_KEY);
