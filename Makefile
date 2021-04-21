@@ -7,7 +7,6 @@ CFLAGS =
 FUNC =	main \
 	  	init_minishell \
 		pk_split \
-		handle_back_slash \
 		handle_quote \
 		handle_bit \
 		inc_shlvl \
@@ -70,7 +69,6 @@ FUNC =	main \
 		handle_key_arrow \
 		close_tokens_fds \
 		is_exist_dir \
-		get_next_line \
 		sort_elist
 
 OBJDIR = ./objs
