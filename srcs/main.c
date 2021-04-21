@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 18:46:27 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:09:07 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,13 @@ int run(t_info *info)
 	t_list	*next;
 	int		flag;
 
-	int fd = open("test_echo.txt", O_RDONLY);
 	while (info->exit == 0)
 	{
 		if (info->line_list == NULL)
 		{
 			set_signo();
-#if 1
 			if ((lines = get_next_line_tc(info)) == NULL)
 				continue ;
-#endif
-#if 0
-			if (get_next_line(&lines, fd) <= 0)
-			{
-				exit(0);
-				continue ;
-			}
-#endif
-#if 1
 			if (exact_strncmp(lines, "") != 0)
 			{
 				append_history_list(&(info->history), lines);
@@ -61,7 +50,6 @@ int run(t_info *info)
 			info->line_list = gen_line_list(lines);
 			if (info->line_list == NULL)
 				continue ;
-#endif
 		}
 		info->tokens_list = gen_tokens_list(info);
 		while (info->tokens_list)

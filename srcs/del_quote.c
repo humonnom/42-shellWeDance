@@ -6,24 +6,22 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:15:18 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:15:20 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:12:38 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-// TODO: dquote between squote -> dquote
-//       squote between dquote -> squote
-//       char next back slash  -> char
-
-static int	is_quote(char c)
+static int
+	is_quote(char c)
 {
 	if (c == '\"' || c == '\'')
 		return (1);
 	return (0);
 }
 
-static int	get_cmd_size(char *str)
+static int
+	get_cmd_size(char *str)
 {
 	int	ret;
 
@@ -31,13 +29,14 @@ static int	get_cmd_size(char *str)
 	while (*str)
 	{
 		if (!is_quote(*str))
-			++ret;	
+			++ret;
 		++str;
 	}
 	return (ret);
 }
 
-static char *copy_without_quote(char *str)
+static char
+	*copy_without_quote(char *str)
 {
 	char	*ret;
 	int		ret_size;
@@ -58,7 +57,8 @@ static char *copy_without_quote(char *str)
 	return (ret);
 }
 
-int		del_quote(char **str)
+int
+	del_quote(char **str)
 {
 	char	*ret;
 
@@ -66,5 +66,5 @@ int		del_quote(char **str)
 		return (1);
 	free(*str);
 	*str = ret;
-    return (0);
+	return (0);
 }

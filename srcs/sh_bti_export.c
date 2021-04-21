@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_bti_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 13:21:13 by juepark           #+#    #+#             */ /*   Updated: 2021/04/19 12:42:35 by jackjoo          ###   ########.fr       */
+/*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
+/*   Updated: 2021/04/21 11:56:08 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +37,7 @@ static int	copy_str_key_to_val(t_env *env)
 		return (0);
 	if (!(env->val = ft_strjoin(&(env->key[idx + 1]), env->val)))
 		return (1);
-	//free(&(env->key[idx]));
+	//free(tmp->key);
 	tmp_key = env->key;
 	env->key = ft_substr(env->key, 0, idx);
 	free(tmp_key);

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 15:24:05 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:27:24 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@
 
 # define PROMPT_DATA ">> "
 # define PROMPT_SIZE 3
+
+#define TC_CURSOR_UP "\033[A"
+#define TC_CURSOR_DOWN "\033[B"
+#define TC_CURSOR_RIGHT "\033[C"
+#define TC_CURSOR_LEFT "\033[D"
+#define TC_ERASE_LINE "\033[1K"
+
 
 typedef struct		s_env
 {

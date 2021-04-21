@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:19:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:19:07 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:33:43 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ char			**pk_split(
 	if (!ret)
 		return (0);
 	ret[size] = 0;
-	k = 0;
+	k = -1;
 	begin = 0;
-	while (k < size && limit--)
+	while (++k < size && limit--)
 	{
 		begin = get_next_idx(s_cpy, begin, &len_word, c);
 		ret[k] = (char *)malloc(sizeof(char) * (len_word + 1));
@@ -80,7 +80,6 @@ char			**pk_split(
 			return (free_darr(ret, k));
 		ft_strlcpy(ret[k], &s[begin], len_word + 1);
 		begin = begin + len_word;
-		++k;
 	}
 	return (ret);
 }

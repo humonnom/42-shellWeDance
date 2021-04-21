@@ -6,14 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:00 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:01 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:20:15 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-extern int
-	g_signal;
+extern int g_signal;
 
 char
 	**set_del_quote_args(char **args)
@@ -44,7 +43,8 @@ void
 		ret->args = &tmp_tokens[1];
 }
 
-t_tokens *gen_tokens(t_info *info, char *line)
+t_tokens
+	*gen_tokens(t_info *info, char *line)
 {
 	char		*set_fd_res;
 	char		*set_fd_res_cpy;
@@ -63,5 +63,5 @@ t_tokens *gen_tokens(t_info *info, char *line)
 	trim_tokens(ret, tmp_tokens);
 	free(set_fd_res);
 	free(set_fd_res_cpy);
-    return (ret);
+	return (ret);
 }

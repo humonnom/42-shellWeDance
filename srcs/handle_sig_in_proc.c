@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 20:55:11 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:46:25 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ void		handle_sig_in_proc(int pid)
 	if (signal(SIGQUIT, (void *)sigquit_handler_proc) == SIG_ERR)
 		ft_putstr_fd("\n\e[1;31m can't catch cnrtl-\\", STDOUT_FILENO);
 }
-

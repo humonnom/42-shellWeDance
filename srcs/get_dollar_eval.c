@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:13 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/19 16:26:35 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:44:15 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 extern int g_signal;
 
-static int	is_finish_cond(char c)
+static int
+	is_finish_cond(char c)
 {
 	if (c == '\"')
-		return (1); if (c == '\'') return (1);
+		return (1);
+	if (c == '\'')
+		return (1);
 	if (c == ' ')
 		return (1);
 	if (c == '/')
@@ -25,7 +28,8 @@ static int	is_finish_cond(char c)
 	return (0);
 }
 
-static int	get_word_len(char *part)
+static int
+	get_word_len(char *part)
 {
 	int	ret;
 
@@ -39,7 +43,8 @@ static int	get_word_len(char *part)
 	return (ret);
 }
 
-char	*get_dollar_eval(char *part, t_list *env_list, int *idx)
+char
+	*get_dollar_eval(char *part, t_list *env_list, int *idx)
 {
 	char	*ret;
 	int		word_len;
@@ -57,7 +62,7 @@ char	*get_dollar_eval(char *part, t_list *env_list, int *idx)
 	if (exact_strncmp("$?", part) == 0)
 	{
 		*idx = *idx + word_len;
-		return (ft_itoa(g_signal));	
+		return (ft_itoa(g_signal));
 	}
 	tmp_key = ft_substr(part, 1, word_len - 1);
 	ret = ft_strdup(get_eval(env_list, tmp_key));

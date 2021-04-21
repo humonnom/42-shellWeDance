@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:20:49 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:53:18 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**set_list_to_darr(t_list *env_list)
 	list_size = ft_lstsize(env_list);
 	if (!(ret = (char **)malloc(sizeof(char *) * (list_size + 1))))
 		return (0);
-	ret[list_size] = NULL;
+	ret[list_size] = 0;
 	idx = 0;
 	while (env_list)
 	{
@@ -33,10 +33,7 @@ char	**set_list_to_darr(t_list *env_list)
 		ret[idx] = ft_strjoin(ret[idx], tmp_env->val);
 		free(tmp_str);
 		if (!ret[idx])
-		{
-			printf("ERROR: strdup error in convert_list_to_arr\n");
 			return (free_darr(ret, idx));
-		}
 		++idx;
 		env_list = env_list->next;
 	}

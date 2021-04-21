@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gen_tokens_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */ /*   Created: 2021/04/16 13:17:04 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:05 by juepark          ###   ########.fr       */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 11:28:40 by yekim             #+#    #+#             */
+/*   Updated: 2021/04/21 11:29:28 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +57,8 @@ t_list	*gen_tokens_list(t_info *info)
 		error_num = turn_on_bit(error_num, 0);
 	if (!(line_part = pk_split(line, line_cpy, '|', INF)))
 		error_num = turn_on_bit(error_num, 1);
-	ret = gen_tokens_list_part(info, line_part);	
-	free (line_cpy);
+	ret = gen_tokens_list_part(info, line_part);
+	free(line_cpy);
 	if (!check_bit(error_num, 1))
 		free_darr(line_part, INF);
 	if (error_num)

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 18:46:45 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:13:52 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,27 @@ static t_list
 	return (NULL);
 }
 
-t_list	*gen_line_list(char *line)
+t_list
+	*gen_line_list(char *line)
 {
 	char	*line_cpy;
 	char	**line_arr;
 	t_list	*ret;
 
 	ret = NULL;
-#if 0
-	if (!(line = handle_back_slash(line_tmp, '\\')))
-		return (NULL);
-#endif
-	printf("line: %s\n", line);
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
-	handle_quote(line, &line_cpy, ';');
+	if (handle_quote(line, &line_cpy, ';'))
+	{
+		printf("ERROR: INVALID QUOTE PAIR\n");
+		return (NULL);
+	}
 	line_arr = pk_split(line, line_cpy, ';', INF);
-	free (line_cpy);
+	free(line_cpy);
 	if (is_valid_line_arr(line_arr))
 		return (handle_invalid_line_arr(line_arr));
-	if(set_darr_to_list(&ret, line_arr))
+	if (set_darr_to_list(&ret, line_arr))
 		return (NULL);
 	free_darr(line_arr, INF);
-//	free(line);
 	return (ret);
 }

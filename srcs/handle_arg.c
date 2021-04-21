@@ -6,17 +6,19 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:35 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:36 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:45:48 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-static char	*handle_nquote_part(
-			char **str_addr,
-			t_list *env_list)
+static char
+	*handle_nquote_part(
+	char **str_addr,
+	t_list *env_list)
 {
-	int		idx; char	*str;
+	int		idx;
+	char	*str;
 	char	*prev_ret;
 	char	*tmp;
 	char	*ret;
@@ -39,10 +41,11 @@ static char	*handle_nquote_part(
 		free(tmp);
 	}
 	*str_addr = *str_addr + idx;
-	return (ret);	
+	return (ret);
 }
 
-static char	*handle_squote_part(char **str_addr)
+static char
+	*handle_squote_part(char **str_addr)
 {
 	int		idx;
 	char	*str;
@@ -56,12 +59,13 @@ static char	*handle_squote_part(char **str_addr)
 		++idx;
 	ret = ft_substr(str, 1, idx - 1);
 	*str_addr = *str_addr + idx;
-	return (ret);	
+	return (ret);
 }
 
-static char	*handle_dquote_part(
-			char **str_addr,
-			t_list *env_list)
+static char
+	*handle_dquote_part(
+	char **str_addr,
+	t_list *env_list)
 {
 	int		idx;
 	char	*str;
@@ -87,10 +91,11 @@ static char	*handle_dquote_part(
 		free(tmp);
 	}
 	*str_addr = *str_addr + idx;
-	return (ret);	
+	return (ret);
 }
 
-char	*handle_arg(char *arg, t_list *env_list)
+char
+	*handle_arg(char *arg, t_list *env_list)
 {
 	char	*ret;
 	char	*prev_ret;
@@ -101,9 +106,9 @@ char	*handle_arg(char *arg, t_list *env_list)
 	while (arg && *arg)
 	{
 		if (is_dquote(*arg))
-			tmp = handle_dquote_part(&arg, env_list);	
+			tmp = handle_dquote_part(&arg, env_list);
 		else if (is_squote(*arg))
-			tmp = handle_squote_part(&arg);	
+			tmp = handle_squote_part(&arg);
 		else
 		{
 			tmp = handle_nquote_part(&arg, env_list);

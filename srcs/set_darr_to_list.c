@@ -6,13 +6,14 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:38 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:20:39 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:23:39 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-int	set_darr_to_list(
+int
+	set_darr_to_list(
 	t_list **list_head,
 	char **str)
 {
@@ -20,7 +21,7 @@ int	set_darr_to_list(
 	int		len;
 	char	*tmp_tokens;
 
-	ret = 0;	
+	ret = 0;
 	len = 0;
 	while (ret == 0 && str[len])
 		len++;

@@ -6,16 +6,17 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:43 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:44 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:15:09 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-static int	join_history_line(
-			t_info *info,
-			long inst_arr[],
-			long key_arrow)
+static int
+	join_history_line(
+	t_info *info,
+	long inst_arr[],
+	long key_arrow)
 {
 	int		ret;
 	char	*history_line;
@@ -27,7 +28,7 @@ static int	join_history_line(
 	if (key_arrow == KEY_DOWN_ARROW && info->history_ptr->prev != NULL)
 		info->history_ptr = info->history_ptr->prev;
 	history_line = (char *)(info->history_ptr->data);
-	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);	
+	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_putstr_fd(history_line, STDOUT_FILENO);
 	ret = -1;
 	while (++ret < ft_strlen(history_line))
@@ -35,9 +36,10 @@ static int	join_history_line(
 	return (ret);
 }
 
-static int ft_cursor_mv_left(
-	int	col,
-	int	left_limit,
+static int
+	ft_cursor_mv_left(
+	int col,
+	int left_limit,
 	long *arr)
 {
 	char	*str;
@@ -50,9 +52,10 @@ static int ft_cursor_mv_left(
 	return (0);
 }
 
-static int ft_cursor_mv_right(
-	int	col,
-	int	right_limit,
+static int
+	ft_cursor_mv_right(
+	int col,
+	int right_limit,
 	long *arr)
 {
 	char	*str;
@@ -65,7 +68,8 @@ static int ft_cursor_mv_right(
 	return (0);
 }
 
-int	handle_key_arrow(
+int
+	handle_key_arrow(
 	t_info *info,
 	long arr[],
 	long c,

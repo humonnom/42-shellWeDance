@@ -2,16 +2,18 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   run_bti.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */ /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 13:20:23 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:20:24 by juepark          ###   ########.fr       */
+/*   Created: 2021/04/21 11:46:59 by yekim             #+#    #+#             */
+/*   Updated: 2021/04/21 11:49:30 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-char	*get_bti_path_from_cmd(char *cmd)
+static char
+	*get_bti_path_from_cmd(char *cmd)
 {
 	char	*ret;
 	int		size;
@@ -23,7 +25,8 @@ char	*get_bti_path_from_cmd(char *cmd)
 	return (ret);
 }
 
-char	*get_cmd_without_path(char *cmd)
+static char
+	*get_cmd_without_path(char *cmd)
 {
 	char	*ret;
 	int		beg_idx;
@@ -35,7 +38,8 @@ char	*get_cmd_without_path(char *cmd)
 	return (ret);
 }
 
-char	*get_bti_path_from_env_path(char *cand, char *cmd)
+static char
+	*get_bti_path_from_env_path(char *cand, char *cmd)
 {
 	DIR				*dir_name;
 	struct dirent	*item;
@@ -43,7 +47,7 @@ char	*get_bti_path_from_env_path(char *cand, char *cmd)
 	char			*tmp;
 
 	ret = NULL;
-	if(!(dir_name = opendir(cand)))
+	if (!(dir_name = opendir(cand)))
 		return (NULL);
 	while ((item = readdir(dir_name)))
 	{
@@ -51,7 +55,7 @@ char	*get_bti_path_from_env_path(char *cand, char *cmd)
 		{
 			ret = ft_strjoin(cand, "/");
 			tmp = ret;
-			ret = ft_strjoin(ret, item->d_name); 
+			ret = ft_strjoin(ret, item->d_name);
 			free(tmp);
 			return (ret);
 		}
@@ -60,7 +64,7 @@ char	*get_bti_path_from_env_path(char *cand, char *cmd)
 	return (ret);
 }
 
-int
+static int
 	run_bti_with_path(
 	t_tokens *tokens,
 	t_list *env_list,
@@ -78,7 +82,7 @@ int
 	{
 		pure_cmd = get_cmd_without_path(tokens->cmd);
 		tokens->tokens[0] = pure_cmd;
-		if(execve(bti_path, tokens->tokens, env_arr))
+		if (execve(bti_path, tokens->tokens, env_arr))
 			free(bti_dir_path);
 		free(pure_cmd);
 		tokens->tokens[0] = tokens->cmd;
@@ -88,7 +92,8 @@ int
 	return (0);
 }
 
-int			run_bti(t_tokens *tokens, t_list *env_list)
+int
+	run_bti(t_tokens *tokens, t_list *env_list)
 {
 	char	*func_path;
 	char	**cand_arr;
@@ -105,12 +110,12 @@ int			run_bti(t_tokens *tokens, t_list *env_list)
 	idx = -1;
 	bti_path = NULL;
 	while (cand_arr[++idx])
-	{
 		if ((bti_path = get_bti_path_from_env_path(cand_arr[idx], tokens->cmd)))
 			break ;
-	}
 	free_darr(cand_arr, INF);
-	if (!bti_path || execve(bti_path, tokens->tokens, env_arr) < 0)
+	if (!bti_path)
+		return (ERR_NOT_FOUND);
+	if (execve(bti_path, tokens->tokens, env_arr) < 0)
 		return (ERR_BTI);
 	free(bti_path);
 	free_darr(env_arr, INF);

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:42 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 18:41:31 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:42:12 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 extern int g_signal;
 
-static char	*show_type_error(char *str)
+static char
+	*show_type_error(char *str)
 {
 	char	c[2];
 
@@ -34,7 +35,8 @@ static char	*show_type_error(char *str)
 	return (NULL);
 }
 
-static int	join_char_to_args(char **str, char c, int *idx)
+static int
+	join_char_to_args(char **str, char c, int *idx)
 {
 	int		ret;
 	char	*tmp;
@@ -51,10 +53,11 @@ static int	join_char_to_args(char **str, char c, int *idx)
 	return (1);
 }
 
-static char	*set_tokens_type(
-			t_tokens *tokens,
-			char *str,
-			char *str_cpy)
+static char
+	*set_tokens_type(
+	t_tokens *tokens,
+	char *str,
+	char *str_cpy)
 {
 	char	*ret;
 	int		idx;
@@ -66,7 +69,6 @@ static char	*set_tokens_type(
 	ret = ft_strdup("");
 	while (inc_flag && str_cpy[idx])
 	{
-		inc_flag = 1;
 		tmp_type = set_bracket_type(&str_cpy[0], &idx);
 		tokens->type |= tmp_type;
 		if (tokens->type & TYPE_ERROR)
@@ -84,12 +86,13 @@ static char	*set_tokens_type(
 	return (ret);
 }
 
-char	*set_fd(t_tokens *tokens, char *line)
+char
+	*set_fd(t_tokens *tokens, char *line)
 {
 	char	*ret;
 	char	*line_cpy;
 
-    line_cpy = ft_strdup(line);
+	line_cpy = ft_strdup(line);
 	handle_quote(line, &line_cpy, ' ');
 	handle_quote(line_cpy, &line_cpy, '<');
 	handle_quote(line_cpy, &line_cpy, '>');

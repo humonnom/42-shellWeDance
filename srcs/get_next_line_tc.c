@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_tc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 13:17:32 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:17:32 by juepark          ###   ########.fr       */
+/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/21 11:30:05 by yekim             #+#    #+#             */
+/*   Updated: 2021/04/21 11:31:38 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../incs/minishell.h"
 
 extern int	g_signal;
 
-static char	*get_str_by_inst_arr(long inst_arr[], int inst_arr_size)
+static char
+	*get_str_by_inst_arr(long inst_arr[], int inst_arr_size)
 {
 	int		idx;
 	char	*ret;
@@ -60,15 +63,17 @@ static int
 	return (ret);
 }
 
-static void	turn_off_echo(t_info *info)
+static void
+	turn_off_echo(t_info *info)
 {
 	info->tc.term.c_lflag &= ~ECHO;
 	tcsetattr(STDIN_FILENO, TCSANOW, &(info->tc.term));
 }
 
-static int	set_inst_arr_in_loop(
-			t_info *info,
-			long *arr)
+static int
+	set_inst_arr_in_loop(
+	t_info *info,
+	long *arr)
 {
 	long	c;
 	int		buf_len;
@@ -97,13 +102,14 @@ static int	set_inst_arr_in_loop(
 	return (idx + 1);
 }
 
-char	*get_next_line_tc(t_info *info)
+char
+	*get_next_line_tc(t_info *info)
 {
 	char	*ret;
 	long	inst_arr[BUFFER_SIZE];
 	int		inst_arr_size;
 
-	ret = NULL; 
+	ret = NULL;
 	turn_off_echo(info);
 	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 	ft_cursor_mv_head(&(info->tc));

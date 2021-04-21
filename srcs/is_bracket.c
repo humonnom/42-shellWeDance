@@ -6,13 +6,14 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:30 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 13:18:31 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/21 11:15:42 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-int is_bracket(char c)
+int
+	is_bracket(char c)
 {
 	if (c == '>')
 		return (1);
