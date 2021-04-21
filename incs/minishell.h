@@ -67,11 +67,14 @@
 # define PROMPT_DATA ">> "
 # define PROMPT_SIZE 3
 
-#define TC_CURSOR_UP "\033[A"
-#define TC_CURSOR_DOWN "\033[B"
-#define TC_CURSOR_RIGHT "\033[C"
-#define TC_CURSOR_LEFT "\033[D"
-#define TC_ERASE_LINE "\033[1K"
+# define TC_CURSOR_UP "\033[A"
+# define TC_CURSOR_DOWN "\033[B"
+# define TC_CURSOR_RIGHT "\033[C"
+# define TC_CURSOR_LEFT "\033[D"
+# define TC_ERASE_LINE "\033[1K"
+
+# define RESULT_EXPORT_PRINT 1
+# define RESULT_EXPORT_INVALID 2
 
 
 typedef struct		s_env
@@ -241,10 +244,12 @@ void				print_line_list(
 */
 void				print_elist(
 					t_list *head);
+
 /*
-** sort_env.c
+** print_sorted_elist.c
 */
-void				print_sorted_env(t_list *env_list);
+int					print_sorted_elist(
+					t_list *head);
 
 /*
 ** free_elist.c

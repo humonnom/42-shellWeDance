@@ -15,10 +15,8 @@ FUNC =	main \
 		del_quote \
 		get_eval \
 		gen_tokens \
-		print_tokens \
 		free_tokens \
 		set_list_to_darr \
-		print_darr \
 		free_darr \
 		categorize_cmd \
 		select_sh_bti \
@@ -45,10 +43,7 @@ FUNC =	main \
 		get_elist \
 		add_elist \
 		free_elist \
-		print_elist \
-		print_line_list \
 		set_darr_to_list \
-		print_list \
 		run_cmd \
 		show_error \
 		exit_fatal \
@@ -69,7 +64,13 @@ FUNC =	main \
 		handle_key_arrow \
 		close_tokens_fds \
 		is_exist_dir \
-		sort_elist
+		sort_elist \
+		print_elist \
+		print_line_list \
+		print_tokens \
+		print_darr \
+		print_sorted_elist \
+		print_list \
 
 OBJDIR = ./objs
 INCDIR = ./incs

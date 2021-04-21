@@ -19,7 +19,6 @@
 
 extern int g_signal;
 
-#if 1
 static int
 	copy_str_key_to_val(t_env *env)
 {
@@ -36,7 +35,7 @@ static int
 	}
 	//not found '='
 	if (idx == ft_strlen(env->key))
-		return (2);
+		return (0);
 	if (!(env->val = ft_strjoin(&(env->key[idx + 1]), env->val)))
 		return (1);
 	tmp_key = env->key;
@@ -44,8 +43,8 @@ static int
 	free(tmp_key);
 	return (0);
 }
-#endif
 
+#if 0
 static int	sh_bti_export_err_case(t_env *env, int equal_in_key_flag)
 {
 	if ((env->key)[0] == '\0')
@@ -58,6 +57,7 @@ static int	sh_bti_export_err_case(t_env *env, int equal_in_key_flag)
 		return (CASE_EXPORT_EMPTY_VAL);
 	return (0);
 }
+#endif
 
 static int	handle_err_case(int err_case, t_env *env)
 {
@@ -101,74 +101,74 @@ static int
 	return (0);
 }
 
-static int	run_export(t_list *env_list, char *arg, int flag_print)
+static int
+	is_equal_in_str(char *str)
 {
-	t_list	*tmp_elist;
-	int		err_case;
-	t_env	*tmp_env;
-	char	*tmp_val;
-	int		ret;
-	int		equal_in_key_flag;
+	int	ret;
 
 	ret = 0;
-	// should edit gen_env 
-	equal_in_key_flag = 0;
-	if (ft_strchr(arg, '='))
-		equal_in_key_flag = 1;
-	if (!(tmp_env = gen_env(arg)))
+	if (ft_strchr(str, '='))
+		ret = 1;
+	return (ret);
+}
+
+static int
+	is_empty_str(char *str)
+{
+	if (!str)
+		return (0); 
+	if (str[0] == '\0')
 		return (1);
-//	if (tmp_env->key[0] != '\0' && tmp_env->val[0] == '\0' && !equal_in_key_flag)
-//		return (0);
-	// key is not null, value is null, equal_in_key_flat => abc=
-	tmp_env->key = handle_arg(tmp_env->key, env_list);
-	tmp_env->val = handle_arg(tmp_env->val, env_list);
-	if (ft_strchr(tmp_env->key, '='))
-		equal_in_key_flag = 1;
-	printf("tmp_env->key: %s\n", tmp_env->key);
-	printf("tmp_env->val: %s\n", tmp_env->val);
-	if (tmp_env->key[0] == '\0' && !equal_in_key_flag && tmp_env->val[0] == '\0')
+	return (0);
+}
+
+static int
+	run_export_part(
+	t_env *env,
+	t_list *env_list,
+	int flag_equal,
+	int flag_print)
+{
+	if (!is_empty_str(env->key) && is_empty_str(env->val) && !flag_equal)
 	{
 		if (flag_print)
-		{
-			tmp_elist = sort_elist(env_list);
-			print_elist(tmp_elist);
-		}
-		return (0);	
+			print_sorted_elist(env_list);
+		return (0);
 	}
-	if (is_invalid_key(tmp_env->key) || is_invalid_val(tmp_env->val))
+	if (is_invalid_key(env->key) || is_invalid_val(env->val))
 		return (1);
-	if (tmp_env->key[0] != '\0' && !equal_in_key_flag && tmp_env->val[0] == '\0')
-	{
-		return (0);	
-	}
-	if (tmp_env->key[0] != '\0' && tmp_env->val[0] == '\0' && equal_in_key_flag)
+	if (!is_empty_str(env->key) && is_empty_str(env->val) && !flag_equal)
+		return (0);
+	return (2);
+}
+
+static int
+	run_export(
+	t_list *env_list,
+	char *arg,
+	int flag_equal,
+	int flag_print)
+{
+	t_list	*tmp_elist;
+	t_env	*tmp_env;
+	int		ret;
+
+	if (!(tmp_env = gen_env(arg)))
+		return (1);
+	tmp_env->key = handle_arg(tmp_env->key, env_list);
+	tmp_env->val = handle_arg(tmp_env->val, env_list);
+	flag_equal = is_equal_in_str(tmp_env->key);
+	ret = run_export_part(tmp_env, env_list, flag_equal, flag_print);
+	if (ret == 1 || ret == 0)
+		return (ret);
+	ret = 0;
+	if (!is_empty_str(tmp_env->key) && is_empty_str(tmp_env->val) && flag_equal)
 		ret = copy_str_key_to_val(tmp_env);
 	tmp_elist = get_elist(env_list, tmp_env->key);
 	if (tmp_elist)
 		mod_eval((t_env *)(tmp_elist->data), tmp_env->val);
 	else
 		add_elist(&env_list, tmp_env->key, tmp_env->val);
-#if 0
-	if (ret == 2)
-		return (0);
-//	printf("tmp_env->key: %s\n", tmp_env->key);
-//	printf("tmp_env->val: %s\n", tmp_env->val);
-
-#endif
-#if 0
-	if (del_quote(&(tmp_env->key)))
-		return (1);
-#endif
-	//err_case = sh_bti_export_err_case(tmp_env, equal_in_key_flag);
-//	tmp_val = tmp_env->val;
-//	tmp_env->val = handle_arg(tmp_env->val, env_list);
-#if 0
-	free(tmp_val);
-	if (copy_str_key_to_val(tmp_env))
-		return (1);
-	if (err_case)
-		return (handle_err_case(err_case, tmp_env));
-#endif
 	return (ret);
 }
 
@@ -180,23 +180,18 @@ int
 {
 	t_list	*tmp_elist;
 	int		idx;
-//	int		equal_in_key_flag;
+	int		flag_equal_in_key;
 
 	if (!args)
 		return (1);
 	idx = -1;
 	while (args[++idx])
 	{
-//		equal_in_key_flag = 0;
-//		if (ft_strchr(args[idx], '='))
-//			equal_in_key_flag = 1;
-		if (run_export(*env_list, args[idx], flag_print))
+		flag_equal_in_key = is_equal_in_str(args[idx]);
+		if (run_export(*env_list, args[idx],flag_equal_in_key,  flag_print))
 			return (1);
 	}
 	if (idx == 0 && flag_print)
-	{
-		tmp_elist = sort_elist(*env_list);
-		print_elist(tmp_elist);
-	}
+		print_sorted_elist(*env_list);
 	return (0);
 }
