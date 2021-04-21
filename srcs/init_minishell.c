@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:26 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 13:30:11 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 14:11:14 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern int	g_signal;
 
 t_tc
-	gen_tc()
+	gen_tc(void)
 {
 	t_tc	ret;
 

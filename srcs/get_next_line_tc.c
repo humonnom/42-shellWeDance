@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:30:05 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/21 11:31:38 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 15:21:40 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char
 	ret = NULL;
 	turn_off_echo(info);
 	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
-	ft_cursor_mv_head(&(info->tc));
+	ft_cursor_mv_col(&(info->tc));
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);
