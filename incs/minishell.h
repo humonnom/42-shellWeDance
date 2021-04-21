@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 15:21:26 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/21 20:51:02 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@
 # define ERR_SH_BTI 2
 # define ERR_BTI 4
 # define ERR_NOT_FOUND 404
+
+# define FLAG_EXPORT_PRINT_ON 1
+# define FLAG_EXPORT_PRINT_OFF 0
 
 # define OPEN 1
 # define CLOSE 0
@@ -319,7 +322,8 @@ int					run_bti(
 */
 int					sh_bti_export(
 					char **args,
-					t_list **env_list);
+					t_list **env_list,
+					int flag_print);
 
 /*
 ** sh_bti_unset.c

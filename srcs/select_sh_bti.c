@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:31 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 13:31:48 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 20:50:40 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int
 	ret = ERR_NOT_FOUND;
 	args = tokens->args;
 	if (!exact_strncmp(tokens->cmd, "export"))
-		ret = sh_bti_export(args, &(info->env_list));
+		ret = sh_bti_export(args, &(info->env_list), FLAG_EXPORT_PRINT_OFF);
 	if (!exact_strncmp(tokens->cmd, "unset"))
 		ret = sh_bti_unset(args, &(info->env_list));
 	if (!exact_strncmp(tokens->cmd, "env"))

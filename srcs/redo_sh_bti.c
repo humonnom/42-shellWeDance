@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:12 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:35:36 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/21 20:49:59 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int
 	prev_type = 0;
 	if (prev != NULL)
 		prev_type = prev->type & TYPE_PIPE;
-	if (!exact_strncmp(cmd, "export") && args[0] != NULL)
-		ret = sh_bti_export(args, &(info->env_list));
+	if (!exact_strncmp(cmd, "export"))
+		ret = sh_bti_export(args, &(info->env_list), FLAG_EXPORT_PRINT_ON);
 	else if (!exact_strncmp(cmd, "unset"))
 		ret = sh_bti_unset(args, &(info->env_list));
 	else if (!exact_strncmp(cmd, "cd"))
