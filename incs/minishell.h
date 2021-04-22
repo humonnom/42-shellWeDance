@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 11:53:32 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/22 12:47:32 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,13 +185,6 @@ t_list				*get_elist(
 					char *tar);
 
 /*
-** gen_slist
-*/
-t_list				*gen_slist(
-					t_info *info,
-					char **str);
-
-/*
 ** get_eval.c
 */
 char				*get_eval(
@@ -257,22 +250,27 @@ int					print_sorted_elist(
 /*
 ** free_elist.c
 */
-void				free_elist(t_list *list_head);
+void				free_elist(
+					t_list *list_head);
 
 /*
 ** free_elist.c
 */
-void				free_tokens(void *tokens_tmp);
+void				free_tokens(
+					void *tokens_tmp);
 
 /*
 ** gen_line_list.c
 */
-t_list				*gen_line_list(char *lines);
+t_list				*gen_line_list(
+					char *lines);
 
 /*
 ** gen_tokens.c
 */
-t_tokens			*gen_tokens(t_info *info, char *line);
+t_tokens			*gen_tokens(
+					t_info *info,
+					char *line);
 
 /*
 ** gen_env.c
@@ -299,12 +297,8 @@ int					del_quote(char **str);
 /*
 ** cvt_list_to_arr
 */
-char				**set_list_to_darr(t_list *env_list);
-
-/*
-** print_darr
-*/
-void				print_darr(char **str);
+char				**set_list_to_darr(
+					t_list *env_list);
 
 /*
 ** free_darr
@@ -351,27 +345,35 @@ int					sh_bti_unset(
 /*
 ** sh_bti_env.c
 */
-int					sh_bti_env(t_list *env_list);
+int					sh_bti_env(
+					t_list *env_list);
 
 /*
 ** sh_bti_pwd.c
 */
-int					sh_bti_pwd(char **args);
+int					sh_bti_pwd(
+					char **args);
 
 /*
 ** sh_bti_echo.c
 */
-int					sh_bti_echo(char **args, t_list *env_list);
+int					sh_bti_echo(
+					char **args,
+					t_list *env_list);
 
 /*
 ** sh_bti_exit.c
 */
-void				sh_bti_exit(char **args, t_info *info);
+void				sh_bti_exit(
+					char **args,
+					t_info *info);
 
 /*
 ** get_max_strlen.c
 */
-int					get_max_strlen(char *str1, char *str2);
+int					get_max_strlen(
+					char *str1,
+					char *str2);
 
 /*
 ** get_dollar_eval.c
@@ -380,11 +382,6 @@ char				*get_dollar_eval(
 					char *part,
 					t_list *env_list,
 					int *idx);
-
-/*
-** sh_bti_echo.c
-*/
-int					sh_bti_echo(char **args, t_list *env_list);
 
 /*
 ** sh_bti_cd.c
@@ -461,11 +458,16 @@ int					redo_sh_bti(
 /*
 ** set_bracet_type.c
 */
-int					set_bracket_type(char *str, int *idx);
+int					set_bracket_type(
+					char *str,
+					int *idx);
+
 /*
 ** set_fd.c
 */
-char				*set_fd(t_tokens *tokens, char *line);
+char				*set_fd(
+					t_tokens *tokens,
+					char *line);
 
 /*
 ** set_fd_info.c
@@ -537,13 +539,6 @@ void				append_history_list(
 					char *line);
 
 /*
-** is_in_history_list.c
-*/
-int					is_in_history_list(
-					t_list *history_ptr,
-					char *target);
-
-/*
 ** calc.c
 */
 int					calc_min(
@@ -581,10 +576,6 @@ void				close_tokens_fds(
 
 int					is_exist_dir(
 					char *dir_path);
-
-int					get_next_line(
-					char **line,
-					int fd);
 
 char				*handle_back_slash(
 					char *str,

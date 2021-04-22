@@ -69,7 +69,6 @@ FUNC =	main \
 		print_elist \
 		print_line_list \
 		print_tokens \
-		print_darr \
 		print_sorted_elist \
 		print_list \
 
