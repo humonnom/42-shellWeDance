@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   print_darr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:24 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/22 14:23:17 by jackjoo          ###   ########.fr       */
+/*   Created: 2021/04/16 13:19:10 by juepark           #+#    #+#             */
+/*   Updated: 2021/04/16 13:19:11 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new_lst)
+void	print_darr(char **str)
 {
-	if (lst == 0 || new_lst == NULL)
-		return ;
-	if (*lst != NULL)
-		(*lst)->prev = new_lst;
-	new_lst->next = *lst;
-	*lst = new_lst;
+	int	idx;
+
+	idx = -1;
+	while (str[++idx])
+		printf("str[%d]: %s\n", idx, str[idx]);
 }

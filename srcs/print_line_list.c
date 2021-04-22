@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   print_line_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 06:43:24 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/22 14:23:17 by jackjoo          ###   ########.fr       */
+/*   Created: 2021/04/16 13:19:56 by juepark           #+#    #+#             */
+/*   Updated: 2021/04/21 13:19:54 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new_lst)
+void
+	print_line_list(t_list *head)
 {
-	if (lst == 0 || new_lst == NULL)
-		return ;
-	if (*lst != NULL)
-		(*lst)->prev = new_lst;
-	new_lst->next = *lst;
-	*lst = new_lst;
+	t_list		*cur;
+	t_tokens	*tmp_tokens;
+
+	cur = head;
+	while (cur)
+	{
+		tmp_tokens = (t_tokens *)(cur->data);
+		print_tokens(tmp_tokens);
+		cur = cur->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:30:05 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/21 15:21:40 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/22 13:51:18 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ static int
 }
 
 static void
-	turn_off_echo(t_info *info)
+	turn_off_tc_setting(t_info *info)
 {
 	info->tc.term.c_lflag &= ~ECHO;
+	info->tc.term.c_lflag &= ~ICANON;
 	tcsetattr(STDIN_FILENO, TCSANOW, &(info->tc.term));
 }
 
@@ -110,7 +111,7 @@ char
 	int		inst_arr_size;
 
 	ret = NULL;
-	turn_off_echo(info);
+	turn_off_tc_setting(info);
 	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
 	ft_cursor_mv_col(&(info->tc));
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);

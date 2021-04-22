@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:14:33 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:42:45 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/22 13:51:27 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 extern int g_signal;
 
 static void
-	turn_on_echo(t_info *info)
+	turn_on_tc_setting(t_info *info)
 {
 	info->tc.term.c_lflag |= ECHO;
+	info->tc.term.c_lflag |= ICANON;
 	tcsetattr(STDIN_FILENO, TCSANOW, &(info->tc.term));
 }
 
@@ -32,7 +33,7 @@ int
 	ret = select_sh_bti(tokens, info);
 	if (ret == ERR_NOT_FOUND)
 	{
-		turn_on_echo(info);
+		turn_on_tc_setting(info);
 		ret = run_bti(tokens, info->env_list);
 	}
 	if (ret == ERR_NOT_FOUND)
