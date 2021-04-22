@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/22 11:41:23 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/22 17:19:00 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int
 }
 
 static int
-	run_export_part(
+	check_not_excuted_case(
 	t_env *env,
 	t_list *env_list,
 	int flag_equal,
@@ -59,6 +59,22 @@ static int
 		return (0);
 	return (2);
 }
+static int
+	do_excuted_case(t_env *tmp_env, t_list *env_list, int flag_equal)
+{
+	t_list	*tmp_elist;
+	int		ret;
+
+	ret = 0;
+	if (!is_empty_str(tmp_env->key) && is_empty_str(tmp_env->val) && flag_equal)
+		ret = copy_str_key_to_val(tmp_env);
+	tmp_elist = get_elist(env_list, tmp_env->key);
+	if (tmp_elist)
+		mod_eval((t_env *)(tmp_elist->data), tmp_env->val);
+	else
+		add_elist(&env_list, tmp_env->key, tmp_env->val);
+	return (ret);
+}
 
 static int
 	run_export(
@@ -69,24 +85,23 @@ static int
 {
 	t_list	*tmp_elist;
 	t_env	*tmp_env;
+	char	*tmp_key;
+	char	*tmp_val;
 	int		ret;
 
 	if (!(tmp_env = gen_env(arg)))
 		return (1);
-	tmp_env->key = handle_arg(tmp_env->key, env_list);
-	tmp_env->val = handle_arg(tmp_env->val, env_list);
+	tmp_key = tmp_env->key;
+	tmp_val = tmp_env->val;
+	tmp_env->key = handle_arg(tmp_key, env_list);
+	tmp_env->val = handle_arg(tmp_val, env_list);
 	flag_equal |= is_equal_in_str(tmp_env->key);
-	ret = run_export_part(tmp_env, env_list, flag_equal, flag_print);
-	if (ret == 1 || ret == 0)
-		return (ret);
-	ret = 0;
-	if (!is_empty_str(tmp_env->key) && is_empty_str(tmp_env->val) && flag_equal)
-		ret = copy_str_key_to_val(tmp_env);
-	tmp_elist = get_elist(env_list, tmp_env->key);
-	if (tmp_elist)
-		mod_eval((t_env *)(tmp_elist->data), tmp_env->val);
-	else
-		add_elist(&env_list, tmp_env->key, tmp_env->val);
+	ret = check_not_excuted_case(tmp_env, env_list, flag_equal, flag_print);
+	if (ret == 2)
+		ret = do_excuted_case(tmp_env, env_list, flag_equal);
+	free_env(tmp_env);
+	free(tmp_key);
+	free(tmp_val);
 	return (ret);
 }
 
