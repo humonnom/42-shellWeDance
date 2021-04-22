@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_sorted_elist.c                               :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/22 11:43:05 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/22 11:43:06 by yekim            ###   ########.fr       */
+/*   Created: 2021/04/22 11:46:23 by yekim             #+#    #+#             */
+/*   Updated: 2021/04/22 11:48:29 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#ifndef _TEST_H
+# define _TEST_H
 
-int
-	print_sorted_elist(t_list *env_list)
+# define ABC 123
+
+typedef struct		s_test
 {
-	t_list	*cur;
-	t_env	*tmp_env;
-	t_list	*tmp_elist;
+	int				test1;
+}					t_test;
 
-	tmp_elist = sort_elist(env_list);
-	cur = tmp_elist;
-	while (cur)
-	{
-		tmp_env = (t_env *)(cur->data);
-		printf("declare -x %s=\"%s\"\n", tmp_env->key, tmp_env->val);
-		cur = cur->next;
-	}
-	return (0);
-}
+int					test(int a, int b);
+int					test2(int a, int b);
+
+#endif

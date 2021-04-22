@@ -6,13 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:17 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 13:52:24 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/22 11:42:55 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-t_list	
+t_list
 	*get_elist(
 	t_list *list_head,
 	char *tar)

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 20:51:02 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/22 11:53:32 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
 
 # define FLAG_EXPORT_PRINT_ON 1
 # define FLAG_EXPORT_PRINT_OFF 0
+# define RESULT_EXPORT_PRINT 1
+# define RESULT_EXPORT_INVALID 2
 
 # define OPEN 1
 # define CLOSE 0
@@ -73,9 +75,12 @@
 # define TC_CURSOR_LEFT "\033[D"
 # define TC_ERASE_LINE "\033[1K"
 
-# define RESULT_EXPORT_PRINT 1
-# define RESULT_EXPORT_INVALID 2
-
+# define BIT_SQUOTE 1
+# define BIT_DQUOTE 2
+# define ON 0x00001
+# define OFF 0x00000
+# define INF 987654321
+# define BUF_SIZE 1024
 
 typedef struct		s_env
 {
@@ -123,13 +128,6 @@ typedef struct		s_info
 	t_tc			tc;
 }					t_info;
 
-# define BIT_SQUOTE 1
-# define BIT_DQUOTE 2
-# define ON 0x00001
-# define OFF 0x00000
-# define INF 987654321
-# define BUF_SIZE 1024
-
 /*
 ** handle_quote.c
 */
@@ -170,12 +168,14 @@ int					init_minishell(
 /*
 ** inc_shlvl.c
 */
-int					inc_shlvl(t_list **env_head);
+int					inc_shlvl(
+					t_list **env_head);
 
 /*
 ** gen_elist
 */
-t_list				*gen_elist(char **str);
+t_list				*gen_elist(
+					char **str);
 
 /*
 ** get_elist.c
@@ -187,7 +187,9 @@ t_list				*get_elist(
 /*
 ** gen_slist
 */
-t_list				*gen_slist(t_info *info, char **str);
+t_list				*gen_slist(
+					t_info *info,
+					char **str);
 
 /*
 ** get_eval.c
@@ -219,8 +221,8 @@ int					mod_elist(
 /*
 ** sort_elist.c
 */
-t_list
-	*sort_elist(t_list *env_list);
+t_list				*sort_elist(
+					t_list *env_list);
 
 /*
 ** print_list.c
@@ -231,7 +233,8 @@ void				print_list(
 /*
 ** print_tokens.c
 */
-void				print_tokens(t_tokens *tokens);
+void				print_tokens(
+					t_tokens *tokens);
 
 /*
 ** print_line_list.c
@@ -329,6 +332,14 @@ int					sh_bti_export(
 					char **args,
 					t_list **env_list,
 					int flag_print);
+
+/*
+** sh_bti_export_utils.c
+*/
+int					is_invalid_key(t_env *env);
+int					is_digit_in_key_head(t_env *env);
+int					is_equal_in_str(char *str);
+int					is_empty_str(char *str);
 
 /*
 ** sh_bti_unset.c
@@ -442,8 +453,7 @@ int					exit_fatal(void);
 /*
 ** redo_sh_bti.c
 */
-int
-					redo_sh_bti(
+int					redo_sh_bti(
 					t_info *info,
 					t_tokens *token,
 					t_tokens *prev);
@@ -487,7 +497,8 @@ int					open_valid_fd(
 					int *idx,
 					int type);
 
-int					ft_putchar_tc(int tc);
+int					ft_putchar_tc(
+					int tc);
 
 /*
 ** ft_cursor.c
@@ -496,20 +507,27 @@ int					ft_cursor_clr_line_end(
 					t_tc *tc,
 					int left_limit);
 
-int					ft_cursor_mv_head(t_tc *tc);
+int					ft_cursor_mv_head(
+					t_tc *tc);
 
-int					ft_cursor_mv_col(t_tc *tc);
+int					ft_cursor_mv_col(
+					t_tc *tc);
 
-int					ft_cursor_clr_line_all(t_tc *tc);
+int					ft_cursor_clr_line_all(
+					t_tc *tc);
 
-char				*get_next_line_tc(t_info *info);
+char				*get_next_line_tc(
+					t_info *info);
 
-int					is_key_arrow(long c);
+int					is_key_arrow(
+					long c);
 
 /*
 ** get_cursor_pos.c
 */
-void				get_cursor_pos(int *col, int *row);
+void				get_cursor_pos(
+					int *col,
+					int *row);
 
 /*
 ** append_history_list.c
@@ -521,21 +539,25 @@ void				append_history_list(
 /*
 ** is_in_history_list.c
 */
-int
-					is_in_history_list(
+int					is_in_history_list(
 					t_list *history_ptr,
 					char *target);
 
 /*
 ** calc.c
 */
-int					calc_min(int num1, int num2);
+int					calc_min(
+					int num1,
+					int num2);
 
-int					calc_max(int num1, int num2);
+int					calc_max(
+					int num1,
+					int num2);
 
 int					set_signo();
 
-void				handle_sig_in_proc(int pid);
+void				handle_sig_in_proc(
+					int pid);
 
 void				handle_eof_in_gnl(
 					t_info *info,
@@ -554,17 +576,18 @@ int					handle_key_arrow(
 					long c,
 					int right_limit);
 
-void				close_tokens_fds(t_tokens *curr);
+void				close_tokens_fds(
+					t_tokens *curr);
 
-int
-	is_exist_dir(char *dir_path);
+int					is_exist_dir(
+					char *dir_path);
 
-int
-	get_next_line(char **line, int fd);
+int					get_next_line(
+					char **line,
+					int fd);
 
-char
-	*handle_back_slash(
-	char *str,
-	char c);
+char				*handle_back_slash(
+					char *str,
+					char c);
 
 #endif

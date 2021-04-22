@@ -26,6 +26,7 @@ FUNC =	main \
 		gen_env \
 		free_env \
 		sh_bti_export \
+		sh_bti_export_utils \
 		sh_bti_unset \
 		sh_bti_env \
 		sh_bti_echo \
