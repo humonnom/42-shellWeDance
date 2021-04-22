@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 12:47:32 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:56:19 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,12 +228,6 @@ void				print_list(
 */
 void				print_tokens(
 					t_tokens *tokens);
-
-/*
-** print_line_list.c
-*/
-void				print_line_list(
-					t_list *head);
 
 /*
 ** print_elist.c
