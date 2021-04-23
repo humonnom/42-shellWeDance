@@ -6,11 +6,14 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 16:50:12 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 17:34:27 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+#define EXIT_INVALID_ARG_NUM 1
+#define EXIT_NON_NUMERIC_ARG 255
 
 extern int		g_signal;
 
@@ -20,7 +23,7 @@ static int	is_invalid_number(char *str)
 
 	idx = -1;
 	while (str[++idx])
-		if (!ft_isdigit(str[idx]))	
+		if(!ft_isdigit(str[idx]))
 			return (1);
 	return (0);
 }
@@ -51,32 +54,27 @@ static void
 
 int		sh_bti_exit(char **args, t_info *info, int flag_print)
 {
-	int	len;
+	int	invalid_case;
 
+	invalid_case = 0;
 	if (!args)
 		exit_shell(info);
-	len = 0;
 	if (args[0] && args[1])
+		invalid_case = EXIT_INVALID_ARG_NUM;
+	else if (args[0] && is_invalid_number(args[0]))
+		invalid_case = EXIT_NON_NUMERIC_ARG;
+	if (invalid_case)
 	{
-		if (flag_print)
+		if ((invalid_case == EXIT_INVALID_ARG_NUM) && flag_print)
 			ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
-		g_signal = 1;
-	}
-	else
-	{
-		if (args[0] && is_invalid_number(args[0]))
-		{
-			if (flag_print)
-				ft_putstr_fd("exit: numeric argument required\n", STDOUT_FILENO);
-			g_signal = 255;
-		}
-		else if (args[0])
-			g_signal = ft_atoi(args[0]);
-		else
-			g_signal = 0;
-		exit_shell(info);
-	}
-	if (g_signal)
+		else if ((invalid_case == EXIT_NON_NUMERIC_ARG) && flag_print)
+			ft_putstr_fd("exit: numeric argument required\n", STDOUT_FILENO);
+		g_signal = invalid_case;
 		return (1);
+	}
+	g_signal = 0;
+	if (args[0])
+		g_signal = ft_atoi(args[0]);
+	exit_shell(info);
 	return (0);
 }
