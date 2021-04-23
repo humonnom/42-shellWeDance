@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/23 16:27:26 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:37:13 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int
 	int flag_equal,
 	int flag_print)
 {
-	if (is_digit_in_key_head(env))
+	if (is_digit_in_key_head(env, flag_print))
 		return (1);
 	if (is_empty_str(env->key) && is_empty_str(env->val) && !flag_equal)
 	{
@@ -53,7 +53,7 @@ static int
 			print_sorted_elist(env_list);
 		return (0);
 	}
-	if (is_invalid_key(env))
+	if (is_invalid_key(env, flag_print))
 		return (1);
 	if (!is_empty_str(env->key) && is_empty_str(env->val) && !flag_equal)
 		return (0);
@@ -113,6 +113,7 @@ int
 {
 	t_list	*tmp_elist;
 	int		idx;
+	int		ret;
 	int		flag_equal_in_key;
 
 	if (!args)
@@ -120,18 +121,16 @@ int
 		g_signal = 1;
 		return (1);
 	}
+	ret = 0;
 	idx = -1;
 	while (args[++idx])
 	{
 		flag_equal_in_key = is_equal_in_str(args[idx]);
 		if (run_export(*env_list, args[idx], flag_equal_in_key, flag_print))
-		{
-			g_signal = 1;
-			return (1);
-		}
+			ret = 1;
 	}
 	if (idx == 0 && flag_print)
 		print_sorted_elist(*env_list);
-	g_signal = 0;
-	return (0);
+	g_signal = ret;
+	return (ret);
 }

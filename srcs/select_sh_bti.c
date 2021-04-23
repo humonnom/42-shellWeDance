@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:31 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 16:09:55 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 16:55:58 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ int
 	ret = ERR_NOT_FOUND;
 	args = tokens->args;
 	if (!exact_strncmp(tokens->cmd, "export"))
-		ret = sh_bti_export(args, &(info->env_list), FLAG_EXPORT_PRINT_OFF);
+		ret = sh_bti_export(args, &(info->env_list), FLAG_EXPORT_PRINT_ON);
 	else if (!exact_strncmp(tokens->cmd, "unset"))
 		ret = sh_bti_unset(args, &(info->env_list));
 	else if (!exact_strncmp(tokens->cmd, "env"))
 		ret = sh_bti_env(info->env_list);
 	else if (!exact_strncmp(tokens->cmd, "cd"))
-		ret = sh_bti_cd(args, info->env_list);
+		ret = sh_bti_cd(args, info->env_list, FLAG_EXPORT_PRINT_ON);
 	else if (!exact_strncmp(tokens->cmd, "pwd"))
 		ret = sh_bti_pwd(args);
 	else if (!exact_strncmp(tokens->cmd, "echo"))
 		ret = sh_bti_echo(args, info->env_list);
 	else if (!exact_strncmp(tokens->cmd, "exit"))
-		sh_bti_exit(args, info);
+		ret = sh_bti_exit(args, info, FLAG_EXPORT_PRINT_ON);
 	if (ret == 1)
 		return (ERR_SH_BTI);
 	return (ret);

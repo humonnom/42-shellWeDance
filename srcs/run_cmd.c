@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 16:27:21 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:31:49 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int
 			sh_bti_exit(NULL, info);
 	}
 	ret = run_cmd_part(curr, prev, info, pipe_open);
-	if (!ret && (curr->type & TYPE_BREAK))
+	//if (!ret && (curr->type & TYPE_BREAK))
+	if ((curr->type & TYPE_BREAK))
 		ret = redo_sh_bti(info, curr, prev);
 	return (ret);
 }

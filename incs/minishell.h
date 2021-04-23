@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 14:42:40 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:49:35 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,8 +324,8 @@ int					sh_bti_export(
 /*
 ** sh_bti_export_utils.c
 */
-int					is_invalid_key(t_env *env);
-int					is_digit_in_key_head(t_env *env);
+int					is_invalid_key(t_env *env, int flag_print);
+int					is_digit_in_key_head(t_env *env, int flag_print);
 int					is_equal_in_str(char *str);
 int					is_empty_str(char *str);
 
@@ -358,9 +358,10 @@ int					sh_bti_echo(
 /*
 ** sh_bti_exit.c
 */
-void				sh_bti_exit(
+int					sh_bti_exit(
 					char **args,
-					t_info *info);
+					t_info *info,
+					int flag_print);
 
 /*
 ** get_max_strlen.c
@@ -380,7 +381,10 @@ char				*get_dollar_eval(
 /*
 ** sh_bti_cd.c
 */
-int					sh_bti_cd(char **args, t_list *env_list);
+int					sh_bti_cd(
+					char **args,
+					t_list *env_list,
+					int flag_print);
 
 /*
 ** cvt_char_to_str.c

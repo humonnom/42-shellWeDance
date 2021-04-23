@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 14:40:07 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:42:09 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	renew_pwd(t_list *env_list, char *path)
 	return (ret);
 }
 
-int			sh_bti_cd(char **args, t_list *env_list)
+int			sh_bti_cd(char **args, t_list *env_list, int flag_print)
 {
 	char	*path;
 	int		ret;
@@ -77,11 +77,11 @@ int			sh_bti_cd(char **args, t_list *env_list)
 	}
 	if (chdir(path) == -1)
 	{
-		if (!get_eval(env_list, "HOME"))
+		if (!get_eval(env_list, "HOME") && flag_print)
 			printf("cd: HOME not set\n");
-		if (!get_eval(env_list, "OLDPWD") && !exact_strncmp(path, "-"))
+		if (!get_eval(env_list, "OLDPWD") && !exact_strncmp(path, "-") && flag_print)
 			printf("cd: OLDPWD not set\n");
-		else
+		else if(flag_print)
 			printf("cd: %s: No such file or directory\n", path);
 		ret = 1;
 	}

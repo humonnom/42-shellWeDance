@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 14:23:38 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:50:12 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void
 	exit(g_signal);
 }
 
-void		sh_bti_exit(char **args, t_info *info)
+int		sh_bti_exit(char **args, t_info *info, int flag_print)
 {
 	int	len;
 
@@ -58,14 +58,16 @@ void		sh_bti_exit(char **args, t_info *info)
 	len = 0;
 	if (args[0] && args[1])
 	{
-		ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
+		if (flag_print)
+			ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
 		g_signal = 1;
 	}
 	else
 	{
 		if (args[0] && is_invalid_number(args[0]))
 		{
-			ft_putstr_fd("exit: numeric argument required\n", STDOUT_FILENO);
+			if (flag_print)
+				ft_putstr_fd("exit: numeric argument required\n", STDOUT_FILENO);
 			g_signal = 255;
 		}
 		else if (args[0])
@@ -74,4 +76,7 @@ void		sh_bti_exit(char **args, t_info *info)
 			g_signal = 0;
 		exit_shell(info);
 	}
+	if (g_signal)
+		return (1);
+	return (0);
 }
