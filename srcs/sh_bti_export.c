@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/22 17:19:00 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 14:45:48 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,22 @@ int
 	int		flag_equal_in_key;
 
 	if (!args)
+	{
+		g_signal = 1;
 		return (1);
+	}
 	idx = -1;
 	while (args[++idx])
 	{
 		flag_equal_in_key = is_equal_in_str(args[idx]);
 		if (run_export(*env_list, args[idx], flag_equal_in_key, flag_print))
+		{
+			g_signal = 1;
 			return (1);
+		}
 	}
 	if (idx == 0 && flag_print)
 		print_sorted_elist(*env_list);
+	g_signal = 0;
 	return (0);
 }

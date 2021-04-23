@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 13:34:34 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 14:09:32 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);
-	exit_shell(&info);
+	sh_bti_exit(NULL, &info);
 	return (0);
 }

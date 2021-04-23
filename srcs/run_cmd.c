@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 17:29:51 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 14:53:26 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static int
 	close_fds(pid_t pid, t_tokens *curr, t_tokens *prev, int pipe_open)
 {
 	int	status;
-	int	ret;
-	int	child_ret;
 
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
@@ -55,9 +53,9 @@ static int
 	if (prev && (prev->type & TYPE_PIPE))
 		close(prev->fds[0]);
 	close_tokens_fds(curr);
-	if (WIFEXITED(status))
-		ret = WEXITSTATUS(status);
-	return (ret);
+	if (g_signal)
+		return (1);
+	return (0);
 }
 
 static int
@@ -73,18 +71,18 @@ static int
 	pid = fork();
 	handle_sig_in_proc(pid);
 	if (pid < 0)
-		return (exit_fatal());
+		sh_bti_exit(NULL, info);
 	if (pid == 0)
 	{
 		if ((curr->type & TYPE_PIPE)
 			&& dup2(curr->fds[1], STDOUT_FILENO) < 0)
-			return (exit_fatal());
+			sh_bti_exit(NULL, info);
 		if (prev && (prev->type & TYPE_PIPE)
 			&& dup2(prev->fds[0], STDIN_FILENO) < 0)
-			return (exit_fatal());
+			sh_bti_exit(NULL, info);
 		open_redir_fd(curr);
 		ret = categorize_cmd(curr, info);
-		exit(g_signal);
+		sh_bti_exit(NULL, info);
 	}
 	else
 		ret = close_fds(pid, curr, prev, pipe_open);
@@ -112,10 +110,10 @@ int
 	{
 		pipe_open = 1;
 		if (pipe(curr->fds))
-			return (exit_fatal());
+			sh_bti_exit(NULL, info);
 	}
 	ret = run_cmd_part(curr, prev, info, pipe_open);
-	if (ret != EXIT_FAILURE && (curr->type & TYPE_BREAK))
+	if (!ret && (curr->type & TYPE_BREAK))
 		ret = redo_sh_bti(info, curr, prev);
 	return (ret);
 }

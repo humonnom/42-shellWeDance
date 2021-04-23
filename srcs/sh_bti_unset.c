@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:24 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 14:42:46 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 14:47:14 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 extern int g_signal;
 
-static int	cmp_key(t_list *env_list, char *key2)
+static int
+	cmp_key(t_list *env_list, char *key2)
 {
 	t_env	*tmp_env;
 	char	*key;
@@ -24,9 +25,10 @@ static int	cmp_key(t_list *env_list, char *key2)
 	return (exact_strncmp(key, key2));
 }
 
-static void	del_elist_if(
-			t_list **env_list,
-			char *key)
+static void
+	del_elist_if(
+	t_list **env_list,
+	char *key)
 {
 	t_list	*prev;
 	t_list	*next;
@@ -53,14 +55,18 @@ static void	del_elist_if(
 	}
 }
 
-int			sh_bti_unset(
+int
+	sh_bti_unset(
 	char **args,
 	t_list **env_list)
 {
 	int		idx;
 
 	if (!args)
+	{
+		g_signal = 1;
 		return (1);
+	}
 	idx = -1;
 	while (args[++idx])
 		del_elist_if(env_list, args[idx]);

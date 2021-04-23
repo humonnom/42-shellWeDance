@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 14:34:09 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 14:23:38 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,36 @@ static int	is_invalid_number(char *str)
 	return (0);
 }
 
+static void
+	exit_shell(t_info *info)
+{
+	int ret;
+	int i;
+
+	if (info->tokens)
+	{
+		close_tokens_fds(info->tokens);
+		info->tokens = NULL;
+	}
+	ft_lstclear(&(info->line_list), &free);
+	ft_lstclear(&(info->tokens_list), &free_tokens);
+	ft_lstclear(&(info->env_list), &free_env);
+	ft_lstclear(&(info->history), &free);
+	if (info->env_list)
+	{
+		ft_lstclear(&(info->env_list), &free_env);
+		free(info->env_list);
+		info->env_list = NULL;
+	}
+	exit(g_signal);
+}
+
 void		sh_bti_exit(char **args, t_info *info)
 {
 	int	len;
 
+	if (!args)
+		exit_shell(info);
 	len = 0;
 	if (args[0] && args[1])
 	{
@@ -42,8 +68,10 @@ void		sh_bti_exit(char **args, t_info *info)
 			ft_putstr_fd("exit: numeric argument required\n", STDOUT_FILENO);
 			g_signal = 255;
 		}
-		else if(args[0])
+		else if (args[0])
 			g_signal = ft_atoi(args[0]);
+		else
+			g_signal = 0;
 		exit_shell(info);
 	}
 }

@@ -6,11 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:13:52 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/23 16:07:10 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+extern int	g_signal;
 
 static int
 	is_valid_line_arr(char **line_arr)
@@ -28,6 +30,26 @@ static t_list
 	return (NULL);
 }
 
+int
+	handle_semi_colon(char *line)
+{
+	if (line[0] == ';' && line[1] == ';')
+	{
+		ft_putstr_fd("syntax error near unexpected token `;;\'\n",\
+		STDOUT_FILENO);
+		g_signal = 258;
+		return (1);
+	}
+	if (line[0] == ';')
+	{
+		ft_putstr_fd("syntax error near unexpected token `;\'\n",\
+		STDOUT_FILENO);
+		g_signal = 258;
+		return (1);
+	}
+	return (0);
+}
+
 t_list
 	*gen_line_list(char *line)
 {
@@ -36,6 +58,8 @@ t_list
 	t_list	*ret;
 
 	ret = NULL;
+	if (handle_semi_colon(line))
+		return (NULL);
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
 	if (handle_quote(line, &line_cpy, ';'))

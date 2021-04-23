@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/20 15:55:39 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 14:40:07 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int			sh_bti_cd(char **args, t_list *env_list)
 
 	ret = 0;
 	if (!(path = get_path(args[0], env_list)))
+	{
+		g_signal = 1;
 		return (1);
+	}
 	if (chdir(path) == -1)
 	{
 		if (!get_eval(env_list, "HOME"))

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:52 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 20:51:24 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 13:13:52 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handle_eof_in_gnl(t_info *info, long *c, int buf_len)
 	if (*c == 4 && buf_len == 0)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		exit_shell(info);
+		sh_bti_exit(NULL, info);
 	}
 	else if (*c == 4 && buf_len != 0)
 		*c = 4500001;

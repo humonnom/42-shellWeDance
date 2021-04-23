@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:14:33 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/22 13:51:27 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 14:48:58 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,24 @@ static void
 int
 	categorize_cmd(t_tokens *tokens, t_info *info)
 {
-	int		ret;
-	int		run_check;
-	int		idx;
+	int		err_num;
 
-	run_check = 0;
-	ret = select_sh_bti(tokens, info);
-	if (ret == ERR_NOT_FOUND)
+	err_num = select_sh_bti(tokens, info);
+	if (err_num == ERR_NOT_FOUND)
 	{
 		turn_on_tc_setting(info);
-		ret = run_bti(tokens, info->env_list);
+		err_num = run_bti(tokens, info->env_list);
 	}
-	if (ret == ERR_NOT_FOUND)
+	if (err_num == ERR_NOT_FOUND)
 	{
 		printf("%s :command not found\n", tokens->cmd);
 		g_signal = 127;
+		return (1);
 	}
-	if (ret == ERR_SH_BTI || ret == ERR_BTI)
+	if (err_num == ERR_SH_BTI || err_num == ERR_BTI)
+	{
 		printf("ERROR BTI\n");
-	return (ret);
+		return (1);
+	}
+	return (0);
 }
