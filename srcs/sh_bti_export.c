@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/23 16:37:13 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 23:18:28 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,12 @@ static int
 		return (0);
 	return (2);
 }
+
 static int
-	do_excuted_case(t_env *tmp_env, t_list *env_list, int flag_equal)
+	do_excuted_case(
+	t_env *tmp_env,
+	t_list *env_list,
+	int flag_equal)
 {
 	t_list	*tmp_elist;
 	int		ret;

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 17:34:27 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 23:16:31 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 #define EXIT_INVALID_ARG_NUM 1
 #define EXIT_NON_NUMERIC_ARG 255
 
-extern int		g_signal;
+extern int	g_signal;
 
-static int	is_invalid_number(char *str)
+static int
+	is_invalid_number(char *str)
 {
 	int idx;
 
 	idx = -1;
 	while (str[++idx])
-		if(!ft_isdigit(str[idx]))
+		if (!ft_isdigit(str[idx]))
 			return (1);
 	return (0);
 }
@@ -52,7 +53,8 @@ static void
 	exit(g_signal);
 }
 
-int		sh_bti_exit(char **args, t_info *info, int flag_print)
+int
+	sh_bti_exit(char **args, t_info *info, int flag_print)
 {
 	int	invalid_case;
 

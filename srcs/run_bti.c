@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:46:59 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/23 14:52:24 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/24 00:15:10 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,7 @@ int
 	if (!bti_path)
 		return (ERR_NOT_FOUND);
 	if (execve(bti_path, tokens->tokens, env_arr) < 0)
-	{
-		g_signal = 1;
 		return (ERR_BTI);
-	}
 	free(bti_path);
 	free_darr(env_arr, INF);
 	return (0);

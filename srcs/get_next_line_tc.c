@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:30:05 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/22 13:51:18 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 00:15:45 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ static int
 		ft_putchar_fd(*c, STDOUT_FILENO);
 	}
 	else if (is_key_arrow(*c))
-		ret = handle_key_arrow(info, arr, *c, PROMPT_SIZE + *buf_len);
+		ret = handle_key_arrow(info, arr, *c, info->tc.limit + *buf_len);
 	else if (*c == KEY_BACKSPACE)
 	{
 		*buf_len = calc_max(*buf_len - 1, 0);
-		ft_cursor_clr_line_end(&(info->tc), PROMPT_SIZE);
+		ft_cursor_clr_line_end(&(info->tc), info->tc.limit);
 	}
 	*c = 0;
 	return (ret);
@@ -113,7 +113,8 @@ char
 	ret = NULL;
 	turn_off_tc_setting(info);
 	get_cursor_pos(&(info->tc.cursor.col), &(info->tc.cursor.row));
-	ft_cursor_mv_col(&(info->tc));
+	ft_cursor_mv_head(&(info->tc), 1);
+	info->tc.limit = info->tc.cursor.col - 1 + PROMPT_SIZE;
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	inst_arr_size = set_inst_arr_in_loop(info, inst_arr);

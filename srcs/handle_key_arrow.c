@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:43 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:15:09 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/24 00:09:45 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ static int
 	join_history_line(
 	t_info *info,
 	long inst_arr[],
-	long key_arrow)
+	long key_arrow,
+	int left_limit)
 {
 	int		ret;
 	char	*history_line;
 
-	ft_cursor_clr_line_all(&(info->tc));
+	ft_cursor_clr_line_end_loop(info, left_limit);
 	ft_memset(inst_arr, 0, BUFFER_SIZE);
 	if (key_arrow == KEY_UP_ARROW && info->history_ptr->next != NULL)
 		info->history_ptr = info->history_ptr->next;
@@ -75,8 +76,9 @@ int
 	long c,
 	int right_limit)
 {
-	int		ret;
 	char	*tmp;
+	int		left_limit;
+	int		ret;
 
 	if (info->history_ptr == NULL)
 		return (0);
@@ -85,7 +87,8 @@ int
 		ft_cursor_mv_left(info->tc.cursor.col, PROMPT_SIZE, arr);
 	else if (c == KEY_RIGHT_ARROW)
 		ft_cursor_mv_right(info->tc.cursor.col, right_limit, arr);
+	left_limit = info->tc.limit - PROMPT_SIZE;
 	if (c == KEY_UP_ARROW || c == KEY_DOWN_ARROW)
-		ret = join_history_line(info, arr, c) - 1;
+		ret = join_history_line(info, arr, c, left_limit) - 1;
 	return (ret);
 }

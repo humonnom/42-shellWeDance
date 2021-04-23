@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 16:49:35 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 00:16:46 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct		s_tc
 {
 	struct termios	term;
 	char			*tc_str[3];
+	int				limit;
 	t_cursor		cursor;
 }					t_tc;
 
@@ -435,13 +436,6 @@ int					run_cmd(
 */
 int					show_error(char const *str);
 
-#if 0
-/*
-** exit_shell.c
-*/
-int					exit_shell(t_info *info);
-#endif
-
 /*
 ** exit_fatal.c
 */
@@ -505,15 +499,17 @@ int					ft_putchar_tc(
 /*
 ** ft_cursor.c
 */
+void				ft_cursor_clr_line_end_loop(
+					t_info *info,
+					int left_limit);
+
 int					ft_cursor_clr_line_end(
 					t_tc *tc,
 					int left_limit);
 
 int					ft_cursor_mv_head(
-					t_tc *tc);
-
-int					ft_cursor_mv_col(
-					t_tc *tc);
+					t_tc *tc,
+					int use_col_pos_flag);
 
 int					ft_cursor_clr_line_all(
 					t_tc *tc);

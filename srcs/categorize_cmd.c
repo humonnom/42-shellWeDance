@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:14:33 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 14:48:58 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/24 00:15:06 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int
 		turn_on_tc_setting(info);
 		err_num = run_bti(tokens, info->env_list);
 	}
+	if (err_num == ERR_BTI)
+		g_signal = 1;
 	if (err_num == ERR_NOT_FOUND)
 	{
 		printf("%s :command not found\n", tokens->cmd);
@@ -40,9 +42,6 @@ int
 		return (1);
 	}
 	if (err_num == ERR_SH_BTI || err_num == ERR_BTI)
-	{
-		printf("ERROR BTI\n");
 		return (1);
-	}
 	return (0);
 }

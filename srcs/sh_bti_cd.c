@@ -6,15 +6,21 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 16:42:09 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/23 23:09:26 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
+#define ERR_CD_ALLOC_FAIL 2
+#define ERR_CD_CHDIR 1
+
 extern int g_signal;
 
-static char	*handle_shortcut(char *arg, t_list *env_list)
+static char
+	*handle_shortcut(
+	char *arg,
+	t_list *env_list)
 {
 	char	*ret;
 
@@ -32,7 +38,10 @@ static char	*handle_shortcut(char *arg, t_list *env_list)
 	return (ret);
 }
 
-static char	*get_path(char *arg, t_list *env_list)
+static char
+	*get_path(
+	char *arg,
+	t_list *env_list)
 {
 	char	*ret;
 	char	*tmp_path;
@@ -42,12 +51,15 @@ static char	*get_path(char *arg, t_list *env_list)
 	return (ret);
 }
 
-static int	renew_pwd(t_list *env_list, char *path)
+static int
+	renew_pwd(
+	t_list *env_list,
+	char *path)
 {
-	int		ret;
 	t_list	*tmp_list;
 	char	*tmp_pwd;
 	char	cwd[BUFFER_SIZE];
+	int		ret;
 
 	ret = 0;
 	tmp_list = get_elist(env_list, "OLDPWD");
@@ -64,30 +76,51 @@ static int	renew_pwd(t_list *env_list, char *path)
 	return (ret);
 }
 
-int			sh_bti_cd(char **args, t_list *env_list, int flag_print)
+static void
+	print_chdir_error_messages(
+	t_list *env_list,
+	char *path,
+	int flag_print)
 {
+	int ret;
+
+	if (!get_eval(env_list, "OLDPWD") \
+			&& !exact_strncmp(path, "-") && flag_print)
+		printf("cd: OLDPWD not set\n");
+	else if (!get_eval(env_list, "HOME") && flag_print)
+		printf("cd: HOME not set\n");
+	else if (flag_print)
+		printf("cd: %s: No such file or directory\n", path);
+}
+
+int
+	sh_bti_cd(
+	char **args,
+	t_list *env_list,
+	int flag_print)
+{
+	char	cwd[BUFFER_SIZE];
 	char	*path;
 	int		ret;
 
 	ret = 0;
 	if (!(path = get_path(args[0], env_list)))
+		ret = ERR_CD_ALLOC_FAIL;
+	if (!ret && chdir(path) == -1)
 	{
-		g_signal = 1;
-		return (1);
-	}
-	if (chdir(path) == -1)
-	{
-		if (!get_eval(env_list, "HOME") && flag_print)
-			printf("cd: HOME not set\n");
-		if (!get_eval(env_list, "OLDPWD") && !exact_strncmp(path, "-") && flag_print)
-			printf("cd: OLDPWD not set\n");
-		else if(flag_print)
-			printf("cd: %s: No such file or directory\n", path);
-		ret = 1;
+		print_chdir_error_messages(env_list, path, flag_print);
+		ret = ERR_CD_CHDIR;
 	}
 	if (!ret)
+	{
 		ret = renew_pwd(env_list, path);
-	free(path);
+		if (exact_strncmp(path, "PWD") && flag_print)
+			ft_putstr_fd(getcwd(cwd, BUFFER_SIZE), STDOUT_FILENO);
+	}
+	if (ret != ERR_CD_ALLOC_FAIL)
+		free(path);
+	if (ret)
+		ret = 1;
 	g_signal = ret;
 	return (ret);
 }
