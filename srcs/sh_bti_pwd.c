@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:18 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/16 21:19:03 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:01:06 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	sh_bti_pwd(char **args)
 	char s[BUFFER_SIZE];
 
 	getcwd(s, BUFFER_SIZE);
-	printf("%s\n", s);
+	ft_putstr_fd(s, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 	g_signal = 0;
 	return (0);
 }

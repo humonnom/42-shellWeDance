@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 00:16:46 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:35:40 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@
 # define ERR_BTI 4
 # define ERR_NOT_FOUND 404
 
-# define FLAG_EXPORT_PRINT_ON 1
-# define FLAG_EXPORT_PRINT_OFF 0
+# define FLAG_PRINT_ON 1
+# define FLAG_PRINT_OFF 0
 # define RESULT_EXPORT_PRINT 1
 # define RESULT_EXPORT_INVALID 2
 

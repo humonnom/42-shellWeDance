@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 23:09:26 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 14:57:40 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,7 @@ int
 		ret = ERR_CD_CHDIR;
 	}
 	if (!ret)
-	{
 		ret = renew_pwd(env_list, path);
-		if (exact_strncmp(path, "PWD") && flag_print)
-			ft_putstr_fd(getcwd(cwd, BUFFER_SIZE), STDOUT_FILENO);
-	}
 	if (ret != ERR_CD_ALLOC_FAIL)
 		free(path);
 	if (ret)

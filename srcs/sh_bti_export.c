@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/23 23:18:28 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:18:09 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int
 	{
 		flag_equal_in_key = is_equal_in_str(args[idx]);
 		if (run_export(*env_list, args[idx], flag_equal_in_key, flag_print))
-			ret = 1;
+			ret |= 1;
 	}
 	if (idx == 0 && flag_print)
 		print_sorted_elist(*env_list);

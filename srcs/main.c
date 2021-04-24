@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 17:03:04 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:40:05 by jackjoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,25 @@ void
 	}
 }
 
+static void
+	run_tokens(t_info *info)
+{
+	t_list	*next_tokens;
+
+	info->tokens_list = gen_tokens_list(info);
+	while (info->tokens_list)
+	{
+		run_cmd(info);
+		next_tokens = info->tokens_list->next;
+		ft_lstdelone(info->tokens_list, &free_tokens);
+		info->tokens_list = next_tokens;
+	}
+}
+
 int
 	run(t_info *info)
 {
 	char	*lines;
-	t_list	*next;
-	int		flag;
 
 	while (info->exit == 0)
 	{
@@ -53,15 +66,7 @@ int
 			if (info->line_list == NULL)
 				continue ;
 		}
-		info->tokens_list = gen_tokens_list(info);
-		while (info->tokens_list)
-		{
-			flag = 0;
-			run_cmd(info);
-			next = info->tokens_list->next;
-			ft_lstdelone(info->tokens_list, &free_tokens);
-			info->tokens_list = next;
-		}
+		run_tokens(info);
 		change_head(info);
 	}
 	return (0);
@@ -76,6 +81,6 @@ int
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);
-	sh_bti_exit(NULL, &info, FLAG_EXPORT_PRINT_OFF);
+	sh_bti_exit(NULL, &info, FLAG_PRINT_OFF);
 	return (0);
 }
