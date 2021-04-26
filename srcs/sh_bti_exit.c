@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/26 16:44:38 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/26 20:41:16 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ static void
 	exit(g_signal);
 }
 
+void
+	print_exit_invalid_case(int invalid_case, int flag_print, char *arg)
+{
+	if ((invalid_case == EXIT_INVALID_ARG_NUM) && flag_print)
+		ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
+	else if ((invalid_case == EXIT_NON_NUMERIC_ARG) && flag_print)
+	{
+		ft_putstr_fd("exit: ", STDOUT_FILENO);
+		ft_putstr_fd(arg, STDOUT_FILENO);
+		ft_putstr_fd(": numeric argument required\n", STDOUT_FILENO);
+	}
+	g_signal = invalid_case;
+}
+
 int
 	sh_bti_exit(char **args, t_info *info, int flag_print)
 {
@@ -67,15 +81,7 @@ int
 		invalid_case = EXIT_NON_NUMERIC_ARG;
 	if (invalid_case)
 	{
-		if ((invalid_case == EXIT_INVALID_ARG_NUM) && flag_print)
-			ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
-		else if ((invalid_case == EXIT_NON_NUMERIC_ARG) && flag_print)
-		{
-			ft_putstr_fd("exit: ", STDOUT_FILENO);
-			ft_putstr_fd(args[0], STDOUT_FILENO);
-			ft_putstr_fd(": numeric argument required\n", STDOUT_FILENO);
-		}
-		g_signal = invalid_case;
+		print_exit_invalid_case(invalid_case, flag_print, args[0]);
 		return (1);
 	}
 	g_signal = 0;

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/26 16:54:23 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/26 20:42:19 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,25 @@ static t_list
 	return (NULL);
 }
 
-int
-	handle_semi_colon(char *line)
+static int
+	handle_single_semi_colon(char *line)
 {
-#if 0
-	if (line[0] == ';' && line[1] == ';')
+	if (line[0] == ';' && line[1] == '\0')
 	{
-		ft_putstr_fd("syntax error near unexpected token `;;\'\n",\
+		ft_putstr_fd("syntax error near unexpected token `;\'\n",\
 		STDOUT_FILENO);
 		g_signal = 258;
 		return (1);
 	}
-#endif
-	if (line[0] == ';' && line[1] == '\0')
+	return (0);
+}
+
+static int
+	handle_double_semi_colon(char *line)
+{
+	if (ft_strnstr(line, ";;", INF))
 	{
-		ft_putstr_fd("syntax error near unexpected token `;\'\n",\
+		ft_putstr_fd("syntax error near unexpected token `;;\'\n",\
 		STDOUT_FILENO);
 		g_signal = 258;
 		return (1);
@@ -60,7 +64,7 @@ t_list
 	t_list	*ret;
 
 	ret = NULL;
-	if (handle_semi_colon(line))
+	if (handle_single_semi_colon(line))
 		return (NULL);
 	if (!(line_cpy = ft_strdup(line)))
 		return (NULL);
@@ -69,13 +73,8 @@ t_list
 		printf("ERROR: INVALID QUOTE PAIR\n");
 		return (NULL);
 	}
-	if (ft_strnstr(line_cpy, ";;", INF))
-	{
-		ft_putstr_fd("syntax error near unexpected token `;;\'\n",\
-		STDOUT_FILENO);
-		g_signal = 258;
+	if (handle_double_semi_colon(line_cpy))
 		return (NULL);
-	}
 	line_arr = pk_split(line, line_cpy, ';', INF);
 	free(line_cpy);
 	if (is_valid_line_arr(line_arr))
