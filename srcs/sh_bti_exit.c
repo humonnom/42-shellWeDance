@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 23:16:31 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/26 16:44:38 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int
 		if ((invalid_case == EXIT_INVALID_ARG_NUM) && flag_print)
 			ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
 		else if ((invalid_case == EXIT_NON_NUMERIC_ARG) && flag_print)
-			ft_putstr_fd("exit: numeric argument required\n", STDOUT_FILENO);
+		{
+			ft_putstr_fd("exit: ", STDOUT_FILENO);
+			ft_putstr_fd(args[0], STDOUT_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDOUT_FILENO);
+		}
 		g_signal = invalid_case;
 		return (1);
 	}

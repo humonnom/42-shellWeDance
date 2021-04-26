@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:31 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 15:14:54 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:38:30 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int
 	if (!exact_strncmp(tokens->cmd, "export"))
 		ret = sh_bti_export(args, &(info->env_list), FLAG_PRINT_OFF);
 	else if (!exact_strncmp(tokens->cmd, "unset"))
-		ret = sh_bti_unset(args, &(info->env_list));
+		ret = sh_bti_unset(args, &(info->env_list), FLAG_PRINT_OFF);
 	else if (!exact_strncmp(tokens->cmd, "env"))
 		ret = sh_bti_env(info->env_list);
 	else if (!exact_strncmp(tokens->cmd, "cd"))

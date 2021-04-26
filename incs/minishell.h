@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 14:35:40 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:42:30 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,8 +325,8 @@ int					sh_bti_export(
 /*
 ** sh_bti_export_utils.c
 */
-int					is_invalid_key(t_env *env, int flag_print);
-int					is_digit_in_key_head(t_env *env, int flag_print);
+int					is_invalid_key(t_env *env, int flag_print, char *cmd_type);
+int					is_digit_in_key_head(t_env *env, int flag_print, char *cmd_type);
 int					is_equal_in_str(char *str);
 int					is_empty_str(char *str);
 
@@ -335,7 +335,8 @@ int					is_empty_str(char *str);
 */
 int					sh_bti_unset(
 					char **args,
-					t_list **env_list);
+					t_list **env_list,
+					int flag_print);
 
 /*
 ** sh_bti_env.c
@@ -435,11 +436,6 @@ int					run_cmd(
 ** show_error.c
 */
 int					show_error(char const *str);
-
-/*
-** exit_fatal.c
-*/
-int					exit_fatal(void);
 
 /*
 ** redo_sh_bti.c

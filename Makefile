@@ -13,7 +13,6 @@ FUNC =	main \
 		cvt_char_to_str \
 		del_quote \
 		exact_strncmp \
-		exit_shell \
 		free_darr \
 		free_elist \
 		free_env \

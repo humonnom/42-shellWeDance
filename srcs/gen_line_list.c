@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:56 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 16:07:10 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/26 16:54:23 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_list
 int
 	handle_semi_colon(char *line)
 {
+#if 0
 	if (line[0] == ';' && line[1] == ';')
 	{
 		ft_putstr_fd("syntax error near unexpected token `;;\'\n",\
@@ -40,7 +41,8 @@ int
 		g_signal = 258;
 		return (1);
 	}
-	if (line[0] == ';')
+#endif
+	if (line[0] == ';' && line[1] == '\0')
 	{
 		ft_putstr_fd("syntax error near unexpected token `;\'\n",\
 		STDOUT_FILENO);
@@ -65,6 +67,13 @@ t_list
 	if (handle_quote(line, &line_cpy, ';'))
 	{
 		printf("ERROR: INVALID QUOTE PAIR\n");
+		return (NULL);
+	}
+	if (ft_strnstr(line_cpy, ";;", INF))
+	{
+		ft_putstr_fd("syntax error near unexpected token `;;\'\n",\
+		STDOUT_FILENO);
+		g_signal = 258;
 		return (NULL);
 	}
 	line_arr = pk_split(line, line_cpy, ';', INF);

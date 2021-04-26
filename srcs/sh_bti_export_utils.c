@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 11:40:56 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/23 16:35:46 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:36:20 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,33 @@
 extern int g_signal;
 
 int
-	is_invalid_key(t_env *env, int flag_print)
+	is_invalid_key(t_env *env, int flag_print, char *cmd_type)
 {
 	if (env->key[0] == '\0')
 	{
 		g_signal = 1;
 		if (flag_print)
-			printf("export: not an identifier: `=%s'\n", env->val);
+			printf("%s: not an identifier: `=%s'\n", cmd_type, env->val);
 		return (ERR_EXPORT_EMPTY_KEY);
 	}
 	if (env->key[0] == '=')
 	{
 		g_signal = 1;
 		if (flag_print)
-			printf("export: not an identifier: `=%s'\n", env->val);
+			printf("%s: not an identifier: `=%s'\n", cmd_type, env->val);
 		return (ERR_EXPORT_EMPTY_KEY);
 	}
 	return (0);
 }
 
 int
-	is_digit_in_key_head(t_env *env, int flag_print)
+	is_digit_in_key_head(t_env *env, int flag_print, char *cmd_type)
 {
 	if (ft_isdigit((env->key)[0]))
 	{
 		g_signal = 1;
 		if (flag_print)
-			printf("export: not an identifier: `%s'\n", env->key);
+			printf("%s: not an identifier: `%s'\n", cmd_type, env->key);
 		return (ERR_EXPORT_NUM_KEY);
 	}
 	return (0);

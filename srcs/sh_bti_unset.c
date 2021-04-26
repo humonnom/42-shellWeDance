@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:24 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 14:47:14 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/26 18:56:33 by yekim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,42 @@ static void
 	}
 }
 
+TODO: end of tmp_key is '='
+      head of env.value is '=' => env.vlaue = env.value + 1 
+	  find reason why we don't get changed value after handl_arg..
+
 int
 	sh_bti_unset(
 	char **args,
-	t_list **env_list)
+	t_list **env_list,
+	int flag_print)
 {
 	int		idx;
+	int		ret;
+	char	*tmp_key;
+	t_env	env;
 
 	if (!args)
 	{
 		g_signal = 1;
 		return (1);
 	}
+	
 	idx = -1;
+	ret = 0;
 	while (args[++idx])
-		del_elist_if(env_list, args[idx]);
+	{
+		tmp_key = args[idx];
+		env.key = args[idx];
+		env.val = args[idx];
+		args[idx] = handle_arg(tmp_key, *env_list);
+		if (is_invalid_key(&env, flag_print, "unset"))
+			ret |= 1;
+		if (is_digit_in_key_head(&env, flag_print, "unset"))
+			ret |= 1;
+		del_elist_if(env_list, env.key);
+		free(tmp_key);
+	}
 	g_signal = 0;
 	return (0);
 }
