@@ -6,13 +6,14 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:28:40 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/21 11:29:28 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:44:00 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-t_list	*gen_tokens_list_part(t_info *info, char **str)
+static t_list
+	*gen_tokens_list_part(char **str)
 {
 	int			idx;
 	t_tokens	*tmp_tokens;
@@ -22,7 +23,7 @@ t_list	*gen_tokens_list_part(t_info *info, char **str)
 	idx = -1;
 	while (str[++idx])
 	{
-		tmp_tokens = gen_tokens(info, str[idx]);
+		tmp_tokens = gen_tokens(str[idx]);
 		if (tmp_tokens == NULL)
 		{
 			ft_lstclear(&ret, &free_tokens);
@@ -40,7 +41,8 @@ t_list	*gen_tokens_list_part(t_info *info, char **str)
 	return (ret);
 }
 
-t_list	*gen_tokens_list(t_info *info)
+t_list
+	*gen_tokens_list(t_info *info)
 {
 	char	*line;
 	char	*line_cpy;
@@ -57,7 +59,7 @@ t_list	*gen_tokens_list(t_info *info)
 		error_num = turn_on_bit(error_num, 0);
 	if (!(line_part = pk_split(line, line_cpy, '|', INF)))
 		error_num = turn_on_bit(error_num, 1);
-	ret = gen_tokens_list_part(info, line_part);
+	ret = gen_tokens_list_part(line_part);
 	free(line_cpy);
 	if (!check_bit(error_num, 1))
 		free_darr(line_part, INF);

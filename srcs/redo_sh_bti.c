@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:12 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/26 18:39:05 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:49:08 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int
 	char	*cmd;
 	char	**args;
 	int		ret;
-	int		cmp_len;
 	int		prev_type;
 
 	ret = 1;

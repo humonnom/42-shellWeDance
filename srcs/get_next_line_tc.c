@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:30:05 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/24 00:15:45 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:59:25 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char
 	idx = -1;
 	while (++idx < inst_arr_size)
 	{
-		if (inst_arr[idx] == KEY_BACKSPACE)
+		if (inst_arr[idx] == KEY_BACKSPACE_KEY)
 		{
 			tmp_ret_idx = calc_max(tmp_ret_idx - 1, 0);
 			tmp_ret[tmp_ret_idx] = '\0';
@@ -54,7 +54,7 @@ static int
 	}
 	else if (is_key_arrow(*c))
 		ret = handle_key_arrow(info, arr, *c, info->tc.limit + *buf_len);
-	else if (*c == KEY_BACKSPACE)
+	else if (*c == KEY_BACKSPACE_KEY)
 	{
 		*buf_len = calc_max(*buf_len - 1, 0);
 		ft_cursor_clr_line_end(&(info->tc), info->tc.limit);

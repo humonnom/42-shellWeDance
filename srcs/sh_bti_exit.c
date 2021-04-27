@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/26 20:41:16 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:52:22 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ static int
 static void
 	exit_shell(t_info *info)
 {
-	int ret;
-	int i;
-
 	if (info->tokens)
 	{
 		close_tokens_fds(info->tokens);

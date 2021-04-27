@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:18:47 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 15:40:05 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:40:06 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int
 	int		err_num;
 	t_info	info;
 
+	(void)argc;
+	(void)argv;
 	err_num = 0;
 	init_minishell(&info, env);
 	run(&info);

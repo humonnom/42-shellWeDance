@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/27 14:19:11 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:53:14 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int
 {
 	int		idx;
 	char	*tmp_key;
-	char	*new_val;
 
 	idx = 0;
 	while (env->key[idx])
@@ -28,7 +27,7 @@ static int
 			break ;
 		++idx;
 	}
-	if (idx == ft_strlen(env->key))
+	if (idx == (int)ft_strlen(env->key))
 		return (0);
 	if (!(env->val = ft_strjoin(&(env->key[idx + 1]), env->val)))
 		return (1);
@@ -87,7 +86,6 @@ static int
 	int flag_equal,
 	int flag_print)
 {
-	t_list	*tmp_elist;
 	t_env	*tmp_env;
 	char	*tmp_key;
 	char	*tmp_val;
@@ -115,7 +113,6 @@ int
 	t_list **env_list,
 	int flag_print)
 {
-	t_list	*tmp_elist;
 	int		idx;
 	int		ret;
 	int		flag_equal_in_key;

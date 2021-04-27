@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:32:17 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/21 11:33:06 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:48:59 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int
 	is_exist_dir(char *dir_path)
 {
 	DIR				*dir_name;
-	struct dirent	*item;
 
 	if (!(dir_name = opendir(dir_path)))
 		return (0);

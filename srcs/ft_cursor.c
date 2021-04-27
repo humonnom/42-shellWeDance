@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:10 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 00:12:41 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:40:55 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int
 	ft_cursor_mv_head(t_tc *tc, int use_col_pos_flag)
 {
-	char	*str;
 	int		col_pos;
 
 	col_pos = 0;
@@ -66,7 +65,6 @@ int
 void
 	get_cursor_pos(int *col, int *row)
 {
-	int		cnt;
 	int		idx;
 	char	buf[255];
 	int		read_size;

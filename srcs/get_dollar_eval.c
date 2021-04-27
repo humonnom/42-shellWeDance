@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:13 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:44:15 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:44:28 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char
 {
 	char	*ret;
 	int		word_len;
-	int		dollor_eval_len;
 	char	*tmp_key;
 
 	if (part[0] != '$')

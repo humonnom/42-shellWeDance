@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:34 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/23 14:55:26 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:50:09 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int
 int
 	set_bracket_type(char *str, int *idx)
 {
-	int		ret;
 	int		cnt;
 
 	cnt = 2;

@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:57 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 14:57:40 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:51:53 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ static char
 
 static int
 	renew_pwd(
-	t_list *env_list,
-	char *path)
+	t_list *env_list)
 {
 	t_list	*tmp_list;
 	char	*tmp_pwd;
@@ -82,8 +81,6 @@ static void
 	char *path,
 	int flag_print)
 {
-	int ret;
-
 	if (!get_eval(env_list, "OLDPWD") \
 			&& !exact_strncmp(path, "-") && flag_print)
 		printf("cd: OLDPWD not set\n");
@@ -99,7 +96,6 @@ int
 	t_list *env_list,
 	int flag_print)
 {
-	char	cwd[BUFFER_SIZE];
 	char	*path;
 	int		ret;
 
@@ -112,7 +108,7 @@ int
 		ret = ERR_CD_CHDIR;
 	}
 	if (!ret)
-		ret = renew_pwd(env_list, path);
+		ret = renew_pwd(env_list);
 	if (ret != ERR_CD_ALLOC_FAIL)
 		free(path);
 	if (ret)

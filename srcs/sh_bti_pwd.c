@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:21:18 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 15:01:06 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:53:39 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int g_signal;
 
-int	sh_bti_pwd(char **args)
+int	sh_bti_pwd(void)
 {
 	char s[BUFFER_SIZE];
 

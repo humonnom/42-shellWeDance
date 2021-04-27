@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:42 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:42:12 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:50:18 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static char
 static int
 	join_char_to_args(char **str, char c, int *idx)
 {
-	int		ret;
 	char	*tmp;
 	char	*c_str;
 

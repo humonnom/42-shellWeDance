@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/27 14:31:29 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:59:36 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <termcap.h>
 # include <termios.h>
 # include <signal.h>
+# include <curses.h>
 
 # define TYPE_PIPE 1
 # define TYPE_BREAK 2
@@ -30,7 +31,7 @@
 # define TYPE_REOUT_D 16
 # define TYPE_ERROR 32
 
-# define KEY_BACKSPACE 127
+# define KEY_BACKSPACE_KEY 127
 # define KEY_LEFT_ARROW 4479771
 # define KEY_RIGHT_ARROW 4414235
 # define KEY_UP_ARROW 4283163
@@ -261,7 +262,6 @@ t_list				*gen_line_list(
 ** gen_tokens.c
 */
 t_tokens			*gen_tokens(
-					t_info *info,
 					char *line);
 
 /*
@@ -353,8 +353,7 @@ int					sh_bti_env(
 /*
 ** sh_bti_pwd.c
 */
-int					sh_bti_pwd(
-					char **args);
+int					sh_bti_pwd();
 
 /*
 ** sh_bti_echo.c
@@ -549,8 +548,7 @@ int					calc_max(
 
 int					set_signo();
 
-void				handle_sig_in_proc(
-					int pid);
+void				handle_sig_in_proc();
 
 void				handle_eof_in_gnl(
 					t_info *info,

@@ -6,24 +6,13 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:20:27 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 15:27:42 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:49:57 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
 extern int	g_signal;
-
-static void
-	close_redir_fd(t_tokens *curr)
-{
-	if (curr->type & TYPE_REOUT_D)
-		close(curr->fd_out[curr->fd_out_idx]);
-	if (curr->type & TYPE_REOUT)
-		close(curr->fd_out[curr->fd_out_idx]);
-	if (curr->type & TYPE_REIN)
-		close(curr->fd_in[0]);
-}
 
 static void
 	open_redir_fd(t_tokens *curr)
@@ -93,7 +82,6 @@ int
 	run_cmd(t_info *info)
 {
 	int			ret;
-	int			status;
 	int			pipe_open;
 	t_tokens	*curr;
 	t_tokens	*prev;

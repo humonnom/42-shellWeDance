@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:00 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 11:20:15 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:41:54 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void
 }
 
 t_tokens
-	*gen_tokens(t_info *info, char *line)
+	*gen_tokens(char *line)
 {
 	char		*set_fd_res;
 	char		*set_fd_res_cpy;

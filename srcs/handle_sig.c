@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:52 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 14:44:26 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:47:10 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ extern int g_signal;
 
 void	handle_sig_in_gnl(t_info *info, long *arr, int *idx, int *buf_len)
 {
+	(void)info;
 	if (g_signal == SIG_SIGINT)
 	{
 		ft_memset(arr, 0, BUFFER_SIZE);

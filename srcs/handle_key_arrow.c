@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:17:43 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/24 15:31:39 by jackjoo          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:45:27 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int
 	ft_putstr_fd(PROMPT_DATA, STDOUT_FILENO);
 	ft_putstr_fd(history_line, STDOUT_FILENO);
 	ret = -1;
-	while (++ret < ft_strlen(history_line))
+	while (++ret < (int)ft_strlen(history_line))
 		inst_arr[ret] = (long)history_line[ret];
 	return (ret);
 }
@@ -44,7 +44,6 @@ static int
 	long *arr)
 {
 	char	*str;
-	int		itr;
 
 	str = "\033[D";
 	if (col > left_limit + 1)
@@ -60,7 +59,6 @@ static int
 	long *arr)
 {
 	char	*str;
-	int		itr;
 
 	str = "\033[C";
 	if (col <= right_limit)
@@ -76,7 +74,6 @@ int
 	long c,
 	int right_limit)
 {
-	char	*tmp;
 	int		left_limit;
 	int		ret;
 

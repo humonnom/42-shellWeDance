@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:16:24 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/21 13:36:38 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:41:22 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_env
 	char	*key;
 	char	*val;
 	int		eq_idx;
-	t_list	*tmp_elist;
 
 	if (!(str_cpy = ft_strdup(str)))
 		return (NULL);
