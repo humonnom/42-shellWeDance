@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/26 22:43:50 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:18:36 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,13 +327,11 @@ int					sh_bti_export(
 */
 int					is_invalid_key(
 					t_env *env,
-					int flag_print,
-					char *cmd_type);
+					int flag_print);
 
 int					is_digit_in_key_head(
 					t_env *env,
-					int flag_print,
-					char *cmd_type);
+					int flag_print);
 
 int					is_equal_in_str(
 					char *str);

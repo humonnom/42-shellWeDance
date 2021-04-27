@@ -6,7 +6,7 @@
 /*   By: yekim <yekim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:54:01 by yekim             #+#    #+#             */
-/*   Updated: 2021/04/26 18:41:24 by yekim            ###   ########.fr       */
+/*   Updated: 2021/04/27 14:19:11 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int
 	int flag_equal,
 	int flag_print)
 {
-	if (is_digit_in_key_head(env, flag_print, "export"))
+	if (is_digit_in_key_head(env, flag_print))
 		return (1);
 	if (is_empty_str(env->key) && is_empty_str(env->val) && !flag_equal)
 	{
@@ -53,7 +53,7 @@ static int
 			print_sorted_elist(env_list);
 		return (0);
 	}
-	if (is_invalid_key(env, flag_print, "export"))
+	if (is_invalid_key(env, flag_print))
 		return (1);
 	if (!is_empty_str(env->key) && is_empty_str(env->val) && !flag_equal)
 		return (0);
