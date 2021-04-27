@@ -6,7 +6,7 @@
 /*   By: juepark <juepark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:22:07 by juepark           #+#    #+#             */
-/*   Updated: 2021/04/27 14:18:36 by juepark          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:31:29 by juepark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 
 # include "../libft/libft.h"
 # include <string.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include <dirent.h>
-# include <unistd.h>
-# include <signal.h>
 # include <fcntl.h>
-# include <sys/types.h>
 # include <sys/errno.h>
 # include <termcap.h>
 # include <termios.h>
+# include <signal.h>
 
 # define TYPE_PIPE 1
 # define TYPE_BREAK 2
