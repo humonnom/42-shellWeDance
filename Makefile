@@ -14,7 +14,6 @@ FUNC =	main \
 		del_quote \
 		exact_strncmp \
 		free_darr \
-		free_elist \
 		free_env \
 		free_tokens \
 		ft_cursor \
