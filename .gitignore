@@ -1,3 +1,5 @@
 *juepark*
 *yekim*
 *.swp
+objs
+libft/*.o
